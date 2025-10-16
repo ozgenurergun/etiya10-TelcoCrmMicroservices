@@ -83,9 +83,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     @Override
     public List<GetListContactMediumResponse> getList() {
         List<ContactMedium> contactMediums = contactMediumRepository.findAll();
-
         List<GetListContactMediumResponse> responses = ContactMediumMapper.INSTANCE.getListContactMediumResponsesFromContactMedium(contactMediums);
-
         return responses;
     }
 
