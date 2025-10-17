@@ -56,6 +56,11 @@ public class ContactMedium {
         this.customerId = customerId;
     }
 
+    public ContactMedium(int id, String customerId) {
+        this.id = id;
+        this.customerId = customerId;
+    }
+
     public ContactMedium() {
     }
 }

@@ -19,4 +19,12 @@ public interface CustomerSearchService {
     List<CustomerSearch> searchAllFields(String keyword);
 
     List<CustomerSearch> findAll();
+
+    List<CustomerSearch> searchByFirstName(String firstName);
+
+    List<CustomerSearch> findByNationalId(String nationalId);
+
+    List<CustomerSearch> findByLastNameFuzzy(String lastName);
+
+    List<CustomerSearch> searchByFirstNameAndLastName(String firstName, String lastName);
 }

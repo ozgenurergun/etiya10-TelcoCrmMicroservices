@@ -153,4 +153,26 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     public List<CustomerSearch> findAll() {
         return StreamSupport.stream(customerSearchRepository.findAll().spliterator(),false).collect(Collectors.toList());
     }
+
+    @Override
+    public List<CustomerSearch> searchByFirstName(String firstName) {
+        return customerSearchRepository.searchByFirstName(firstName);
+    }
+
+    @Override
+    public List<CustomerSearch> findByNationalId(String nationalId) {
+        return customerSearchRepository.findByNationalId(nationalId);
+    }
+
+    @Override
+    public List<CustomerSearch> findByLastNameFuzzy(String lastName) {
+        return customerSearchRepository.findByLastNameFuzzy(lastName);
+    }
+
+    @Override
+    public List<CustomerSearch> searchByFirstNameAndLastName(String firstName, String lastName) {
+        return customerSearchRepository.searchByFirstNameAndLastName(firstName, lastName);
+    }
+
+
 }

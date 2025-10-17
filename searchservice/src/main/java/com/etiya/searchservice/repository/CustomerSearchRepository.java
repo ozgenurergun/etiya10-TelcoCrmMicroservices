@@ -20,6 +20,52 @@ public interface CustomerSearchRepository extends ElasticsearchRepository<Custom
             """)
     List<CustomerSearch> searchAllFields(String keyword);
 
+    @Query("""
+            {
+            "match":{
+                "firstName": {
+                        "query": "?0"
+                    }
+                }
+            }
+            """)
+    List<CustomerSearch> searchByFirstName(String firstName);
+
+    @Query("""
+        {
+          "term": {
+            "nationalId": {
+                "value": "?0"
+            }
+          }
+        }
+        """)
+    List<CustomerSearch> findByNationalId(String nationalId);
+
+    @Query("""
+        {
+          "fuzzy": {
+            "firstName": {
+              "value": "?0",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+        """)
+    List<CustomerSearch> findByLastNameFuzzy(String lastName);
+
+    @Query("""
+        {
+          "bool": {
+            "must": [
+              { "fuzzy": { "firstName": { "value": "?0", "fuzziness": "AUTO" } } },
+              { "match": { "lastName": "?1" } }
+            ]
+          }
+        }
+        """)
+    List<CustomerSearch> searchByFirstNameAndLastName(String firstName, String lastName);
+
 }
 
 //Kafka’dan gelen CreateCustomerEvent →

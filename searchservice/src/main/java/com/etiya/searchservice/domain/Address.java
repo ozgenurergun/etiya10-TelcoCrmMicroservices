@@ -75,6 +75,11 @@ public class Address {
         this.customerId = customerId;
     }
 
+    public Address(int addressId, String customerId) {
+        this.addressId = addressId;
+        this.customerId = customerId;
+    }
+
     public Address() {
     }
 }
