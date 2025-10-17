@@ -34,7 +34,7 @@ public class LocalizationConfiguration {
 
     @Bean //Bu bean, Spring Validation altyapısının (örneğin @NotNull, @Size, @Email) mesajlarını çok dillileştirir.
     @Primary //Birden fazla validator tanımlıysa, bu bean’in öncelikli (primary) olmasını sağlar.
-    public LocalValidatorFactoryBean getValidator(){
+    public LocalValidatorFactoryBean localValidatorFactoryBean(){
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(bundleMessageSource());
         return bean;

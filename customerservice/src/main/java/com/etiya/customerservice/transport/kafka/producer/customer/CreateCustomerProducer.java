@@ -27,13 +27,15 @@ public class CreateCustomerProducer {
         //this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void produceCustomerCreated(CreateCustomerEvent event){
+    public void produceCustomerCreated(CreateCustomerEvent event) {
+//bu eventi dışarıya açıyorum.
         streamBridge.send("customerCreated-out-0", event);
-        LOGGER.info(String.format("Customer created event => %s",event.customerId()));
 
-        /* Message<CreateCustomerEvent> message = MessageBuilder.withPayload(event)
-                .setHeader(KafkaHeaders.TOPIC,"create-customer").build();
-        kafkaTemplate.send(message); */
+        LOGGER.info(String.format("Customer created event => %s", event.customerId()));
+
+//        Message<CreateCustomerEvent> message = MessageBuilder.withPayload(event)
+//                .setHeader(KafkaHeaders.TOPIC, "create-customer").build();
+//        kafkaTemplate.send(message);
     }
 
     //Yeni oluşturulan müşteri bilgileriyle bir CreateCustomerEvent nesnesi gelir.
