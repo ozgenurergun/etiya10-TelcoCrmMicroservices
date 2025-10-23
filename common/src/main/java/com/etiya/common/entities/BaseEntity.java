@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@MappedSuperclass
+@MappedSuperclass //Bu sınıfın kendisinin veritabanında ayrı bir tabloya karşılık gelmediğini belirtir.
 public abstract class BaseEntity {
 
     @Column(name = "createdDate",nullable = false)

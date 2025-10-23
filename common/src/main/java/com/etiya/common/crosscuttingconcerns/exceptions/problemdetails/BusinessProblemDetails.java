@@ -10,3 +10,5 @@ public class BusinessProblemDetails extends ProblemDetails {
         setStatus(HttpStatus.BAD_REQUEST.value());
     }
 }
+
+//Kullanım Amacı: İş mantığı kuralları ihlal edildiğinde (Örn: "Bu telefon numarası zaten kayıtlı").

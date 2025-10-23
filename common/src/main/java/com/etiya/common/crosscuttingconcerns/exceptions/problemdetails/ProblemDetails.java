@@ -1,9 +1,16 @@
 package com.etiya.common.crosscuttingconcerns.exceptions.problemdetails;
 
 public class ProblemDetails {
+    //Problemin türünü tanımlayan URI (Örn: https://example.com/probs/business).
     private String type;
+
+    //Problemin kısa, insan tarafından okunabilir özeti (Örn: "Business Rule Violation").
     private String title;
+
+    //HTTP Durum Kodu (Örn: 400, 500).
     private int status;
+
+    //Problemin oluş nedeni hakkında özel bir açıklama
     private String detail;
 
     public String getType() {

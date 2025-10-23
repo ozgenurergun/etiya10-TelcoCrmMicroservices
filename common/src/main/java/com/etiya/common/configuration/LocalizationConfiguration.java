@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import java.util.Locale;
@@ -41,3 +43,11 @@ public class LocalizationConfiguration {
     }
 
 }
+
+//Bu konfigürasyonun temel amacı, tüm mikroservisler için tutarlı bir şekilde:
+//Hata ve uyarı mesajlarını çok dilli (İngilizce, Türkçe vb.) sunmak.
+//Kullanıcının tercih ettiği dili otomatik olarak tespit etmek.
+//Doğrulama (Validation) mesajlarını da çok dilliliğe dahil etmek.
+
+//bean demek -> Bu metodu çalıştır ve dönen nesneyi alıp Konteynerime koy.
+// Başka bir sınıf bu nesneye ihtiyaç duyduğunda, ben ona bu hazır nesneyi vereceğim.

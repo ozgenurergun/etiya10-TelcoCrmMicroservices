@@ -24,6 +24,23 @@ public class Address extends BaseEntity {
     @Column(name = "houseNumber")
     private String houseNumber;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "isDefault")
+    private boolean isDefault;
+
+    @ManyToOne()
+    @JoinColumn(name = "districtId")
+    private District district;
+
+    @ManyToOne()
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
+    @OneToMany(mappedBy = "address")
+    public List<BillingAccount> billingAccounts;
+
     public Address(int id, String street, String houseNumber, String description, boolean isDefault, District district, Customer customer, List<BillingAccount> billingAccounts) {
         this.id = id;
         this.street = street;
@@ -102,22 +119,7 @@ public class Address extends BaseEntity {
         this.billingAccounts = billingAccounts;
     }
 
-    @Column(name = "description")
-    private String description;
 
-    @Column(name = "isDefault")
-    private boolean isDefault;
-
-    @ManyToOne()
-    @JoinColumn(name = "districtId")
-    private District district;
-
-    @ManyToOne()
-    @JoinColumn(name = "customerId")
-    private Customer customer;
-
-    @OneToMany(mappedBy = "address")
-    public List<BillingAccount> billingAccounts;
 
 
 }

@@ -10,3 +10,5 @@ public class InternalServerProblemDetails extends ProblemDetails {
         setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }
+
+//Kullanım Amacı: Beklenmeyen hatalar (veritabanı bağlantı kopması, null pointer vb.).

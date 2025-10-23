@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController //api olduğu için
 @RequestMapping("/api/individual-customers/") //bununla ilgili giden requesti neye maplediğimizi bildiriyoruz
+//@CrossOrigin(origins = "http://localhost:4200")
 public class IndividualCustomerController {
     private final IndividualCustomerService individualCustomerService;
 

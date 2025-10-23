@@ -1,6 +1,5 @@
 package com.etiya.searchservice.transport.kafka.address.consumer;
 
-import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.common.events.address.DeleteAddressEvent;
 import com.etiya.searchservice.domain.Address;
 import com.etiya.searchservice.service.CustomerSearchService;

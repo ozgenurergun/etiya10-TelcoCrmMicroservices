@@ -11,3 +11,6 @@ public class CommonApplication {
 	}
 
 }
+
+//common modülü, birden fazla mikroservisin ihtiyaç duyduğu, tekrar eden kod parçalarını, temel yapıları ve
+// ortak mekanizmaları tek bir yerde toplar.

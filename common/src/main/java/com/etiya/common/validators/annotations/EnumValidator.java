@@ -7,22 +7,28 @@ import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = EnumValidatorImpl.class) // Bu anotasyonun mantığı EnumValidatorImpl sınıfındadır
-@Target({ElementType.METHOD, ElementType.FIELD})   // Bu anotasyonu metot ve alanlarda kullanabiliriz
-@Retention(RetentionPolicy.RUNTIME)              // Bu anotasyon program çalışırken de aktif olsun
 
-// 3. İşte bizim anotasyonumuzun tanımı
+//Bu kuralın kontrol mantığının EnumValidatorImpl.class içinde bulunduğunu belirtir.
+@Constraint(validatedBy = EnumValidatorImpl.class)
+
+//Bu anotasyonun bir metot veya bir alan (field) üzerine konulabileceğini belirtir.
+// (@ContactFormat bir sınıf üzerine konuyordu).
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+
+
 public @interface EnumValidator {
 
-    // 4. Anotasyonu kullanırken doldurmamız gereken ZORUNLU bir alan ekliyoruz.
-    // Bu alan, hangi enum'a göre kontrol yapacağımızı belirtecek.
+    //Bu, @EnumValidator anotasyonunu kullanırken zorunlu olarak belirtmeniz gereken özel parametredir.
+    // Kullanıcı, hangi Enum sınıfına karşı doğrulama yapılacağını buraya yazar.
     Class<? extends Enum<?>> enumClass();
 
-    // 5. Validasyon başarısız olursa gösterilecek VARSAYILAN hata mesajı.
+
     String message() default "Değer, izin verilenler listesinde değil.";
 
-    // 6. Bu iki satır standarttır, her validasyon anotasyonunda bulunması gerekir.
-    // Şimdilik içleri boş kalabilir.
+
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
+
+//Amaç:Bir alanın değerinin, belirli bir Enum (Sabitler Kümesi) içindeki değerlerden biri olup olmadığını kontrol etmek.

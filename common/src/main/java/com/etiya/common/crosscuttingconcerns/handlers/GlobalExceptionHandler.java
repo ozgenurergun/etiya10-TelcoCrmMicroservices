@@ -51,3 +51,6 @@ public class GlobalExceptionHandler {
         return validationProblemDetails;
     }
 }
+
+//Bu yapının Best Practice olmasının temel nedeni, her bir servisin (Customer, Search) kendi içinde try-catch
+// bloklarıyla uğraşması yerine, tüm hata yönetimini tek bir noktada, tutarlı bir şekilde yapmasını sağlamaktır.
