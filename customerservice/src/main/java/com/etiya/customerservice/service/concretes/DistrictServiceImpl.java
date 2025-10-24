@@ -41,13 +41,7 @@ public class DistrictServiceImpl implements DistrictService {
     @Override
     public List<GetListDistrictResponse> getAll() {
         List<District> districts = districtRepository.findAll();
-        for (District district : districts) {
-            System.out.println(district.getCity().getName());
-        }
         List<GetListDistrictResponse> responses = DistrictMapper.INSTANCE.getListDistrictResponseFromDistrict(districts);
-        for (GetListDistrictResponse response : responses) {
-            System.out.println(response.getCityId());
-        }
         return responses;
     }
 

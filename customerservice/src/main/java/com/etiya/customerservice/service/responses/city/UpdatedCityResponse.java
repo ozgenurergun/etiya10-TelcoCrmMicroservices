@@ -1,8 +1,11 @@
 package com.etiya.customerservice.service.responses.city;
 
+import java.util.List;
+
 public class UpdatedCityResponse {
     private int id;
     private String name;
+
 
     public int getId() {
         return id;

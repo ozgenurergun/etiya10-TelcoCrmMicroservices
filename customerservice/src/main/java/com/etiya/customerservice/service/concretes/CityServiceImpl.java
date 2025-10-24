@@ -3,6 +3,8 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.customerservice.domain.entities.City;
 import com.etiya.customerservice.repository.CityRepository;
 import com.etiya.customerservice.service.abstracts.CityService;
+import com.etiya.customerservice.service.mappings.CityMapper;
+import com.etiya.customerservice.service.responses.city.GetListCityResponse;
 import com.etiya.customerservice.service.rules.CityBusinessRules;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,10 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> getAll() {
-        return cityRepository.findAll();
+    public List<GetListCityResponse> getAll() {
+        List<City> cities = cityRepository.findAll();
+        List<GetListCityResponse> getListCityResponse = CityMapper.INSTANCE.getListCityResponseFromCity(cities);
+        return getListCityResponse;
     }
 
     @Override
