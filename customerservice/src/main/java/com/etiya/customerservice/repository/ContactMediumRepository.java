@@ -20,4 +20,5 @@ public interface ContactMediumRepository extends JpaRepository<ContactMedium, In
     List<ContactMedium> findByType(@Param("type") String type);
 
     //Derived Query
-    List<ContactMedium> findByCustomerId(UUID id);}
+    List<ContactMedium> findByCustomerId(UUID id);
+}

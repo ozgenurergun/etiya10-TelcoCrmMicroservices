@@ -1,6 +1,7 @@
 package com.etiya.customerservice.repository;
 
 import com.etiya.customerservice.domain.entities.Address;
+import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,6 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     void deleteById(int id);
 
     boolean existsByCustomerId(UUID customerId);
+
+    List<Address> findByCustomerId(UUID id);
 }
