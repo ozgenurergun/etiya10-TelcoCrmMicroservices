@@ -53,4 +53,10 @@ public class CustomerSearchController {
         return customerSearchService.searchByFirstNameAndLastName(firstName, lastName);
     }
 
+    @GetMapping("findByCustomerId")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerSearch findByCustomerId(@RequestParam String customerId) {
+        return customerSearchService.searchByCustomerId(customerId);
+    }
+
 }

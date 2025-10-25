@@ -174,5 +174,10 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
         return customerSearchRepository.searchByFirstNameAndLastName(firstName, lastName);
     }
 
+    @Override
+    public CustomerSearch searchByCustomerId(String customerId) {
+        return customerSearchRepository.searchByCustomerId(customerId);
+    }
+
 
 }

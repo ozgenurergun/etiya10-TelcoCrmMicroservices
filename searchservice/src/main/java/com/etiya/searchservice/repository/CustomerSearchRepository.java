@@ -32,6 +32,15 @@ public interface CustomerSearchRepository extends ElasticsearchRepository<Custom
     List<CustomerSearch> searchByFirstName(String firstName);
 
     @Query("""
+    {
+      "term": {
+        "id.keyword": "?0"
+      }
+    }
+    """)
+    CustomerSearch searchByCustomerId(String customerId);
+
+    @Query("""
         {
           "term": {
             "nationalId": {

@@ -27,4 +27,6 @@ public interface CustomerSearchService {
     List<CustomerSearch> findByLastNameFuzzy(String lastName);
 
     List<CustomerSearch> searchByFirstNameAndLastName(String firstName, String lastName);
+
+    CustomerSearch searchByCustomerId(String customerId);
 }
