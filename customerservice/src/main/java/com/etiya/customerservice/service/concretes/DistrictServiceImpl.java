@@ -91,4 +91,9 @@ public class DistrictServiceImpl implements DistrictService {
         List<GetListDistrictResponse> responses = DistrictMapper.INSTANCE.getListDistrictResponseFromDistrict(districts);
         return responses;
     }
+
+    @Override
+    public District getByIdService(int id) {
+        return districtRepository.findById(id).orElseThrow(() -> new RuntimeException("District not found"));
+    }
 }

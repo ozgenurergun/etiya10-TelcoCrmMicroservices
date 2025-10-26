@@ -25,8 +25,13 @@ public interface AddressMapper {
 
     //------------
 
+//    @Mapping(source = "customerId",target = "customer.id")
+//    @Mapping(source = "districtId",target = "district.id")
+//    Address addressFromCreateAddressRequest(CreateAddressRequest createAddressRequest);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "district", ignore = true) // 'district.id' DEĞİL, 'district'
     @Mapping(source = "customerId",target = "customer.id")
-    @Mapping(source = "districtId",target = "district.id")
     Address addressFromCreateAddressRequest(CreateAddressRequest createAddressRequest);
 
     @Mapping(target = "customerId",source = "customer.id")

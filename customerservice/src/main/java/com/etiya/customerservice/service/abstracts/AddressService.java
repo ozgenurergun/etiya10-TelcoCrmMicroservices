@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.requests.address.UpdateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
@@ -24,4 +25,6 @@ public interface AddressService {
     UpdatedAddressResponse update(UpdateAddressRequest request);
 
     GetAddressResponse getById(int id);
+
+    void setPrimaryAddress(int newPrimaryAddressId);
 }

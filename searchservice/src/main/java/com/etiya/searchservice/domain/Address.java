@@ -7,6 +7,7 @@ public class Address {
     private String description;
     private boolean isDefault;
     private int districtId;
+    private String cityName;
     private String customerId;
 
     public String getCustomerId() {
@@ -63,6 +64,25 @@ public class Address {
 
     public void setDistrictId(int districtId) {
         this.districtId = districtId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public Address(int addressId, String street, String houseNumber, String description, boolean isDefault, int districtId, String cityName, String customerId) {
+        this.addressId = addressId;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.description = description;
+        this.isDefault = isDefault;
+        this.districtId = districtId;
+        this.cityName = cityName;
+        this.customerId = customerId;
     }
 
     public Address(int addressId, String street, String houseNumber, String description, boolean isDefault, int districtId, String customerId) {

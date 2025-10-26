@@ -30,4 +30,5 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     boolean existsByCustomerId(UUID customerId);
 
     List<Address> findByCustomerId(UUID id);
+
 }

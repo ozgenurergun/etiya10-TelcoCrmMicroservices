@@ -25,11 +25,12 @@ public class CreatedAddressConsumer {
         return event -> {
             Address address = new Address(
                     event.addressId(),
+                    event.street(),
                     event.houseNumber(),
                     event.description(),
-                    event.street(),
                     event.isDefault(),
                     event.districtId(),
+                    event.cityName(),
                     event.customerId());
             customerSearchService.addAddress(address);
             LOGGER.info(String.format("Consumed Customer => %s", event.addressId()));

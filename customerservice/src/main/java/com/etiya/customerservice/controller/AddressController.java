@@ -9,6 +9,7 @@ import com.etiya.customerservice.service.responses.address.GetListAddressRespons
 import com.etiya.customerservice.service.responses.address.UpdatedAddressResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,16 @@ public class AddressController {
     @ResponseStatus(HttpStatus.OK)
     public UpdatedAddressResponse update(@RequestBody UpdateAddressRequest request){
         return addressService.update(request);
+    }
+
+    @PostMapping("/{id}/set-primary")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Void> setPrimaryAddress(@PathVariable int id) {
+
+        addressService.setPrimaryAddress(id);
+
+        return ResponseEntity.ok().build(); // Bu, adresin başarılı bir şekilde birincil olarak ayarlandığını,
+        // ancak istemciye ekstra bir veri göndermeye gerek olmadığını bildirmek için temiz ve standart bir yoldur.
     }
 
 /*
