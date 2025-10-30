@@ -20,12 +20,22 @@ public class BaseSecurityService {
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
-            "/api/auth/**"
+            "/api/auth/**",
+            "/api/cities/**",
+            "/api/districts/**",
+            "/api/addresses/**",
+            "/api/billingAccounts/**",
+            "/api/contactmediums/**",
+            "/api/individual-customers/**",
+            "/api/customer-search/**"
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception{
+        // CSRF Korumasını kapatma
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
+                // Beyaz Listedeki Yollara Herkese İzin Ver
                 .authorizeHttpRequests(req->req.requestMatchers(WHITE_LIST_URLS).permitAll())
+                // JWT Filtresini Güvenlik Zincirine Ekleme
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity;
     }
