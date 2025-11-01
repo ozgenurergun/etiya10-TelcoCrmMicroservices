@@ -11,11 +11,11 @@ import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
-@ContactFormat( // 🎯 İŞTE YENİ ANOTASYONU BURADA KULLANIYORUZ
-        typeField = "type",
-        valueField = "value",
-        message = Messages.ContactTypeValueMatchCheck
-)
+//@ContactFormat( // 🎯 İŞTE YENİ ANOTASYONU BURADA KULLANIYORUZ
+//        typeField = "type",
+//        valueField = "value",
+//        message = Messages.ContactTypeValueMatchCheck
+//)
 
 public class CreateContactMediumRequest {
     @NotBlank(message = Messages.ContactMediumTypeRequired)

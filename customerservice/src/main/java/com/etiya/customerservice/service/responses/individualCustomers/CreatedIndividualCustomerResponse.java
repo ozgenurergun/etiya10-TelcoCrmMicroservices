@@ -1,6 +1,10 @@
 package com.etiya.customerservice.service.responses.individualCustomers;
 
+import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
+import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
+
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -21,6 +25,26 @@ public class CreatedIndividualCustomerResponse {
     private String fatherName;
 
     private String gender;
+
+    // YENİ ALANLAR
+    private List<CreatedAddressResponse> addresses;
+    private List<CreatedContactMediumResponse> contactMediums;
+
+    public List<CreatedAddressResponse> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<CreatedAddressResponse> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<CreatedContactMediumResponse> getContactMediums() {
+        return contactMediums;
+    }
+
+    public void setContactMediums(List<CreatedContactMediumResponse> contactMediums) {
+        this.contactMediums = contactMediums;
+    }
 
     public String getFirstName() {
         return firstName;

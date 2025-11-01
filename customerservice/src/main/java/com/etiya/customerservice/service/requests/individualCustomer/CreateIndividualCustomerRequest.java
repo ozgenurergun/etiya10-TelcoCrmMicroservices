@@ -1,11 +1,15 @@
 package com.etiya.customerservice.service.requests.individualCustomer;
 
 import com.etiya.customerservice.service.messages.Messages;
+import com.etiya.customerservice.service.requests.address.CreateAddressInCustomerRequest;
+import com.etiya.customerservice.service.requests.contactMedium.CreateContactInCustomerRequest;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class CreateIndividualCustomerRequest {
@@ -30,6 +34,28 @@ public class CreateIndividualCustomerRequest {
     private String fatherName;
 
     private String gender;
+
+    @Valid // YENİ: Bu listenin içindeki nesnelerin de valide edilmesini sağlar
+    private List<CreateAddressInCustomerRequest> addresses; // YENİ
+
+    @Valid // YENİ
+    private List<CreateContactInCustomerRequest> contactMediums; // YENİ
+
+    public List<CreateAddressInCustomerRequest> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<CreateAddressInCustomerRequest> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<CreateContactInCustomerRequest> getContactMediums() {
+        return contactMediums;
+    }
+
+    public void setContactMediums(List<CreateContactInCustomerRequest> contactMediums) {
+        this.contactMediums = contactMediums;
+    }
 
     public String getFirstName() {
         return firstName;
