@@ -57,6 +57,15 @@ public class ContactFormatImpl implements ConstraintValidator<ContactFormat, Obj
         } else if (typeString.equalsIgnoreCase("PHONE")) {
 
             return valueString.matches(TURKISH_PHONE_REGEX);
+
+        }else if (typeString.equalsIgnoreCase("HOMEPHONE")) {
+
+            return true;
+
+        }else if (typeString.equalsIgnoreCase("FAX")) {
+
+            return true;
+
         }
 
 
