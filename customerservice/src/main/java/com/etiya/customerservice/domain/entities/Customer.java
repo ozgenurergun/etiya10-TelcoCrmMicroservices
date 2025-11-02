@@ -23,7 +23,6 @@ public class Customer extends BaseEntity {
     @Column(name = "customer_number")
     private String customerNumber;
 
-
     //navigation property
 
    /* @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
