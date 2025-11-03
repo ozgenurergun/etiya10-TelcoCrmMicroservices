@@ -1,12 +1,13 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "product_specifications")
-public class ProductSpecification {
+public class ProductSpecification extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,14 @@ public class ProductSpecification {
 
     @OneToMany(mappedBy = "productSpecification")
     private List<ProductSpecCharacteristic> productSpecCharacteristics;
+
+    @ManyToOne
+    @JoinColumn(name = "GNL_TP")
+    private GENELTYPE GENELTYPE;
+
+    @ManyToOne
+    @JoinColumn(name = "GNL_ST")
+    private GENELSTATUS GENELSTATUS;
 
     public int getId() {
         return id;
@@ -87,6 +96,22 @@ public class ProductSpecification {
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
+    public GENELTYPE getGENELTYPE() {
+        return GENELTYPE;
+    }
+
+    public void setGENELTYPE(GENELTYPE GENELTYPE) {
+        this.GENELTYPE = GENELTYPE;
+    }
+
+    public GENELSTATUS getGENELSTATUS() {
+        return GENELSTATUS;
+    }
+
+    public void setGENELSTATUS(GENELSTATUS GENELSTATUS) {
+        this.GENELSTATUS = GENELSTATUS;
+    }
+
     public ProductSpecification() {
     }
 
@@ -98,5 +123,17 @@ public class ProductSpecification {
         this.productType = productType;
         this.products = products;
         this.productSpecCharacteristics = productSpecCharacteristics;
+    }
+
+    public ProductSpecification(int id, String name, String description, String lifecycleStatus, String productType, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE GENELTYPE, GENELSTATUS GENELSTATUS) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.lifecycleStatus = lifecycleStatus;
+        this.productType = productType;
+        this.products = products;
+        this.productSpecCharacteristics = productSpecCharacteristics;
+        this.GENELTYPE = GENELTYPE;
+        this.GENELSTATUS = GENELSTATUS;
     }
 }

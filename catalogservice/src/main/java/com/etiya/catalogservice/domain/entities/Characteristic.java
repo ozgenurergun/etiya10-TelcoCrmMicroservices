@@ -1,12 +1,14 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
+import com.etiya.customerservice.domain.entities.City;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "characteristics")
-public class Characteristic {
+public class Characteristic extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,10 @@ public class Characteristic {
 
     @OneToMany(mappedBy = "characteristic")
     private List<ProductSpecCharacteristic> productSpecCharacteristics;
+
+    @ManyToOne
+    @JoinColumn(name = "GNL_TP")
+    private GENELTYPE GENELTYPE;
 
     public int getId() {
         return id;
@@ -76,6 +82,14 @@ public class Characteristic {
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
+    public GENELTYPE getGENELTYPE() {
+        return GENELTYPE;
+    }
+
+    public void setGENELTYPE(GENELTYPE GENELTYPE) {
+        this.GENELTYPE = GENELTYPE;
+    }
+
     public Characteristic() {
     }
 
@@ -86,6 +100,16 @@ public class Characteristic {
         this.unitOfMeasure = unitOfMeasure;
         this.charValues = charValues;
         this.productSpecCharacteristics = productSpecCharacteristics;
+    }
+
+    public Characteristic(int id, String description, String dataType, String unitOfMeasure, List<CharValue> charValues, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE GENELTYPE) {
+        this.id = id;
+        this.description = description;
+        this.dataType = dataType;
+        this.unitOfMeasure = unitOfMeasure;
+        this.charValues = charValues;
+        this.productSpecCharacteristics = productSpecCharacteristics;
+        this.GENELTYPE = GENELTYPE;
     }
 }
 

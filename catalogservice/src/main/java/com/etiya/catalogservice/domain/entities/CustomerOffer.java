@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
 import com.etiya.customerservice.domain.entities.Customer;
 import jakarta.persistence.*;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "customer_offers")
-public class CustomerOffer {
+public class CustomerOffer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

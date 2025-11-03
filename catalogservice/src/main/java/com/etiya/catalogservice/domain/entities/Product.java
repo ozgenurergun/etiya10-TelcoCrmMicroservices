@@ -128,4 +128,10 @@ public class Product extends BaseEntity {
         this.campaignProducts = campaignProducts;
         this.productOffers = productOffers;
     }
+
+    public Product(String name, BigDecimal price, int stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
 }

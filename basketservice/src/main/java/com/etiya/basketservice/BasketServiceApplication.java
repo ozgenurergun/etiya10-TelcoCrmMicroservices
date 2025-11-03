@@ -1,17 +1,15 @@
-package com.etiya.catalogservice;
+package com.etiya.basketservice;
 
-import com.etiya.common.annotations.EnableSecurity;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableSecurity
-public class CatalogServiceApplication {
+public class BasketServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CatalogServiceApplication.class, args);
+		SpringApplication.run(BasketServiceApplication.class, args);
 	}
 
 }

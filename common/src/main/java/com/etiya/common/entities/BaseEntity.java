@@ -1,6 +1,7 @@
 package com.etiya.common.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -16,10 +17,16 @@ public abstract class BaseEntity {
     @Column(name = "deletedDate")
     private LocalDateTime deletedDate;
 
+    @Column(name = "is_active")
+    @NotNull
+    private Integer isActive;
+
 
     @PrePersist
     protected void onCreate(){
+
         createdDate = LocalDateTime.now();
+        isActive = 1;
     }
 
     @PreUpdate
@@ -51,12 +58,21 @@ public abstract class BaseEntity {
         this.deletedDate = deletedDate;
     }
 
+    public Integer getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
+    }
+
     public BaseEntity() {
     }
 
-    public BaseEntity(LocalDateTime createdDate, LocalDateTime updatedDate, LocalDateTime deletedDate) {
+    public BaseEntity(LocalDateTime createdDate, LocalDateTime updatedDate, LocalDateTime deletedDate, Integer isActive) {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.deletedDate = deletedDate;
+        this.isActive = isActive;
     }
 }

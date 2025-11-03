@@ -1,10 +1,11 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "campaign_products")
-public class CampaignProduct {
+public class CampaignProduct extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

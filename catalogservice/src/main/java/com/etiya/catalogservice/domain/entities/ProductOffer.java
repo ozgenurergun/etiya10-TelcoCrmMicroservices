@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product_offers")
-public class ProductOffer {
+public class ProductOffer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

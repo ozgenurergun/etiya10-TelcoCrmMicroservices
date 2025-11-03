@@ -27,7 +27,8 @@ public class BaseSecurityService {
             "/api/billingAccounts/**",
             "/api/contactmediums/**",
             "/api/individual-customers/**",
-            "/api/customer-search/**"
+            "/api/customer-search/**",
+            "/api/products/**"
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception{

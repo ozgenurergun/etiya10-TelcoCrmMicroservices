@@ -91,6 +91,7 @@ public class AddressServiceImpl implements AddressService {
     public void softDelete(int id) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
         address.setDeletedDate(LocalDateTime.now());
+        address.setIsActive(0);
         addressRepository.save(address);
     }
 
