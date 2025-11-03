@@ -31,8 +31,6 @@ public interface ContactMediumMapper {
     @Mapping(source = "customer.id",target = "customerId")
     List<GetListContactMediumResponse> getListContactMediumResponsesFromContactMedium(List<ContactMedium> contactMediums);
 
-
-
     @Mapping(target = "customer.id",source = "customerId")
     ContactMedium contactMediumFromUpdateContactMediumRequest(UpdateContactMediumRequest updateContactMediumRequest);
 

@@ -16,6 +16,8 @@ public interface DistrictService {
     UpdatedDistrictResponse update(UpdateDistrictRequest request);
     GetDistrictResponse getById(int id);
     void deleteById(int id);
+
+
     List<GetListDistrictResponse> getByName(String name);
     List<GetListDistrictResponse> getByNameStartingWith(String name);
     List<GetListDistrictResponse> getByCityId(int cityId);

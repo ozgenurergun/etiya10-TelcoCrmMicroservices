@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 @MappedSuperclass //Bu sınıfın kendisinin veritabanında ayrı bir tabloya karşılık gelmediğini belirtir.
 public abstract class BaseEntity {
 
-    @Column(name = "createdDate",nullable = false)
+    @Column(name = "created_date",nullable = false)
     private LocalDateTime createdDate;
 
-    @Column(name = "updatedDate")
+    @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
-    @Column(name = "deletedDate")
+    @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
     @Column(name = "is_active")

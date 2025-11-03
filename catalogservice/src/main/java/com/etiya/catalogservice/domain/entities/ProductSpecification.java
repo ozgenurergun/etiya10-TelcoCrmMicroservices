@@ -20,12 +20,6 @@ public class ProductSpecification extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "lifecycle_status")
-    private String lifecycleStatus;
-
-    @Column(name = "product_type")
-    private String productType;
-
     @OneToMany(mappedBy = "productSpecification", cascade = CascadeType.ALL)
     private List<Product> products;
 
@@ -34,11 +28,11 @@ public class ProductSpecification extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "GNL_TP")
-    private GENELTYPE GENELTYPE;
+    private GENELTYPE genelType;
 
     @ManyToOne
     @JoinColumn(name = "GNL_ST")
-    private GENELSTATUS GENELSTATUS;
+    private GENELSTATUS genelStatus;
 
     public int getId() {
         return id;
@@ -64,22 +58,6 @@ public class ProductSpecification extends BaseEntity {
         this.description = description;
     }
 
-    public String getLifecycleStatus() {
-        return lifecycleStatus;
-    }
-
-    public void setLifecycleStatus(String lifecycleStatus) {
-        this.lifecycleStatus = lifecycleStatus;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-
     public List<Product> getProducts() {
         return products;
     }
@@ -96,44 +74,40 @@ public class ProductSpecification extends BaseEntity {
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
-    public GENELTYPE getGENELTYPE() {
-        return GENELTYPE;
+    public GENELTYPE getGenelType() {
+        return genelType;
     }
 
-    public void setGENELTYPE(GENELTYPE GENELTYPE) {
-        this.GENELTYPE = GENELTYPE;
+    public void setGenelType(GENELTYPE genelType) {
+        this.genelType = genelType;
     }
 
-    public GENELSTATUS getGENELSTATUS() {
-        return GENELSTATUS;
+    public GENELSTATUS getGenelStatus() {
+        return genelStatus;
     }
 
-    public void setGENELSTATUS(GENELSTATUS GENELSTATUS) {
-        this.GENELSTATUS = GENELSTATUS;
+    public void setGenelStatus(GENELSTATUS genelStatus) {
+        this.genelStatus = genelStatus;
     }
 
     public ProductSpecification() {
     }
 
-    public ProductSpecification(int id, String name, String description, String lifecycleStatus, String productType, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics) {
+    public ProductSpecification(int id, String name, String description, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.lifecycleStatus = lifecycleStatus;
-        this.productType = productType;
         this.products = products;
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
-    public ProductSpecification(int id, String name, String description, String lifecycleStatus, String productType, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE GENELTYPE, GENELSTATUS GENELSTATUS) {
+    public ProductSpecification(int id, String name, String description, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE genelType, GENELSTATUS genelStatus) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.lifecycleStatus = lifecycleStatus;
-        this.productType = productType;
         this.products = products;
         this.productSpecCharacteristics = productSpecCharacteristics;
-        this.GENELTYPE = GENELTYPE;
-        this.GENELSTATUS = GENELSTATUS;
+        this.genelType = genelType;
+        this.genelStatus = genelStatus;
     }
 }

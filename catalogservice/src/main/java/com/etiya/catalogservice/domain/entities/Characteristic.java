@@ -18,9 +18,6 @@ public class Characteristic extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "data_type")
-    private String dataType;
-
     @Column(name = "unit_of_measure")
     private String unitOfMeasure;
 
@@ -31,8 +28,8 @@ public class Characteristic extends BaseEntity {
     private List<ProductSpecCharacteristic> productSpecCharacteristics;
 
     @ManyToOne
-    @JoinColumn(name = "GNL_TP")
-    private GENELTYPE GENELTYPE;
+    @JoinColumn(name = "GNL_TP_ID")
+    private GENELTYPE genelType;
 
     public int getId() {
         return id;
@@ -48,14 +45,6 @@ public class Characteristic extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(String dataType) {
-        this.dataType = dataType;
     }
 
     public String getUnitOfMeasure() {
@@ -82,34 +71,32 @@ public class Characteristic extends BaseEntity {
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
-    public GENELTYPE getGENELTYPE() {
-        return GENELTYPE;
+    public GENELTYPE getGenelType() {
+        return genelType;
     }
 
-    public void setGENELTYPE(GENELTYPE GENELTYPE) {
-        this.GENELTYPE = GENELTYPE;
+    public void setGenelType(GENELTYPE genelType) {
+        this.genelType = genelType;
     }
 
     public Characteristic() {
     }
 
-    public Characteristic(int id, String description, String dataType, String unitOfMeasure, List<CharValue> charValues, List<ProductSpecCharacteristic> productSpecCharacteristics) {
+    public Characteristic(int id, String description, String unitOfMeasure, List<CharValue> charValues, List<ProductSpecCharacteristic> productSpecCharacteristics) {
         this.id = id;
         this.description = description;
-        this.dataType = dataType;
         this.unitOfMeasure = unitOfMeasure;
         this.charValues = charValues;
         this.productSpecCharacteristics = productSpecCharacteristics;
     }
 
-    public Characteristic(int id, String description, String dataType, String unitOfMeasure, List<CharValue> charValues, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE GENELTYPE) {
+    public Characteristic(int id, String description, String unitOfMeasure, List<CharValue> charValues, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE genelType) {
         this.id = id;
         this.description = description;
-        this.dataType = dataType;
         this.unitOfMeasure = unitOfMeasure;
         this.charValues = charValues;
         this.productSpecCharacteristics = productSpecCharacteristics;
-        this.GENELTYPE = GENELTYPE;
+        this.genelType = genelType;
     }
 }
 

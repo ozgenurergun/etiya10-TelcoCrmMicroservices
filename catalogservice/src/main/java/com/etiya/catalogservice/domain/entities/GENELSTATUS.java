@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.domain.entities;
 
+import com.etiya.common.entities.BaseEntity;
 import com.etiya.customerservice.domain.entities.District;
 import jakarta.persistence.*;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "GNL_ST")
-public class GENELSTATUS {
+public class GENELSTATUS extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class GENELSTATUS {
     @Column(name = "ent_name")
     private String entName;
 
-    @OneToMany(mappedBy = "GENELSTATUS", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "genelStatus", cascade = CascadeType.ALL)
     private List<ProductSpecification> productSpecifications;
 
     public int getId() {

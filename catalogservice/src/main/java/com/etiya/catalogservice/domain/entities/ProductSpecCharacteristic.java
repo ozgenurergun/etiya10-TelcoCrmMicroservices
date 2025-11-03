@@ -19,7 +19,6 @@ public class ProductSpecCharacteristic extends BaseEntity {
     @JoinColumn(name = "spec_id", nullable = false)
     private ProductSpecification productSpecification;
 
-    // FK char_id (İlişki B)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "char_id", nullable = false)
     private Characteristic characteristic;
@@ -40,12 +39,12 @@ public class ProductSpecCharacteristic extends BaseEntity {
         isRequired = required;
     }
 
-    public ProductSpecification getSpecification() {
+    public ProductSpecification getProductSpecification() {
         return productSpecification;
     }
 
-    public void setSpecification(ProductSpecification specification) {
-        this.productSpecification = specification;
+    public void setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
     }
 
     public Characteristic getCharacteristic() {

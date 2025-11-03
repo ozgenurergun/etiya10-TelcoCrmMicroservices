@@ -26,10 +26,12 @@ public interface DistrictMapper {
     @Mapping(source = "cityId", target = "city.id")
     District districtFromCreateDistrictRequest (CreateDistrictRequest request);
 
+
     @Mapping(target = "cityId", source = "city.id")
     GetListDistrictResponse getListDistrictResponseFromDistrict(District district);
 
     List<GetListDistrictResponse> getListDistrictResponseFromDistrict(List<District> districts);
+
 
     @Mapping(target = "cityId", source = "city.id")
     UpdatedDistrictResponse updatedDistrictResponseFromDistrict (District district);
@@ -38,6 +40,7 @@ public interface DistrictMapper {
     District districtFromUpdateDistrictRequest(UpdateDistrictRequest request);
 
     District districtFromUpdateDistrictRequest(UpdateDistrictRequest request, @MappingTarget District district);
+
 
     @Mapping(target = "cityId", source = "city.id")
     @Mapping(target = "addresses", source = "addresses")
