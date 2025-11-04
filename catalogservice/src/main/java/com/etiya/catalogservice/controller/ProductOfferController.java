@@ -1,0 +1,53 @@
+package com.etiya.catalogservice.controller;
+
+import com.etiya.catalogservice.service.abstracts.ProductOfferService;
+import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
+import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/product-offers")
+public class ProductOfferController {
+
+    private final ProductOfferService productOfferService;
+
+    public ProductOfferController(ProductOfferService productOfferService) {
+        this.productOfferService = productOfferService;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreatedProductOfferResponse add(@RequestBody CreateProductOfferRequest request) {
+        return productOfferService.add(request);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UpdatedProductOfferResponse update(@RequestBody UpdateProductOfferRequest request) {
+        return productOfferService.update(request);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetListProductOfferResponse> getListProductOfferResponses() {
+        return productOfferService.getListProductOfferResponse();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable int id) {
+        productOfferService.delete(id);
+    }
+
+    @DeleteMapping("/{id}/soft")
+    @ResponseStatus(HttpStatus.OK)
+    public void softDelete(@PathVariable int id) {
+        productOfferService.softDelete(id);
+    }
+}

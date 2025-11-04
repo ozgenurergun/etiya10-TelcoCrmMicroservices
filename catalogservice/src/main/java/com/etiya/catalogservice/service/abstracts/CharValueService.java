@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.service.abstracts;
 
+import com.etiya.catalogservice.domain.entities.CharValue;
 import com.etiya.catalogservice.service.dtos.requests.CharValue.CreateCharValueRequest;
 import com.etiya.catalogservice.service.dtos.requests.CharValue.UpdateCharValueRequest;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.CreatedCharValueResponse;
@@ -17,4 +18,7 @@ public interface CharValueService {
     List<GetListCharValueResponse> getAll();
 
     void deleteById(int id);
+
+    CharValue findById(int id);
+
 }

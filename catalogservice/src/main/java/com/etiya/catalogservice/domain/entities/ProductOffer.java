@@ -2,6 +2,7 @@ package com.etiya.catalogservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product_offers")
+@SQLRestriction("is_active = 1")
 public class ProductOffer extends BaseEntity {
 
     @Id

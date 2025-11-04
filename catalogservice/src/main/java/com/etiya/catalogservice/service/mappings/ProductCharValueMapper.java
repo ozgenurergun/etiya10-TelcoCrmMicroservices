@@ -38,8 +38,8 @@ public interface ProductCharValueMapper {
     @Mapping(target = "product.id", source = "productId")
     ProductCharValue productCharValueFromUpdateProductCharValueRequest(UpdateProductCharValueRequest request);
 
-    @Mapping(target = "charValue.id", source = "charValueId")
-    @Mapping(target = "product.id", source = "productId")
+    @Mapping(target = "charValue.id", ignore = true)
+    @Mapping(target = "product.id", ignore = true)
     ProductCharValue productCharValueFromUpdateProductCharValueRequest(UpdateProductCharValueRequest request, @MappingTarget ProductCharValue productCharValue);
 
     @Mapping(target = "charValueId", source = "charValue.id") //hedef responsa yapmak -- kaynak char.. entitysi

@@ -35,7 +35,7 @@ public interface CharValueMapper {
     @Mapping(target = "characteristic.id", source = "characteristicId")
     CharValue charValueFromUpdateCharValueRequest(UpdateCharValueRequest request);
 
-    @Mapping(target = "characteristic.id", source = "characteristicId")
+    @Mapping(target = "characteristic.id", ignore = true)
     CharValue charValueFromUpdateCharValueRequest(UpdateCharValueRequest request, @MappingTarget CharValue charValue);
 
     @Mapping(target = "characteristicId", source = "characteristic.id") //hedef responsa yapmak -- kaynak char.. entitysi

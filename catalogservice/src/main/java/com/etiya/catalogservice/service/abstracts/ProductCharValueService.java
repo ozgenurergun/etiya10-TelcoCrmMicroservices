@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.service.abstracts;
 
+import com.etiya.catalogservice.domain.entities.ProductCharValue;
 import com.etiya.catalogservice.service.dtos.requests.ProductCharValue.CreateProductCharValueRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductCharValue.UpdateProductCharValueRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductSpecification.CreateProductSpecificationRequest;
@@ -23,4 +24,6 @@ public interface ProductCharValueService {
     List<GetListProductCharValueResponse> getAll();
 
     void deleteById(int id);
+
+    ProductCharValue findById(int id);
 }

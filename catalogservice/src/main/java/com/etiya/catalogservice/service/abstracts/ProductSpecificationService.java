@@ -1,5 +1,7 @@
 package com.etiya.catalogservice.service.abstracts;
 
+import com.etiya.catalogservice.domain.entities.ProductSpecCharacteristic;
+import com.etiya.catalogservice.domain.entities.ProductSpecification;
 import com.etiya.catalogservice.service.dtos.requests.ProductSpecification.CreateProductSpecificationRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductSpecification.UpdateProductSpecificationRequest;
 import com.etiya.catalogservice.service.dtos.responses.ProductSpecification.CreatedProductSpecificationResponse;
@@ -17,4 +19,6 @@ public interface ProductSpecificationService {
     List<GetListProductSpecificationResponse> getAll();
 
     void deleteById(int id);
+
+    ProductSpecification findById(int id);
 }

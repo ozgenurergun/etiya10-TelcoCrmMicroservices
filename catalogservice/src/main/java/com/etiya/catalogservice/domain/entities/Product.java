@@ -2,12 +2,14 @@ package com.etiya.catalogservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@SQLRestriction("is_active = 1")
 public class Product extends BaseEntity {
 
     @Id
@@ -82,12 +84,12 @@ public class Product extends BaseEntity {
         this.catalog = catalog;
     }
 
-    public ProductSpecification getSpecification() {
+    public ProductSpecification getProductSpecification() {
         return productSpecification;
     }
 
-    public void setSpecification(ProductSpecification specification) {
-        this.productSpecification = specification;
+    public void setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
     }
 
     public List<ProductCharValue> getProductCharValues() {
@@ -117,13 +119,13 @@ public class Product extends BaseEntity {
     public Product() {
     }
 
-    public Product(int id, String name, BigDecimal price, int stock, Catalog catalog, ProductSpecification specification, List<ProductCharValue> productCharValues, List<CampaignProduct> campaignProducts, List<ProductOffer> productOffers) {
+    public Product(int id, String name, BigDecimal price, int stock, Catalog catalog, ProductSpecification productSpecification, List<ProductCharValue> productCharValues, List<CampaignProduct> campaignProducts, List<ProductOffer> productOffers) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.catalog = catalog;
-        this.productSpecification = specification;
+        this.productSpecification = productSpecification;
         this.productCharValues = productCharValues;
         this.campaignProducts = campaignProducts;
         this.productOffers = productOffers;

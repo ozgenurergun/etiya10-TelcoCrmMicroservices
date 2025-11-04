@@ -3,11 +3,13 @@ package com.etiya.catalogservice.domain.entities;
 import com.etiya.common.entities.BaseEntity;
 import com.etiya.customerservice.domain.entities.City;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
 @Entity
 @Table(name = "characteristics")
+@SQLRestriction("is_active = 1")
 public class Characteristic extends BaseEntity {
 
     @Id

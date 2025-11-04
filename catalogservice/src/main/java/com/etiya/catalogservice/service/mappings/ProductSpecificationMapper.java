@@ -44,8 +44,8 @@ public interface ProductSpecificationMapper {
     @Mapping(target = "genelStatus.id", source = "genelStatusId")
     ProductSpecification productSpecificationFromUpdateProductSpecificationRequest(UpdateProductSpecificationRequest request);
 
-    @Mapping(target = "genelType.id", source = "genelTypeId")
-    @Mapping(target = "genelStatus.id", source = "genelStatusId")
+    @Mapping(target = "genelType.id", ignore = true)
+    @Mapping(target = "genelStatus.id", ignore = true)
     ProductSpecification productSpecificationFromUpdateProductSpecificationRequest(UpdateProductSpecificationRequest request, @MappingTarget ProductSpecification productSpecification);
 
     @Mapping(target = "genelTypeId", source = "genelType.id") //hedef responsa yapmak -- kaynak char.. entitysi

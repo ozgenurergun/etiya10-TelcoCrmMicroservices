@@ -2,6 +2,7 @@ package com.etiya.common.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 

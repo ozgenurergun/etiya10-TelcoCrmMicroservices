@@ -62,4 +62,9 @@ public class GenelStatusServiceImpl implements GenelStatusService {
         genelStatus.setIsActive(0);
         genelStatusRepository.save(genelStatus);
     }
+
+    @Override
+    public GENELSTATUS findById(int id) {
+        return genelStatusRepository.findById(id).orElseThrow(() -> new RuntimeException("GenelStatus not found"));
+    }
 }

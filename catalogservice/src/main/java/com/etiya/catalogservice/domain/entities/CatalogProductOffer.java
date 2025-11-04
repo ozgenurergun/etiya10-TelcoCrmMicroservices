@@ -2,9 +2,11 @@ package com.etiya.catalogservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "catalog_product_offers")
+@SQLRestriction("is_active = 1")
 public class CatalogProductOffer extends BaseEntity {
 
     @Id

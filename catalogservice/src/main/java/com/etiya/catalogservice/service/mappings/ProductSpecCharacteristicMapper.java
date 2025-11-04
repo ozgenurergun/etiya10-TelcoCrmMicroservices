@@ -32,8 +32,8 @@ public interface ProductSpecCharacteristicMapper {
     @Mapping(target = "characteristic.id", source = "charId")
     ProductSpecCharacteristic productSpecCharacteristicFromUpdateProductSpecCharacteristicRequest(UpdateProductSpecCharacteristicRequest request);
 
-    @Mapping(target = "productSpecification.id", source = "prodSpecId")
-    @Mapping(target = "characteristic.id", source = "charId")
+    @Mapping(target = "productSpecification.id", ignore = true)
+    @Mapping(target = "characteristic.id", ignore = true)
     ProductSpecCharacteristic productSpecCharacteristicFromUpdateProductSpecCharacteristicRequest(UpdateProductSpecCharacteristicRequest request, @MappingTarget ProductSpecCharacteristic productSpecCharacteristic);
 
     @Mapping(target = "prodSpecId", source = "productSpecification.id") //hedef responsa yapmak -- kaynak char.. entitysi

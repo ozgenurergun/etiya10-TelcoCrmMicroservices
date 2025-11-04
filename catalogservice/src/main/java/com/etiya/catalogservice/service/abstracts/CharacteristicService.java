@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.service.abstracts;
 
+import com.etiya.catalogservice.domain.entities.Characteristic;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
@@ -17,4 +18,6 @@ public interface CharacteristicService {
     List<GetListCharacteristicResponse> getAll();
 
     void deleteById(int id);
+
+    Characteristic findById(int id);
 }

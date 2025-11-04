@@ -3,12 +3,14 @@ package com.etiya.catalogservice.domain.entities;
 import com.etiya.common.entities.BaseEntity;
 import com.etiya.customerservice.domain.entities.Customer;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 @Table(name = "customer_offers")
+@SQLRestriction("is_active = 1")
 public class CustomerOffer extends BaseEntity {
 
     @Id

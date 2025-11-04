@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.service.abstracts;
 
+import com.etiya.catalogservice.domain.entities.GENELSTATUS;
 import com.etiya.catalogservice.service.dtos.requests.GENELSTATUS.CreateGenelStatusRequest;
 import com.etiya.catalogservice.service.dtos.requests.GENELSTATUS.UpdateGenelStatusRequest;
 import com.etiya.catalogservice.service.dtos.requests.GENELTYPE.CreateGenelTypeRequest;
@@ -22,4 +23,7 @@ public interface GenelStatusService {
     List<GetListGenelStatusResponse> getAll();
 
     void deleteById(int id);
+
+    GENELSTATUS findById(int id);
+
 }

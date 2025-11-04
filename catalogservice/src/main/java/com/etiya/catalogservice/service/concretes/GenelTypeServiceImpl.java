@@ -60,4 +60,9 @@ public class GenelTypeServiceImpl implements GenelTypeService {
         genelType.setIsActive(0);
         genelTypeRepository.save(genelType);
     }
+
+    @Override
+    public GENELTYPE findById(int id) {
+        return genelTypeRepository.findById(id).orElseThrow(() -> new RuntimeException("CampaignProduct not found"));
+    }
 }

@@ -2,11 +2,13 @@ package com.etiya.catalogservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
 @Entity
 @Table(name = "GNL_TP")
+@SQLRestriction("is_active = 1")
 public class GENELTYPE extends BaseEntity {
 
     @Id

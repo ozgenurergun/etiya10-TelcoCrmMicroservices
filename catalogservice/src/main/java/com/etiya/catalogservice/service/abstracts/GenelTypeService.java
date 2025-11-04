@@ -19,4 +19,6 @@ public interface GenelTypeService {
     List<GetListGenelTypeResponse> getAll();
 
     void deleteById(int id);
+
+    GENELTYPE findById(int id);
 }

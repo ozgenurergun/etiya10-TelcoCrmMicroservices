@@ -35,7 +35,7 @@ public interface CharacteristicMapper {
     @Mapping(target = "genelType.id", source = "genelTypeId")
     Characteristic characteristicFromUpdateCharacteristicRequest(UpdateCharacteristicRequest request);
 
-    @Mapping(target = "genelType.id", source = "genelTypeId")
+    @Mapping(target = "genelType.id", ignore = true)
     Characteristic characteristicFromUpdateCharacteristicRequest(UpdateCharacteristicRequest request, @MappingTarget Characteristic characteristic);
 
     @Mapping(target = "genelTypeId", source = "genelType.id") //hedef responsa yapmak -- kaynak char.. entitysi
