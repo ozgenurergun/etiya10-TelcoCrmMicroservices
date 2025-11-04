@@ -11,6 +11,7 @@ import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProdu
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
 import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -98,5 +99,16 @@ public class ProductOfferServiceImpl implements ProductOfferService {
     public ProductOffer findById(int id) {
         return productOfferRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ProductOffer not found with id: " + id));
+    }
+
+    @Override
+    public ProductOfferResponse getByIdForClient(int id) {
+        ProductOffer productOffer = findById(id);
+
+        ProductOfferResponse response = new ProductOfferResponse();
+        response.setId(productOffer.getId());
+        response.setName(productOffer.getName());
+        response.setDiscountRate(productOffer.getDiscountRate());
+        return response;
     }
 }

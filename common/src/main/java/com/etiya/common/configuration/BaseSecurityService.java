@@ -36,7 +36,7 @@ public class BaseSecurityService {
             "/api/cities/**",
             "/api/districts/**",
             "/api/addresses/**",
-            //"/api/billingAccounts/**",
+            "/api/billingAccounts/**",
             "/api/contactmediums/**",
             "/api/individual-customers/**",
             "/api/customer-search/**",

@@ -52,7 +52,7 @@ public class BillingAccountBusinessRules {
     //Eğer adres o müşteriye ait değilse, bir BusinessException fırlat.
     public void checkIfAddressBelongsToCustomer(int addressId, UUID customerId){
         Address address = addressRepository.findById(addressId).orElseThrow(() -> new BusinessException(localizationService.getMessage(Messages.IdExists)));
-        if(address.getCustomer().getId() != customerId){
+        if(!address.getCustomer().getId().equals(customerId)){
             throw new BusinessException(localizationService.getMessage(Messages.AddressBelongsToCustomer));
         }
     }

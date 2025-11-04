@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProduct
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +50,12 @@ public class ProductOfferController {
     @ResponseStatus(HttpStatus.OK)
     public void softDelete(@PathVariable int id) {
         productOfferService.softDelete(id);
+    }
+
+    // YENİ ENDPOINT'İ EKLE
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductOfferResponse getById(@PathVariable int id) {
+        return productOfferService.getByIdForClient(id);
     }
 }

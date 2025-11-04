@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/carts")
+@RequestMapping("/api/carts/")
 public class CartController {
 
     private final CartService cartService;

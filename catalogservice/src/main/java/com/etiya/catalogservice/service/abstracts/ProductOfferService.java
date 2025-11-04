@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProduct
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import com.etiya.common.responses.ProductOfferResponse;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface ProductOfferService {
     // CatalogProductOfferService'in ProductOffer entity'sine
     // DTO olmadan, doğrudan erişebilmesi için.
     ProductOffer findById(int id);
+
+    ProductOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 }

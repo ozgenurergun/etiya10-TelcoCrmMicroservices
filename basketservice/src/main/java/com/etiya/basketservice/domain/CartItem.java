@@ -6,12 +6,12 @@ import jakarta.persistence.OneToMany;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class CartItem implements Serializable {
 
-    private int id;
-
-    private int cartId;
+    private String id;
 
     private int productId;
 
@@ -35,20 +35,12 @@ public class CartItem implements Serializable {
 
     private BigDecimal discountedPrice;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
     }
 
     public int getProductId() {
@@ -140,11 +132,11 @@ public class CartItem implements Serializable {
     }
 
     public CartItem() {
+        this.id= UUID.randomUUID().toString();
     }
 
-    public CartItem(int id, int cartId, int productId, int productOfferId, int catalogProductOfferId, int campaignProductId, BigDecimal discountRate, int quantity) {
+    public CartItem(String id, int productId, int productOfferId, int catalogProductOfferId, int campaignProductId, BigDecimal discountRate, int quantity) {
         this.id = id;
-        this.cartId = cartId;
         this.productId = productId;
         this.productOfferId = productOfferId;
         this.catalogProductOfferId = catalogProductOfferId;

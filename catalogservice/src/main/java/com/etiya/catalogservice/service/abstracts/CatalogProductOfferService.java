@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.CatalogProductOffer.Update
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.CreatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
+import com.etiya.common.responses.CatalogOfferResponse;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface CatalogProductOfferService {
     // --- Servisler Arası İletişim Metodu ---
     // Çok ihtiyaç duyulmaz ama tutarlılık için ekleyelim.
     CatalogProductOffer findById(int id);
+
+    CatalogOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 }

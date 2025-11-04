@@ -1,5 +1,8 @@
 package com.etiya.basketservice.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,19 +11,25 @@ import java.util.UUID;
 
 public class Cart implements Serializable {
 
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
     private int billingAccountId;
 
-    private BigDecimal totalPrice;
+    private BigDecimal totalPrice = BigDecimal.ZERO;
 
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItems =  new ArrayList<>();
 
-    public int getId() {
+    public Cart(){
+        this.id= UUID.randomUUID().toString();
+        this.cartItems = new ArrayList<>();
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,10 +57,7 @@ public class Cart implements Serializable {
         this.cartItems = cartItemList;
     }
 
-    public Cart() {
-    }
-
-    public Cart(int id, int billingAccountId, BigDecimal totalPrice, List<CartItem> cartItems) {
+    public Cart(String id, int billingAccountId, BigDecimal totalPrice, List<CartItem> cartItems) {
         this.id = id;
         this.billingAccountId = billingAccountId;
         this.totalPrice = totalPrice;

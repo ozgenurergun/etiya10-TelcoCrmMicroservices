@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.concretes;
 
+import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.domain.enums.BillingAccountStatus;
 import com.etiya.customerservice.repository.BillingAccountRepository;
@@ -25,6 +26,16 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, BillingAccountBusinessRules billingAccountBusinessRules) {
         this.billingAccountRepository = billingAccountRepository;
         this.billingAccountBusinessRules = billingAccountBusinessRules;
+    }
+
+    @Override
+    public BillingAccountResponse getById(int id) {
+        BillingAccount billingAccount = billingAccountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Billing Account not found with id: " + id));
+        // Feign Client'ın beklediği "common" response tipine map'le
+        BillingAccountResponse response = new BillingAccountResponse();
+        response.setId(billingAccount.getId());
+        return response;
     }
 
     @Override

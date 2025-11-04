@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.Product.UpdateProductReque
 import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
+import com.etiya.common.responses.ProductResponse;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ProductService {
     void delete(int id);
     void softDelete(int id);
     Product findById(int id);
+
+    ProductResponse getByIdForClient(int id); // <-- YENİ METOT
 }

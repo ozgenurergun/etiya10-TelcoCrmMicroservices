@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.requests.billingAccount.UpdateBillingAccountRequest;
 import com.etiya.customerservice.service.responses.billingAccount.CreatedBillingAccountResponse;
@@ -12,6 +13,8 @@ public interface BillingAccountService {
     public CreatedBillingAccountResponse add(CreateBillingAccountRequest request);
     public UpdatedBillingAccountResponse update(UpdateBillingAccountRequest request);
     List<GetListBillingAccountResponse> getList();
+
+    BillingAccountResponse getById(int id);
 
     void delete(int id);
 

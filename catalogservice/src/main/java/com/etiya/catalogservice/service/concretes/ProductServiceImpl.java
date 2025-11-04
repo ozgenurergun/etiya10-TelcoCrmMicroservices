@@ -13,6 +13,7 @@ import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductRes
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
 import com.etiya.catalogservice.service.mappings.ProductMapper;
+import com.etiya.common.responses.ProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -105,5 +106,17 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(int id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+    }
+
+    @Override
+    public ProductResponse getByIdForClient(int id) {
+        Product product = findById(id); // Entity'yi bul
+
+        // Common response'a map'le
+        ProductResponse response = new ProductResponse();
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+        return response;
     }
 }

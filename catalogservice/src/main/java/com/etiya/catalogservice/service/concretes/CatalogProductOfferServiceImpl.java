@@ -13,6 +13,7 @@ import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.Creat
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.mappings.CatalogProductOfferMapper;
+import com.etiya.common.responses.CatalogOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -106,5 +107,14 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
     public CatalogProductOffer findById(int id) {
         return catalogProductOfferRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CatalogProductOffer not found with id: " + id));
+    }
+
+    @Override
+    public CatalogOfferResponse getByIdForClient(int id) {
+        CatalogProductOffer catalogOffer = findById(id);
+
+        CatalogOfferResponse response = new CatalogOfferResponse();
+        response.setId(catalogOffer.getId());
+        return response;
     }
 }

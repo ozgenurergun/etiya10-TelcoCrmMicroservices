@@ -1,5 +1,6 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.requests.billingAccount.UpdateBillingAccountRequest;
@@ -50,6 +51,12 @@ public class BillingAccountController {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable int id) {
         billingAccountService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BillingAccountResponse getById(@PathVariable int id) {
+        return billingAccountService.getById(id);
     }
 }
 

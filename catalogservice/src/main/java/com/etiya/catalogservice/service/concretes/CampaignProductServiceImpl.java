@@ -13,6 +13,7 @@ import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.CreatedCa
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.GetListCampaignProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.UpdatedCampaignProductResponse;
 import com.etiya.catalogservice.service.mappings.CampaignProductMapper;
+import com.etiya.common.responses.CampaignProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -106,5 +107,18 @@ public class CampaignProductServiceImpl implements CampaignProductService {
     @Override
     public CampaignProduct findById(int id) {
         return campaignProductRepository.findById(id).orElseThrow(() -> new RuntimeException("CampaignProduct not found"));
+    }
+
+    @Override
+    public CampaignProductResponse getByIdForClient(int id) {
+        CampaignProduct campaignProduct = findById(id);
+
+        // Product'ı LAZY loading'e takılmadan ProductService üzerinden al
+        Product product = productService.findById(campaignProduct.getProduct().getId());
+
+        CampaignProductResponse response = new CampaignProductResponse();
+        response.setId(campaignProduct.getId());
+        response.setName(product.getName()); // Product adını set et
+        return response;
     }
 }
