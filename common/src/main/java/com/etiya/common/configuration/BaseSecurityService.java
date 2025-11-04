@@ -8,21 +8,17 @@ import org.springframework.security.web.access.AccessDeniedHandler; // YENİ
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class BaseSecurityService {
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final AuthenticationEntryPoint authenticationEntryPoint; // YENİ
-    private final AccessDeniedHandler accessDeniedHandler; // YENİ
 
-    // Constructor'ı güncelle
-    public BaseSecurityService(JwtAuthFilter jwtAuthFilter, AuthenticationEntryPoint authenticationEntryPoint, AccessDeniedHandler accessDeniedHandler) {
+    public BaseSecurityService(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.accessDeniedHandler = accessDeniedHandler;
     }
 
-    public static final String[] WHITE_LIST_URLS= {
+    private static final String[] WHITE_LIST_URLS= {
             "/swagger-ui/**",
             "/v2/api-docs",
             "/v3/api-docs",
@@ -36,13 +32,6 @@ public class BaseSecurityService {
             "/api/individual-customers/**",
             "/api/customer-search/**",
             "/api/products/**",
-            "/api/genel-types/**",
-            "/api/genel-statuses/**",
-            "/api/characteristics/**",
-            "/api/char-values/**",
-            "/api/product-specifications/**",
-            "/api/product-spec-characteristics/**",
-            "/api/product-char-values/**",
             "/api/campaigns/**",
             "/api/campaign-products/**",
             "/api/catalogs/**",
@@ -51,14 +40,11 @@ public class BaseSecurityService {
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling
-                                .authenticationEntryPoint(authenticationEntryPoint)
-                                .accessDeniedHandler(accessDeniedHandler)
-                )
-                // DÜZELTME: authorizeHttpRequests bloğunu buradan sildik.
+        // CSRF Korumasını kapatma
+        httpSecurity.csrf(AbstractHttpConfigurer::disable)
+                // Beyaz Listedeki Yollara Herkese İzin Ver
+                .authorizeHttpRequests(req->req.requestMatchers(WHITE_LIST_URLS).permitAll())
+                // JWT Filtresini Güvenlik Zincirine Ekleme
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity;
     }

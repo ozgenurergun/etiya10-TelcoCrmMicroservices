@@ -17,13 +17,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        // 1. Çekirdek ayarları (filtre, 401/403 handler) yükle
         baseSecurityService.configureCoreSecurity(httpSecurity);
-        // 2. Kural zincirini TEK BİR BLOKTA tanımla
-        httpSecurity.authorizeHttpRequests(req ->
-                req.requestMatchers(BaseSecurityService.WHITE_LIST_URLS).permitAll() // Önce beyaz listeye izin ver
-                        .anyRequest().authenticated() // Kalan tüm istekler kimlik doğrulaması istesin
-        );
+        httpSecurity.authorizeHttpRequests(req->req.anyRequest().authenticated());
         return httpSecurity.build();
     }
 }
