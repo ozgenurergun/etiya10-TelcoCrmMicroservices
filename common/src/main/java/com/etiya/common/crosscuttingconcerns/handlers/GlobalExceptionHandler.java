@@ -5,6 +5,8 @@ import com.etiya.common.crosscuttingconcerns.exceptions.problemdetails.BusinessP
 import com.etiya.common.crosscuttingconcerns.exceptions.problemdetails.InternalServerProblemDetails;
 import com.etiya.common.crosscuttingconcerns.exceptions.problemdetails.ProblemDetails;
 import com.etiya.common.crosscuttingconcerns.exceptions.problemdetails.ValidationProblemDetails;
+import com.etiya.common.crosscuttingconcerns.exceptions.types.AccessDeniedException;
+import com.etiya.common.crosscuttingconcerns.exceptions.types.AuthenticationException;
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.crosscuttingconcerns.exceptions.types.InternalServerException;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -49,6 +51,30 @@ public class GlobalExceptionHandler {
         });
         validationProblemDetails.setValidationErrors(validationErrors);
         return validationProblemDetails;
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProblemDetails handleException(Exception exception) {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setDetail(exception.getMessage());
+        return problemDetails;
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ProblemDetails handleUnauthorizedException(AuthenticationException exception) {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setDetail(exception.getMessage());
+        return problemDetails;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ProblemDetails handleForbiddenException(AccessDeniedException exception) {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setDetail(exception.getMessage());
+        return problemDetails;
     }
 }
 
