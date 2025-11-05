@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 public class CartRepository {
@@ -29,7 +30,17 @@ public class CartRepository {
                 .findFirst().orElse(null);
     }
 
+    public Map<String, Cart> foundCartByBillingAccountId(int billingAccountId){
+        return this.cartHashOperations.entries(Key).values().stream()
+                .filter(cart -> billingAccountId == cart.getBillingAccountId())
+                .collect(Collectors.toMap(Cart::getId, cart -> cart));
+    }
+
     public Map<String, Cart> getAll(){
         return this.cartHashOperations.entries(Key);
+    }
+
+    public void delete(String hashKey){
+        this.cartHashOperations.delete(Key, hashKey);
     }
 }

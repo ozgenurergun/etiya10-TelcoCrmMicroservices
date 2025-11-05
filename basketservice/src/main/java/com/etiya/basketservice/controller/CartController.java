@@ -29,4 +29,22 @@ public class CartController {
     public Map<String, Cart> getAll(){
         return cartService.getAll();
     }
+
+    @GetMapping("billingAccount/")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, Cart> getByBillingAccountId(@RequestParam int billingAccountId){
+        return cartService.getByBillingAccountId(billingAccountId);
+    }
+
+    @DeleteMapping("/delete/{billingAccountId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable int billingAccountId){
+        cartService.deleteCart(billingAccountId);
+    }
+
+    @DeleteMapping("/{billingAccountId}/items/{cartItemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteItem(@PathVariable int billingAccountId, @PathVariable String cartItemId){
+        cartService.deleteItemFromCart(billingAccountId, cartItemId);
+    }
 }

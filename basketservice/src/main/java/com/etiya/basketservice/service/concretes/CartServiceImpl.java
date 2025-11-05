@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -64,4 +65,38 @@ public class CartServiceImpl implements CartService {
     public Map<String, Cart> getAll() {
         return cartRepository.getAll();
     }
+
+    @Override
+    public Map<String, Cart> getByBillingAccountId(int billingAccountId) {
+        return cartRepository.foundCartByBillingAccountId(billingAccountId);
+    }
+
+    @Override
+    public void deleteCart(int billingAccountId) {
+        var cart = cartRepository.getCartByBillingAccountId(billingAccountId);
+        if (cart == null) {
+            throw new RuntimeException("Cart not found");
+        }
+        String hashKey = cart.getId()+"_"+cart.getBillingAccountId();
+        cartRepository.delete(hashKey);
+    }
+
+    @Override
+    public void deleteItemFromCart(int billingAccountId, String cartItemId) {
+        var cart = cartRepository.getCartByBillingAccountId(billingAccountId);
+        if (cart == null) {
+            throw new RuntimeException("Cart not found");
+        }
+        Optional<CartItem> itemToRemove = cart.getCartItemList().stream().filter(item -> item.getId().equals(cartItemId)).findFirst();
+        if (itemToRemove.isEmpty()) {
+            throw new RuntimeException("Cart item not found");
+        }
+        CartItem removeItem = itemToRemove.get();
+        BigDecimal itemTotal = removeItem.getDiscountedPrice().multiply(BigDecimal.valueOf(removeItem.getQuantity()));
+        cart.setTotalPrice(cart.getTotalPrice().subtract(itemTotal));
+        cart.getCartItemList().remove(removeItem);
+        cartRepository.add(cart);
+    }
+
+
 }
