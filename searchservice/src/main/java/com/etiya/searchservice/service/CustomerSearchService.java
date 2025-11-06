@@ -29,4 +29,13 @@ public interface CustomerSearchService {
     List<CustomerSearch> searchByFirstNameAndLastName(String firstName, String lastName);
 
     CustomerSearch searchByCustomerId(String customerId);
+
+    List<CustomerSearch> searchDynamic(
+            String id,
+            String customerNumber,
+            String nationalId,
+            String firstName,
+            String lastName,
+            String value
+    );
 }
