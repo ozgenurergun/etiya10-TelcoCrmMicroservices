@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
         <module name="apigateway" />
+        <module name="salesservice" />
         <module name="common" />
         <module name="authservice" />
         <module name="catalogservice" />
@@ -39,6 +40,7 @@
       <module name="configserver" options="-parameters" />
       <module name="customerservice" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
+      <module name="salesservice" options="-parameters" />
       <module name="searchservice" options="-parameters" />
     </option>
   </component>

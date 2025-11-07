@@ -59,6 +59,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 new CreateCustomerEvent(createdIndividualCustomer.getId().toString(),
                         createdIndividualCustomer.getCustomerNumber(),
                         createdIndividualCustomer.getFirstName(),
+                        createdIndividualCustomer.getMiddleName(),
                         createdIndividualCustomer.getLastName(),
                         createdIndividualCustomer.getNationalId(),
                         createdIndividualCustomer.getDateOfBirth().toString(),

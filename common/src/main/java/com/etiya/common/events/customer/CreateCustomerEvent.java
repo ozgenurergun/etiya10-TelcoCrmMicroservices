@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public record CreateCustomerEvent(String customerId,
                                   String customerNumber,
                                   String firstName,
+                                  String middleName,
                                   String lastName,
                                   String nationalId,
                                   String dateOfBirth,
