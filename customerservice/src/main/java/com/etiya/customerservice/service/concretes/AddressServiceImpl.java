@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -79,7 +80,8 @@ public class AddressServiceImpl implements AddressService {
     public List<GetListAddressResponse> getList() {
         List<Address> addressList = addressRepository.findAll();
         List<GetListAddressResponse> response = AddressMapper.INSTANCE.getListAddressResponsesFromAddressList(addressList);
-        return response;    }
+        return response;
+    }
 
     @Override
     public void delete(int id) {
@@ -120,6 +122,15 @@ public class AddressServiceImpl implements AddressService {
     public GetAddressResponse getById(int id) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
         GetAddressResponse response = AddressMapper.INSTANCE.getAddressResponseFromAddress(address);
+        return response;
+    }
+
+    @Override
+    public List<GetListAddressResponse> getByCustomerId(String customerId) {
+        UUID uuid = UUID.fromString(customerId);
+
+        List<Address> addressList = addressRepository.findByCustomerId(uuid);
+        List<GetListAddressResponse> response = AddressMapper.INSTANCE.getListAddressResponsesFromAddressList(addressList);
         return response;
     }
 

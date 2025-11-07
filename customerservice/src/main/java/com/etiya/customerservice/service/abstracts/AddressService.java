@@ -26,5 +26,7 @@ public interface AddressService {
 
     GetAddressResponse getById(int id);
 
+    List<GetListAddressResponse> getByCustomerId(String customerId);
+
     void setPrimaryAddress(int newPrimaryAddressId);
 }

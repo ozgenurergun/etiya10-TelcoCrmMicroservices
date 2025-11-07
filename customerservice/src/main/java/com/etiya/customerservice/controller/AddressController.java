@@ -83,4 +83,10 @@ public class AddressController {
     public GetAddressResponse getById(@PathVariable int id) {
         return addressService.getById(id);
     }
+
+    @GetMapping("getByCustomerId/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetListAddressResponse> getByCustomerId(@PathVariable String customerId) {
+        return addressService.getByCustomerId(customerId);
+    }
 }

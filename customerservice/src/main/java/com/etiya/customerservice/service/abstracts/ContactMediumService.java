@@ -23,4 +23,6 @@ public interface ContactMediumService {
     GetContactMediumResponse getByValue(String value);
     List<GetListContactMediumResponse> getListByType(String type);
     List<GetListContactMediumResponse> getListByCustomerId(UUID customerId);
+
+    List<GetListContactMediumResponse> getByCustomerId(String customerId);
 }

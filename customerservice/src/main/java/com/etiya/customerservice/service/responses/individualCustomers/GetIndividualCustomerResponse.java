@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class GetIndividualCustomerResponse {
 
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     private String middleName;
@@ -15,11 +15,11 @@ public class GetIndividualCustomerResponse {
     private String gender;
     private String dateOfBirth;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,7 +87,7 @@ public class GetIndividualCustomerResponse {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public GetIndividualCustomerResponse(UUID id, String firstName, String lastName, String middleName, String nationalId, String motherName, String fatherName, String gender, String dateOfBirth) {
+    public GetIndividualCustomerResponse(String id, String firstName, String lastName, String middleName, String nationalId, String motherName, String fatherName, String gender, String dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

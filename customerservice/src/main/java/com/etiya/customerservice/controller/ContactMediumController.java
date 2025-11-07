@@ -3,6 +3,7 @@ package com.etiya.customerservice.controller;
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
 import com.etiya.customerservice.service.requests.contactMedium.UpdateContactMediumRequest;
+import com.etiya.customerservice.service.responses.address.GetListAddressResponse;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumResponse;
@@ -76,6 +77,11 @@ public class ContactMediumController {
         return contactMediumService.getListByCustomerId(customerId);
     }
 
+    @GetMapping("getByCustomerId/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetListContactMediumResponse> getByCustomerId(@PathVariable String customerId) {
+        return contactMediumService.getByCustomerId(customerId);
+    }
 
 
 }

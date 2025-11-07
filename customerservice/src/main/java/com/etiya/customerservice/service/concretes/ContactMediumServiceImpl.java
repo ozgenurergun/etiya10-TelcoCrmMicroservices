@@ -135,4 +135,12 @@ public class ContactMediumServiceImpl implements ContactMediumService {
         return responses;
     }
 
+    @Override
+    public List<GetListContactMediumResponse> getByCustomerId(String customerId) {
+        UUID uuid = UUID.fromString(customerId);
+        List<ContactMedium> contactMediums = contactMediumRepository.findByCustomerId(uuid);
+        List<GetListContactMediumResponse> responses = ContactMediumMapper.INSTANCE.getListContactMediumResponsesFromContactMedium(contactMediums);
+        return responses;
+    }
+
 }

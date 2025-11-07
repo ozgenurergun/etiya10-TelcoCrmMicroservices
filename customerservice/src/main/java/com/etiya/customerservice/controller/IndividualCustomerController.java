@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController //api olduğu için
 @RequestMapping("/api/individual-customers/") //bununla ilgili giden requesti neye maplediğimizi bildiriyoruz
@@ -56,6 +57,12 @@ public class IndividualCustomerController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetListIndividualCustomerResponse> getByCustomerNumberPattern(@PathVariable String pattern){
         return individualCustomerService.getByCustomerNumberPattern(pattern);
+    }
+
+    @GetMapping("getById/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetIndividualCustomerResponse getById(@PathVariable String id){
+        return individualCustomerService.getByCustomerId(id);
     }
 
 }

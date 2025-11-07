@@ -71,4 +71,5 @@ public class CustomerSearchController {
         return customerSearchService.searchDynamic(id, customerNumber, nationalId, firstName, lastName, value);
     }
 
+
 }

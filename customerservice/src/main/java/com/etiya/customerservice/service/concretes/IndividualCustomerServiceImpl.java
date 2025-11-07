@@ -146,4 +146,15 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 IndividualCustomerMapper.INSTANCE.getListIndividualCustomerResponseFromIndividualCustomers(individualCustomers);
         return responses;
     }
+
+    @Override
+    public GetIndividualCustomerResponse getByCustomerId(String customerId) {
+
+        UUID uuid = UUID.fromString(customerId);
+
+        IndividualCustomer individualCustomer = individualCustomerRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Individual Customer not found"));
+
+        GetIndividualCustomerResponse response = IndividualCustomerMapper.INSTANCE.getIndividualCustomerResponseFromIndividualCustomers(individualCustomer);
+        return response;
+    }
 }
