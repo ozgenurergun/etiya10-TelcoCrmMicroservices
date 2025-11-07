@@ -5,6 +5,7 @@ import com.etiya.searchservice.domain.ContactMedium;
 import com.etiya.searchservice.domain.CustomerSearch;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerSearchService {
 
@@ -38,4 +39,8 @@ public interface CustomerSearchService {
             String lastName,
             String value
     );
+
+    Optional<CustomerSearch> findById(String id);
+
+    void save(CustomerSearch customerSearch);
 }

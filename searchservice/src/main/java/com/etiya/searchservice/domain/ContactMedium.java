@@ -1,9 +1,14 @@
 package com.etiya.searchservice.domain;
 
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 public class ContactMedium {
 
     private int id;
+    @Field(type = FieldType.Keyword) // Sorgularda .keyword dememek için
     private String type;
+    @Field(type = FieldType.Keyword)
     private String value;
     private boolean isPrimary;
     private String customerId;
@@ -48,7 +53,20 @@ public class ContactMedium {
         isPrimary = primary;
     }
 
-    public ContactMedium(int id, String type, String value, boolean isPrimary, String customerId) {
+    public ContactMedium(int id, String type, String value, boolean isPrimary ) {
+        this.id = id;
+        this.type = type;
+        this.value = value;
+        this.isPrimary = isPrimary;
+        //this.customerId = customerId;
+    }
+
+    public ContactMedium(int id) {
+        this.id = id;
+        //this.customerId = customerId;
+    }
+
+    public ContactMedium(int id, String type, String value, boolean isPrimary, String customerId ) {
         this.id = id;
         this.type = type;
         this.value = value;

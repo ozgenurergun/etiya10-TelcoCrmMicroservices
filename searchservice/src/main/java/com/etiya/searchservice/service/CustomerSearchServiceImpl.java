@@ -125,8 +125,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void deleteContactMedium(ContactMedium contactMedium) {
-        Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(contactMedium.getCustomerId());
-
+        Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(contactMedium.getCustomerId().toString());
         if (customerOpt.isPresent()) {
             CustomerSearch customer = customerOpt.get();
 
@@ -182,6 +181,16 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     @Override
     public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId, String firstName, String lastName, String value) {
         return customerSearchRepository.searchDynamic(id,customerNumber,nationalId,firstName,lastName,value);
+    }
+
+    @Override
+    public Optional<CustomerSearch> findById(String id) {
+        return customerSearchRepository.findById(id);
+    }
+
+    @Override
+    public void save(CustomerSearch customerSearch) {
+        customerSearchRepository.save(customerSearch);
     }
 
 
