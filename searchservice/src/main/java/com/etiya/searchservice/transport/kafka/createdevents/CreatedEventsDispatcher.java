@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.nio.charset.StandardCharsets;
+// import java.nio.charset.StandardCharsets; // <-- BU SATIRA ARTIK GEREK YOK
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -31,11 +31,13 @@ public class CreatedEventsDispatcher {
     }
 
     // Bean adı 'createdEvents' olmalı (config ile aynı)
-    // 'byte[]' tüketir (useNativeDecoding=false sayesinde)
+    // ↓↓↓ DEĞİŞİKLİK 1: byte[] yerine String alıyoruz ↓↓↓
     @Bean
-    public Consumer<byte[]> createdEvents() {
-        return payload -> {
-            String json = new String(payload, StandardCharsets.UTF_8);
+    public Consumer<String> createdEvents() {
+        // ↓↓↓ DEĞİŞİKLİK 2: lambda parametresini 'payload' yerine 'json' yapıyoruz ↓↓↓
+        return json -> {
+            // ↓↓↓ DEĞİŞİKLİK 3: Bu satırı siliyoruz, çünkü mesaj zaten String geldi ↓↓↓
+            // String json = new String(payload, StandardCharsets.UTF_8);
             try {
                 // 1. JSON'u genel bir Map'e çevir (Tipini anlamak için)
                 Map<String, Object> eventMap = objectMapper.readValue(json,
