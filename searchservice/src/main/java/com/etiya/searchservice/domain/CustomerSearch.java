@@ -140,4 +140,8 @@ public class CustomerSearch {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public CustomerSearch(String id) {
+        this.id = id;
+    }
 }

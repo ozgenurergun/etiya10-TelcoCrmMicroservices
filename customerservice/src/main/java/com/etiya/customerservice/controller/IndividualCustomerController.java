@@ -2,9 +2,11 @@ package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
+import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.individualCustomers.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetListIndividualCustomerResponse;
+import com.etiya.customerservice.service.responses.individualCustomers.UpdatedIndividualCustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,12 @@ public class IndividualCustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedIndividualCustomerResponse add(@Valid @RequestBody CreateIndividualCustomerRequest individualCustomer) {
         return individualCustomerService.add(individualCustomer);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UpdatedIndividualCustomerResponse update(@Valid @RequestBody UpdateIndividualCustomerRequest individualCustomer) {
+        return individualCustomerService.update(individualCustomer);
     }
 
     @GetMapping
@@ -63,6 +71,12 @@ public class IndividualCustomerController {
     @ResponseStatus(HttpStatus.OK)
     public GetIndividualCustomerResponse getById(@PathVariable String id){
         return individualCustomerService.getByCustomerId(id);
+    }
+
+    @DeleteMapping("delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@PathVariable String id){
+        individualCustomerService.delete(id);
     }
 
 }

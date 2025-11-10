@@ -2,13 +2,17 @@ package com.etiya.customerservice.service.mappings;
 
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
+import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.individualCustomers.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetListIndividualCustomerResponse;
-import org.mapstruct.Mapper;
+import com.etiya.customerservice.service.responses.individualCustomers.UpdatedIndividualCustomerResponse;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+
+import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
 @Mapper(uses = {AddressMapper.class})
 public interface IndividualCustomerMapper {
@@ -21,6 +25,11 @@ public interface IndividualCustomerMapper {
 
     //responsedan individual customere
     CreatedIndividualCustomerResponse createdIndividualCustomerResponseFromIndividualCustomer(IndividualCustomer individualCustomer);
+
+    //upd
+    @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+    IndividualCustomer individualCustomerFromGetIndividualCustomerRequest(UpdateIndividualCustomerRequest updateIndividualCustomerRequest, @MappingTarget IndividualCustomer individualCustomer);
+    UpdatedIndividualCustomerResponse  updatedIndividualCustomerResponseFromIndividualCustomer(IndividualCustomer individualCustomer);
 
     List<GetListIndividualCustomerResponse> getListIndividualCustomerResponseFromIndividualCustomers(List<IndividualCustomer> individualCustomers);
 

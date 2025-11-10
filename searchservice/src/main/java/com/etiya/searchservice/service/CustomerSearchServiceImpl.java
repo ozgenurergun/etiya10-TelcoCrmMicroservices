@@ -66,6 +66,27 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     }
 
     @Override
+    public void updateCustomer(CustomerSearch customerSearch) {
+        Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(customerSearch.getId());
+
+        if (customerOpt.isPresent()) {
+            CustomerSearch customer = customerOpt.get();
+            customer.setFirstName(customerSearch.getFirstName());
+            customer.setMiddleName(customerSearch.getMiddleName());
+            customer.setLastName(customerSearch.getLastName());
+            customer.setFatherName(customerSearch.getFatherName());
+            customer.setMotherName(customerSearch.getMotherName());
+            customer.setDateOfBirth(customerSearch.getDateOfBirth());
+            customer.setGender(customerSearch.getGender());
+
+            customerSearchRepository.save(customer);
+        }else  {
+            throw new RuntimeException("Customer not found");
+        }
+
+    }
+
+    @Override
     public void deleteAddress(Address address) {
         Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(address.getCustomerId());
 
@@ -82,6 +103,17 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
                 throw new RuntimeException("Address not found for deletion");
             }
         } else {
+            throw new RuntimeException("Customer not found");
+        }
+    }
+
+    @Override
+    public void deleteCustomer(CustomerSearch customerSearch) {
+        Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(customerSearch.getId());
+
+        if (customerOpt.isPresent()) {
+            customerSearchRepository.delete(customerOpt.get());
+        }else  {
             throw new RuntimeException("Customer not found");
         }
     }

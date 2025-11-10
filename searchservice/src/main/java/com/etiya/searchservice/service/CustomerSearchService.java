@@ -12,7 +12,9 @@ public interface CustomerSearchService {
     void add(CustomerSearch customerSearch);
     void addAddress(Address address);
     void updateAddress(Address address);
+    void updateCustomer(CustomerSearch customerSearch);
     void deleteAddress(Address address);
+    void deleteCustomer(CustomerSearch customerSearch);
     void addContactMedium(ContactMedium contactMedium);
     void updateContactMedium(ContactMedium contactMedium);
     void deleteContactMedium(ContactMedium contactMedium);
