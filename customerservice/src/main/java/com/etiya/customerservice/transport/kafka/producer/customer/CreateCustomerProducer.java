@@ -4,47 +4,34 @@ import com.etiya.common.events.customer.CreateCustomerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.kafka.support.KafkaHeaders; // BUNU EKLE
+import org.springframework.messaging.Message; // BUNU EKLE
+import org.springframework.messaging.support.MessageBuilder; // BUNU EKLE
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class CreateCustomerProducer {
-    //Bu sınıf CustomerService tarafında yer alıyor ve görevi yeni müşteri oluşturulduğunda event üretmek
-
-    //Bu, Spring Kafka’nın sunduğu bir sınıf. Kafka’ya mesaj göndermek için kullanılır.
-    //Buradaki <String, CreateCustomerEvent> kısmı:Key: String -- Value: CreateCustomerEvent olacağını belirtir.
-    //private final KafkaTemplate<String, CreateCustomerEvent> kafkaTemplate;
 
     private final StreamBridge  streamBridge;
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateCustomerProducer.class);
 
-    public CreateCustomerProducer(/*KafkaTemplate<String, CreateCustomerEvent> kafkaTemplate,*/ StreamBridge streamBridge) {
+    public CreateCustomerProducer(StreamBridge streamBridge) {
         this.streamBridge = streamBridge;
-        //this.kafkaTemplate = kafkaTemplate;
     }
 
     public void produceCustomerCreated(CreateCustomerEvent event) {
-//bu eventi dışarıya açıyorum.
-        streamBridge.send("customerCreated-out-0", event);
+        LOGGER.info(String.format("Sending Customer created event => %s", event.customerId()));
 
-        LOGGER.info(String.format("Customer created event => %s", event.customerId()));
+        // DEĞİŞİKLİK: Mesajı Partition Key ile gönder
+        Message<CreateCustomerEvent> message = MessageBuilder
+                .withPayload(event)
+                .setHeader(KafkaHeaders.KEY, event.customerId()) // <-- ZORUNLU DEĞİŞİKLİK
+                .build();
 
-//        Message<CreateCustomerEvent> message = MessageBuilder.withPayload(event)
-//                .setHeader(KafkaHeaders.TOPIC, "create-customer").build();
-//        kafkaTemplate.send(message);
+        // Config'de "createdEvents" olarak maplediğin binding'e gönder
+        // (customerCreated-out-0 -> createdEvents'e gidiyor)
+        streamBridge.send("customerCreated-out-0", message);
     }
-
-    //Yeni oluşturulan müşteri bilgileriyle bir CreateCustomerEvent nesnesi gelir.
-    //(örneğin new CreateCustomerEvent("1", "CUST-001", "Ali", "Yılmaz", ...))
-    //Bu event, bir Message objesine dönüştürülür.
-    //Header kısmına "create-customer" topic’i yazılır.
-    //kafkaTemplate.send(message) ile Kafka’ya gönderilir.
-
-    //“Yeni müşteri oluşturuldu” bilgisini Kafka’ya gönder.
 }
 
 //StreamBridge, Spring Cloud Stream kütüphanesinin bir parçasıdır.

@@ -102,8 +102,6 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
             }
         }
 
-
-
         CreatedIndividualCustomerResponse response =
                 IndividualCustomerMapper.INSTANCE.createdIndividualCustomerResponseFromIndividualCustomer(createdIndividualCustomer);
 
