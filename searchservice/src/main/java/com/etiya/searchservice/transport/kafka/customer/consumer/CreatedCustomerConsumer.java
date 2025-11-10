@@ -30,7 +30,7 @@ public class CreatedCustomerConsumer {
             CustomerSearch customerSearch = new CustomerSearch(event.customerId(),
                     event.customerNumber(),
                     event.firstName(), event.middleName(),
-                    event.lastName(), event.nationalId(), event.dateOfBirth(), event.fatherName(), event.fatherName(), event.gender());
+                    event.lastName(), event.nationalId(), event.dateOfBirth(), event.fatherName(), event.motherName(), event.gender());
             customerSearchService.add(customerSearch);
             LOGGER.info(String.format("Consumed Customer Event: %s", event.customerId()));
         };

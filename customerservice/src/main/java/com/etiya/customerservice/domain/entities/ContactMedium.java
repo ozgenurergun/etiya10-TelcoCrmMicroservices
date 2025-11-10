@@ -8,8 +8,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "contactmediums")
-@SQLRestriction("deleted_date IS NULL")
-
+@SQLRestriction("is_active = 1")
 public class ContactMedium extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

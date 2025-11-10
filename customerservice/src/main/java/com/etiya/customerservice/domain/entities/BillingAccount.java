@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "billingAccounts") //-> billing_account
-@SQLRestriction("deleted_date IS NULL")
+@SQLRestriction("is_active = 1")
 
 public class BillingAccount extends BaseEntity {
     @Id

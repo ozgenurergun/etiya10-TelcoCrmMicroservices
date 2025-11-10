@@ -3,6 +3,7 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.common.events.customer.CreateCustomerEvent;
 import com.etiya.common.events.customer.DeleteCustomerEvent;
 import com.etiya.common.events.customer.UpdateCustomerEvent;
+import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.abstracts.AddressService;
@@ -16,7 +17,9 @@ import com.etiya.customerservice.service.requests.contactMedium.CreateContactMed
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
+import com.etiya.customerservice.service.responses.address.GetListAddressResponse;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
+import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.individualCustomers.GetListIndividualCustomerResponse;
@@ -174,6 +177,11 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         IndividualCustomer updatedCustomer = IndividualCustomerMapper.INSTANCE.individualCustomerFromGetIndividualCustomerRequest(updateIndividualCustomerRequest, oldIndividualCustomer);
         individualCustomerRepository.save(updatedCustomer);
 
+        String dateOfBirth = updatedCustomer.getDateOfBirth();
+        if (dateOfBirth != null && dateOfBirth.trim().isEmpty()) {
+            dateOfBirth = null;
+        }
+
         UpdateCustomerEvent event = new UpdateCustomerEvent(
                 updatedCustomer.getId().toString(),
                 updatedCustomer.getCustomerNumber(),
@@ -200,6 +208,16 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
         individualCustomer.setDeletedDate(LocalDateTime.now());
         individualCustomer.setIsActive(0);
         individualCustomerRepository.save(individualCustomer);
+
+        List<GetListAddressResponse> addresses = addressService.getByCustomerId(customerId);
+        for (GetListAddressResponse address : addresses) {
+            addressService.softDelete(address.getId());
+        }
+
+        List<GetListContactMediumResponse> contactMediums = contactMediumService.getByCustomerId(customerId);
+        for (GetListContactMediumResponse contactMedium : contactMediums) {
+            contactMediumService.softDelete(contactMedium.getId());
+        }
 
         DeleteCustomerEvent event = new DeleteCustomerEvent(
                 individualCustomer.getId().toString()

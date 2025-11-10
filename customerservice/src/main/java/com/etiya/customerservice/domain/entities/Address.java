@@ -9,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "addresses")
-@SQLRestriction("deleted_date IS NULL")
-
+@SQLRestriction("is_active = 1")
 public class Address extends BaseEntity {
 
     @Id

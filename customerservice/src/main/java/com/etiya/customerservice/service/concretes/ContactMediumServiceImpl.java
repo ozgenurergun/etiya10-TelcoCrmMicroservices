@@ -99,8 +99,9 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     @Override
     public void softDelete(int id) {
         ContactMedium contactMedium = contactMediumRepository.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
-        contactMediumBusinessRules.checkIsPrimary(contactMedium);
+        //contactMediumBusinessRules.checkIsPrimary(contactMedium);
         contactMedium.setDeletedDate(LocalDateTime.now());
+        contactMedium.setIsActive(0);
         contactMediumRepository.save(contactMedium);
     }
 
