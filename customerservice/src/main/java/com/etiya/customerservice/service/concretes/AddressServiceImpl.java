@@ -95,6 +95,8 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void softDelete(int id) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        DeleteAddressEvent event = new DeleteAddressEvent(id,address.getCustomer().getId().toString());
+        deleteAddressProducer.produceAddressDeleted(event);
         address.setDeletedDate(LocalDateTime.now());
         address.setIsActive(0);
         addressRepository.save(address);
@@ -102,18 +104,50 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public UpdatedAddressResponse update(UpdateAddressRequest request) {
-        Address oldAddress = addressRepository.findById(request.getId()).orElseThrow(() -> new RuntimeException("Address not found"));
-        Address address =  AddressMapper.INSTANCE.addressFromUpdateAddressRequest(request,oldAddress);
-        Address updatedAddress = addressRepository.save(address);
-        addressBusinessRules.checkIsPrimaryOnlyOne(updatedAddress);
-        UpdateAddressEvent event = new UpdateAddressEvent(updatedAddress.getId(),
-                updatedAddress.getStreet(),
-                updatedAddress.getHouseNumber(),
-                updatedAddress.getDescription(),
-                updatedAddress.isDefault(),
-                updatedAddress.getDistrict().getId(),
-                updatedAddress.getCustomer().getId().toString());
+        Address oldAddress = addressRepository.findById(request.getId())
+                .orElseThrow(() -> new RuntimeException("Address not found"));
+
+        // İstekten gelen default durumu. Eğer istekte gelmediyse (DTO'da null ise),
+        // MapStruct ignore edeceği için eski değer (true/false) korunur.
+        boolean requestWantsPrimary = request.getDefault();
+
+        // MapStruct ile kısmi güncelleme yapılıyor.
+        Address addressToUpdate = AddressMapper.INSTANCE.addressFromUpdateAddressRequest(request, oldAddress);
+
+        // KONTROL 1: İstek BU adresi primary yapmak istiyor MU?
+        // KONTROL 2: Bu adres zaten primary miydi?
+        // NOT: isDefault alanı requestten gelip addressToUpdate'e yazıldığı için, sadece request.isDefault() kontrolü yeterli olabilir.
+
+        if (addressToUpdate.isDefault()) { // Güncelleme sonrası bu adres primary ise (İstek böyle gelmiştir)
+
+            UUID customerId = addressToUpdate.getCustomer().getId();
+
+            // 1. Mevcut birincil adresi bul (varsa) ve 'false' yap
+            addressRepository.findByCustomerIdAndIsDefaultTrue(customerId)
+                    .ifPresent(oldDefaultAddress -> {
+
+                        // !!! KRİTİK DÜZELTME: UUID'leri .equals() ile karşılaştırıyoruz !!!
+                        if (oldDefaultAddress.getId() != addressToUpdate.getId()) {
+
+                            oldDefaultAddress.setDefault(false);
+                            addressRepository.save(oldDefaultAddress);
+
+                            // ESKİ PRIMARY DEĞİŞTİ: Kafka Eventi fırlat
+                            UpdateAddressEvent oldEvent = createUpdateAddressEvent(oldDefaultAddress);
+                            updateAddressProducer.produceAddressUpdated(oldEvent);
+                        }
+                    });
+
+            // addressToUpdate zaten isDefault=true olarak ayarlanmıştır (MapStruct veya manuel olarak).
+        }
+
+        // 2. Güncel adresi veritabanına kaydet
+        Address updatedAddress = addressRepository.save(addressToUpdate);
+
+        // 3. Güncellenen adres için Kafka Eventi fırlat
+        UpdateAddressEvent event = createUpdateAddressEvent(updatedAddress);
         updateAddressProducer.produceAddressUpdated(event);
+
         UpdatedAddressResponse response = AddressMapper.INSTANCE.updatedAddressResponseFromAddress(updatedAddress);
         return response;
     }
@@ -137,30 +171,49 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     public void setPrimaryAddress(int newPrimaryAddressId) {
-        // 1. Önce, müşterinin mevcut 'default' adresini bulup 'false' yapın
-        //    (Bir müşterinin 2 tane default adresi olamaz)
-        //    Bu kısmı backend ekibiniz kendi Customer ilişkisine göre yazmalı.
-
-        Address address = addressRepository.findById(newPrimaryAddressId).orElseThrow(() -> new RuntimeException("Address not found"));
-        addressBusinessRules.checkIsPrimaryOnlyOne(address);
-
-        // 2. Şimdi yeni seçilen adresi bulup 'true' yapın
-        Address newDefault = addressRepository.findById(newPrimaryAddressId)
+        // 1. Yeni adresi bul ve müşteriyi belirle
+        Address newDefaultAddress = addressRepository.findById(newPrimaryAddressId)
                 .orElseThrow(() -> new RuntimeException("Address not found"));
 
-        newDefault.setDefault(true);
-        addressRepository.save(newDefault);
+        UUID customerId = newDefaultAddress.getCustomer().getId();
 
-        UpdateAddressEvent event = new UpdateAddressEvent(newDefault.getId(),
-                newDefault.getStreet(),
-                newDefault.getHouseNumber(),
-                newDefault.getDescription(),
-                newDefault.isDefault(),
-                newDefault.getDistrict().getId(),
-                newDefault.getCustomer().getId().toString());
-        updateAddressProducer.produceAddressUpdated(event);
+        // 2. Mevcut birincil adresi bul (varsa) ve 'false' yap
+        // Not: Bu adım, müşterinin önceki birincil adresini false yapmak için kritiktir.
+        addressRepository.findByCustomerIdAndIsDefaultTrue(customerId)
+                .ifPresent(oldDefaultAddress -> {
+                    // Eğer eski adres, yeni seçilen adres değilse (ayrı bir adres ise)
+                    if (!(oldDefaultAddress.getId()==(newDefaultAddress.getId()))) {
+                        oldDefaultAddress.setDefault(false);
+                        addressRepository.save(oldDefaultAddress);
 
-        // Event fırlatma vs. burada da yapılabilir.
+                        // ESKİ ADRES DEĞİŞTİ: Elasticsearch'e haber ver
+                        UpdateAddressEvent oldEvent = createUpdateAddressEvent(oldDefaultAddress);
+                        updateAddressProducer.produceAddressUpdated(oldEvent);
+                    }
+                });
+
+        // 3. Yeni seçilen adresi 'true' yap
+        // (Zaten yukarıda bulduk, tekrar sorgulamaya gerek yok.)
+        if (!newDefaultAddress.isDefault()) { // Zaten true değilse güncelle
+            newDefaultAddress.setDefault(true);
+            addressRepository.save(newDefaultAddress);
+
+            // YENİ ADRES DEĞİŞTİ: Elasticsearch'e haber ver
+            UpdateAddressEvent newEvent = createUpdateAddressEvent(newDefaultAddress);
+            updateAddressProducer.produceAddressUpdated(newEvent);
+        }
     }
 
+    // Yardımcı Metot: UpdateAddressEvent oluşturmak için
+    private UpdateAddressEvent createUpdateAddressEvent(Address address) {
+        return new UpdateAddressEvent(
+                address.getId(),
+                address.getStreet(),
+                address.getHouseNumber(),
+                address.getDescription(),
+                address.isDefault(), // Güncel değeri (true/false) kullan
+                address.getDistrict().getId(),
+                address.getCustomer().getId().toString()
+        );
+    }
 }
