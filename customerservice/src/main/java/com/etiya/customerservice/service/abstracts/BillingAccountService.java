@@ -16,6 +16,8 @@ public interface BillingAccountService {
 
     BillingAccountResponse getById(int id);
 
+    List<GetListBillingAccountResponse> getByCustomerId(String customerId);
+
     void delete(int id);
 
     void softDelete(int id);

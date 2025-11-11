@@ -15,6 +15,7 @@ import com.etiya.customerservice.service.rules.BillingAccountBusinessRules;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,6 +38,20 @@ public class BillingAccountServiceImpl implements BillingAccountService {
         response.setId(billingAccount.getId());
         return response;
     }
+
+    @Override
+    public List<GetListBillingAccountResponse> getByCustomerId(String customerId) {
+        List<GetListBillingAccountResponse> responses = new ArrayList<>();
+        List<BillingAccount> all = billingAccountRepository.findAll();
+        for (BillingAccount billingAccount : all) {
+            if(billingAccount.getCustomer().getId().toString().equals(customerId)){
+                GetListBillingAccountResponse response = BillingAccountMapper.INSTANCE.getListBillingAccountResponseFromBillingAccount(billingAccount);
+                responses.add(response);
+            }
+        }
+        return responses;
+    }
+
 
     @Override
     public CreatedBillingAccountResponse add(CreateBillingAccountRequest request) {
@@ -113,6 +128,7 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public void softDelete(int id) {
         BillingAccount billingAccount = billingAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("Billing Account not found"));
         billingAccount.setDeletedDate(LocalDateTime.now());
+        billingAccount.setIsActive(0);
         billingAccountRepository.save(billingAccount);
     }
 }

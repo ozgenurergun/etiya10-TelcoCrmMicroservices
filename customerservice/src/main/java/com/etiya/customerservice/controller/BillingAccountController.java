@@ -58,5 +58,11 @@ public class BillingAccountController {
     public BillingAccountResponse getById(@PathVariable int id) {
         return billingAccountService.getById(id);
     }
+
+    @GetMapping("getByCustomerId/{CustomerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetListBillingAccountResponse> getByCustomerId(@PathVariable String CustomerId) {
+        return billingAccountService.getByCustomerId(CustomerId);
+    }
 }
 

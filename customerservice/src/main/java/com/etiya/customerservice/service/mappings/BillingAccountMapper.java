@@ -37,6 +37,8 @@ public interface BillingAccountMapper {
     @Mapping(source = "status", target = "status")
     UpdatedBillingAccountResponse updatedBillingAccountResponseFromBillingAccount(BillingAccount billingAccount);
 
+
+
     // GET LIST
     @Mapping(source = "customer.id", target = "customerId")
     @Mapping(source = "address.id", target = "addressId")
