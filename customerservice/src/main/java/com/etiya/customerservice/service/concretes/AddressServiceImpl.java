@@ -204,6 +204,11 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
+    @Override
+    public Address findById(int id) {
+        return addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+    }
+
     // Yardımcı Metot: UpdateAddressEvent oluşturmak için
     private UpdateAddressEvent createUpdateAddressEvent(Address address) {
         return new UpdateAddressEvent(

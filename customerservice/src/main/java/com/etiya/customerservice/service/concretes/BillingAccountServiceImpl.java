@@ -1,9 +1,11 @@
 package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.responses.BillingAccountResponse;
+import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.domain.enums.BillingAccountStatus;
 import com.etiya.customerservice.repository.BillingAccountRepository;
+import com.etiya.customerservice.service.abstracts.AddressService;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
 import com.etiya.customerservice.service.mappings.BillingAccountMapper;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
@@ -23,10 +25,12 @@ public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
     private final BillingAccountBusinessRules billingAccountBusinessRules;
+    private final AddressService addressService;
 
-    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, BillingAccountBusinessRules billingAccountBusinessRules) {
+    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, BillingAccountBusinessRules billingAccountBusinessRules, AddressService addressService) {
         this.billingAccountRepository = billingAccountRepository;
         this.billingAccountBusinessRules = billingAccountBusinessRules;
+        this.addressService = addressService;
     }
 
     @Override
@@ -80,7 +84,9 @@ public class BillingAccountServiceImpl implements BillingAccountService {
 
         billingAccountBusinessRules.checkIfTypeCanBeChanged(request.getId(), request.getType());
 
-        if (billingAccount.getAddress().getId() != request.getAddressId()) {
+        boolean addressChanged = billingAccount.getAddress() == null
+                || billingAccount.getAddress().getId() != (request.getAddressId());
+        if (addressChanged) {
             billingAccountBusinessRules.checkIfAddressBelongsToCustomer(
                     request.getAddressId(),
                     request.getCustomerId()
@@ -94,7 +100,14 @@ public class BillingAccountServiceImpl implements BillingAccountService {
             );
         }
 
+        // mapper sadece diğer alanları günceller
         BillingAccountMapper.INSTANCE.updateBillingAccountFromRequest(request, billingAccount);
+
+        // 🔥 Adres değiştiyse, servisten Address entity'sini al
+        if (addressChanged) {
+            Address newAddress = addressService.findById(request.getAddressId());
+            billingAccount.setAddress(newAddress);
+        }
 
         BillingAccount updated = billingAccountRepository.save(billingAccount);
 

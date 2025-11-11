@@ -29,4 +29,6 @@ public interface AddressService {
     List<GetListAddressResponse> getByCustomerId(String customerId);
 
     void setPrimaryAddress(int newPrimaryAddressId);
+
+    Address findById(int id);
 }

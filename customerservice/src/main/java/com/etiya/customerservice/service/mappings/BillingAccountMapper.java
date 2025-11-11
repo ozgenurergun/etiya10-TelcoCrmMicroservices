@@ -27,7 +27,7 @@ public interface BillingAccountMapper {
 
     // UPDATE
     @Mapping(source = "customerId", target = "customer.id")
-    @Mapping(source = "addressId", target = "address.id")
+    @Mapping(target = "address.id", ignore = true)
     @Mapping(source = "type", target = "type")
     void updateBillingAccountFromRequest(UpdateBillingAccountRequest request,
                                          @MappingTarget BillingAccount billingAccount);
