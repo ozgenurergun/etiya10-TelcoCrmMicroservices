@@ -23,4 +23,6 @@ public interface ProductOfferService {
     ProductOffer findById(int id);
 
     ProductOfferResponse getByIdForClient(int id); // <-- YENİ METOT
+
+    List<ProductOffer> getProductOffersByProductId(int productId);
 }

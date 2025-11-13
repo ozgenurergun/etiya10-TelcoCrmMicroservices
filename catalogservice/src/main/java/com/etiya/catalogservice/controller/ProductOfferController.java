@@ -1,5 +1,6 @@
 package com.etiya.catalogservice.controller;
 
+import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
@@ -58,4 +59,14 @@ public class ProductOfferController {
     public ProductOfferResponse getById(@PathVariable int id) {
         return productOfferService.getByIdForClient(id);
     }
+
+
+    @GetMapping("/getByProductId/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductOffer> getProductOffersByProductId(@PathVariable int productId) {
+        return productOfferService.getProductOffersByProductId(productId);
+    }
+
+
+
 }

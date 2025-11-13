@@ -15,6 +15,7 @@ import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -110,5 +111,17 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         response.setName(productOffer.getName());
         response.setDiscountRate(productOffer.getDiscountRate());
         return response;
+    }
+
+    @Override
+    public List<ProductOffer> getProductOffersByProductId(int productId) {
+        List<ProductOffer> responses = new ArrayList<>();
+        List<ProductOffer> getAll =  productOfferRepository.findAll();
+        for (ProductOffer productOffer : getAll) {
+            if (productOffer.getProduct().getId() == productId) {
+                responses.add(productOffer);
+            }
+        }
+        return responses;
     }
 }

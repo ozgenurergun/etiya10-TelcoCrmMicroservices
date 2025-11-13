@@ -3,20 +3,26 @@ package com.etiya.catalogservice.service.concretes;
 import com.etiya.catalogservice.domain.entities.Campaign;
 import com.etiya.catalogservice.domain.entities.CampaignProduct;
 import com.etiya.catalogservice.domain.entities.Product;
+import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.repository.CampaignProductRepository;
 import com.etiya.catalogservice.service.abstracts.CampaignProductService;
 import com.etiya.catalogservice.service.abstracts.CampaignService;
+import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.abstracts.ProductService;
 import com.etiya.catalogservice.service.dtos.requests.CampaignProduct.CreateCampaignProductRequest;
 import com.etiya.catalogservice.service.dtos.requests.CampaignProduct.UpdateCampaignProductRequest;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.CreatedCampaignProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.GetListCampaignProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.UpdatedCampaignProductResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCampaignResponse;
 import com.etiya.catalogservice.service.mappings.CampaignProductMapper;
+import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
 import com.etiya.common.responses.CampaignProductResponse;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,14 +33,17 @@ public class CampaignProductServiceImpl implements CampaignProductService {
     // DİĞER SERVİSLER
     private final CampaignService campaignService;
     private final ProductService productService;
+    private final ProductOfferService productOfferService;
+
 
     // Constructor'ı düzeltiyoruz
     public CampaignProductServiceImpl(CampaignProductRepository campaignProductRepository,
                                       CampaignService campaignService,
-                                      ProductService productService) {
+                                      ProductService productService, ProductOfferService productOfferService) {
         this.campaignProductRepository = campaignProductRepository;
         this.campaignService = campaignService;
         this.productService = productService;
+        this.productOfferService = productOfferService;
     }
 
     @Override
@@ -120,5 +129,26 @@ public class CampaignProductServiceImpl implements CampaignProductService {
         response.setId(campaignProduct.getId());
         response.setName(product.getName()); // Product adını set et
         return response;
+    }
+
+    @Override
+    public List<GetProductOfferFromCampaignResponse> getListProductOfferFromCampaignResponse(int campaignId) {
+        List<GetProductOfferFromCampaignResponse> responses = new ArrayList<>();
+        List<CampaignProduct> allList = campaignProductRepository.findAll();
+        for (CampaignProduct campaignProduct : allList) {
+            if(campaignProduct.getCampaign().getId() == campaignId){
+                Product p = campaignProduct.getProduct();
+                List<ProductOffer> productOfferList = productOfferService.getProductOffersByProductId(p.getId());
+                for(ProductOffer productOffer : productOfferList){
+                    if(productOffer.getProduct().getId() == p.getId()){
+                        GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCampaignResponseFromProductOffer(productOffer);
+                        response.setProductId(p.getId());
+                        response.setCampaignProductId(campaignId);
+                        responses.add(response);
+                    }
+                }
+            }
+        }
+return responses;
     }
 }

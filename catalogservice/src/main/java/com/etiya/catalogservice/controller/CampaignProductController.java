@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.CampaignProduct.UpdateCamp
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.CreatedCampaignProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.GetListCampaignProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.UpdatedCampaignProductResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCampaignResponse;
 import com.etiya.common.responses.CampaignProductResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +58,12 @@ public class CampaignProductController {
     @ResponseStatus(HttpStatus.OK)
     public CampaignProductResponse getById(@PathVariable int id) {
         return campaignProductService.getByIdForClient(id);
+    }
+
+
+    @GetMapping("/getByCampaignId/{campaignId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetProductOfferFromCampaignResponse> getByCampaignId(@PathVariable int campaignId) {
+        return campaignProductService.getListProductOfferFromCampaignResponse(campaignId);
     }
 }

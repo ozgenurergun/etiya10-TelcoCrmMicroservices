@@ -12,11 +12,15 @@ import com.etiya.catalogservice.service.dtos.requests.CatalogProductOffer.Update
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.CreatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCatalogResponse;
 import com.etiya.catalogservice.service.mappings.CatalogProductOfferMapper;
+import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
 import com.etiya.common.responses.CatalogOfferResponse;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -116,5 +120,24 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
         CatalogOfferResponse response = new CatalogOfferResponse();
         response.setId(catalogOffer.getId());
         return response;
+    }
+
+    @Override
+    public List<GetProductOfferFromCatalogResponse> getListProductOfferFromCatalogResponse(int catalogId) {
+        List<GetProductOfferFromCatalogResponse> responses = new ArrayList<>();
+
+        List<CatalogProductOffer> allList = catalogProductOfferRepository.findAll();
+        for (CatalogProductOffer catalogProductOffer : allList) {
+            if(catalogProductOffer.getCatalog().getId() == catalogId) {
+                ProductOffer po = catalogProductOffer.getProductOffer();
+                GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCatalogResponseFromProductOffer(po);
+                response.setCatalogProductOfferId(catalogProductOffer.getId());
+                response.setProductId(po.getProduct().getId());
+                responses.add(response);
+            }
+        }
+    return responses;
+
+
     }
 }

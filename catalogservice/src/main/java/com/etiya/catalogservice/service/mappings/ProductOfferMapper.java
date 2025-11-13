@@ -3,9 +3,8 @@ package com.etiya.catalogservice.service.mappings;
 import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.*;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -30,6 +29,9 @@ public interface ProductOfferMapper {
 
     List<GetListProductOfferResponse> getListResponseFromProductOfferList(List<ProductOffer> productOffers);
 
+    GetProductOfferFromCatalogResponse getProductOfferFromCatalogResponseFromProductOffer(ProductOffer productOffer);
+
+    GetProductOfferFromCampaignResponse getProductOfferFromCampaignResponseFromProductOffer(ProductOffer productOffer);
 
     // --- Request DTO'dan Entity'ye ---
     // 'product' nesnesini ServiceImpl'de elle setleyeceğiz.
