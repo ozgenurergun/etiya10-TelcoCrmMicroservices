@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
-@Table(name = "campaign_products")
+@Table(name = "campaign_product_offers")
 @SQLRestriction("is_active = 1")
-public class CampaignProduct extends BaseEntity {
+public class CampaignProductOffer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class CampaignProduct extends BaseEntity {
     private Campaign campaign;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "product_offer_id")
+    private ProductOffer productOffer;
 
     public int getId() {
         return id;
@@ -38,20 +38,21 @@ public class CampaignProduct extends BaseEntity {
         this.campaign = campaign;
     }
 
-    public Product getProduct() {
-        return product;
+
+    public CampaignProductOffer() {
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public ProductOffer getProductOffer() {
+        return productOffer;
     }
 
-    public CampaignProduct() {
+    public void setProductOffer(ProductOffer productOffer) {
+        this.productOffer = productOffer;
     }
 
-    public CampaignProduct(int id, Campaign campaign, Product product) {
+    public CampaignProductOffer(int id, Campaign campaign, ProductOffer productOffer) {
         this.id = id;
         this.campaign = campaign;
-        this.product = product;
+        this.productOffer = productOffer;
     }
 }

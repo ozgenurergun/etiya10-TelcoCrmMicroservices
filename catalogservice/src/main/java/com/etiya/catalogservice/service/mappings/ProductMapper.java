@@ -17,32 +17,23 @@ import java.util.List;
 public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-    @Mapping(source = "catalog.id", target = "catalogId")
-    @Mapping(source = "productSpecification.id", target = "productSpecificationId")
+    @Mapping(source = "productOffer.id", target = "productOfferId")
     CreatedProductResponse getCreatedResponseFromProduct(Product product);
 
-    @Mapping(source = "catalog.id", target = "catalogId")
-    @Mapping(source = "productSpecification.id", target = "productSpecificationId")
+    @Mapping(source = "productOffer.id", target = "productOfferId")
     UpdatedProductResponse getUpdatedResponseFromProduct(Product product);
 
-    @Mapping(source = "catalog.id", target = "catalogId")
-    @Mapping(source = "productSpecification.id", target = "productSpecificationId")
+    @Mapping(source = "productOffer.id", target = "productOfferId")
     GetListProductResponse getListResponseFromProduct(Product product);
 
     List<GetListProductResponse> getListResponseFromProductList(List<Product> products);
 
 
-    @Mapping(target = "catalog", ignore = true)
-    @Mapping(target = "productSpecification", ignore = true)
     @Mapping(target = "productCharValues", ignore = true) // OneToMany listelerini ignore et
-    @Mapping(target = "campaignProducts", ignore = true) // OneToMany listelerini ignore et
-    @Mapping(target = "productOffers", ignore = true) // OneToMany listelerini ignore et
+    @Mapping(target = "productOffer", ignore = true) // OneToMany listelerini ignore et
     Product getProductFromCreateRequest(CreateProductRequest request);
 
-    @Mapping(target = "catalog", ignore = true)
-    @Mapping(target = "productSpecification", ignore = true)
     @Mapping(target = "productCharValues", ignore = true)
-    @Mapping(target = "campaignProducts", ignore = true)
-    @Mapping(target = "productOffers", ignore = true)
+    @Mapping(target = "productOffer", ignore = true)
     void updateProductFromUpdateRequest(UpdateProductRequest request, @MappingTarget Product product);
 }

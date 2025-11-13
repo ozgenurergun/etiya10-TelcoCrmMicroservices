@@ -35,7 +35,7 @@ public class Campaign extends BaseEntity {
     private LocalDate endDate; // date (Nullable)
 
     @OneToMany(mappedBy = "campaign")
-    private List<CampaignProduct> campaignProducts;
+    private List<CampaignProductOffer> campaignProductOffers;
 
     public int getId() {
         return id;
@@ -85,24 +85,24 @@ public class Campaign extends BaseEntity {
         this.endDate = endDate;
     }
 
-    public List<CampaignProduct> getCampaignProducts() {
-        return campaignProducts;
+    public List<CampaignProductOffer> getCampaignProducts() {
+        return campaignProductOffers;
     }
 
-    public void setCampaignProducts(List<CampaignProduct> campaignProducts) {
-        this.campaignProducts = campaignProducts;
+    public void setCampaignProducts(List<CampaignProductOffer> campaignProductOffers) {
+        this.campaignProductOffers = campaignProductOffers;
     }
 
     public Campaign() {
     }
 
-    public Campaign(int id, String name, String campaignCode, BigDecimal discountRate, LocalDate startDate, LocalDate endDate, List<CampaignProduct> campaignProducts) {
+    public Campaign(int id, String name, String campaignCode, BigDecimal discountRate, LocalDate startDate, LocalDate endDate, List<CampaignProductOffer> campaignProductOffers) {
         this.id = id;
         this.name = name;
         this.campaignCode = campaignCode;
         this.discountRate = discountRate;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.campaignProducts = campaignProducts;
+        this.campaignProductOffers = campaignProductOffers;
     }
 }

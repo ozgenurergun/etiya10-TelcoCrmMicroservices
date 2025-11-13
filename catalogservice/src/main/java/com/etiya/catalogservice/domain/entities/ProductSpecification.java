@@ -23,7 +23,7 @@ public class ProductSpecification extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "productSpecification", cascade = CascadeType.ALL)
-    private List<Product> products;
+    private List<ProductOffer> productOffers;
 
     @OneToMany(mappedBy = "productSpecification")
     private List<ProductSpecCharacteristic> productSpecCharacteristics;
@@ -60,12 +60,12 @@ public class ProductSpecification extends BaseEntity {
         this.description = description;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<ProductOffer> getProductOffers() {
+        return productOffers;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductOffers(List<ProductOffer> productOffers) {
+        this.productOffers = productOffers;
     }
 
     public List<ProductSpecCharacteristic> getProductSpecCharacteristics() {
@@ -95,19 +95,11 @@ public class ProductSpecification extends BaseEntity {
     public ProductSpecification() {
     }
 
-    public ProductSpecification(int id, String name, String description, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics) {
+    public ProductSpecification(int id, String name, String description, List<ProductOffer> productOffers, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE genelType, GENELSTATUS genelStatus) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.products = products;
-        this.productSpecCharacteristics = productSpecCharacteristics;
-    }
-
-    public ProductSpecification(int id, String name, String description, List<Product> products, List<ProductSpecCharacteristic> productSpecCharacteristics, GENELTYPE genelType, GENELSTATUS genelStatus) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.products = products;
+        this.productOffers = productOffers;
         this.productSpecCharacteristics = productSpecCharacteristics;
         this.genelType = genelType;
         this.genelStatus = genelStatus;

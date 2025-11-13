@@ -11,7 +11,8 @@ public class UpdateProductOfferRequest {
     private LocalDate endDate;
     private BigDecimal discountRate;
     private Boolean status;
-    private int productId;
+    private BigDecimal price;
+    private int productSpecificationId;
 
     // --- Getter ve Setter'lar ---
     public int getId() { return id; }
@@ -28,6 +29,20 @@ public class UpdateProductOfferRequest {
     public void setDiscountRate(BigDecimal discountRate) { this.discountRate = discountRate; }
     public Boolean getStatus() { return status; }
     public void setStatus(Boolean status) { this.status = status; }
-    public int getProductId() { return productId; }
-    public void setProductId(int productId) { this.productId = productId; }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getProductSpecificationId() {
+        return productSpecificationId;
+    }
+
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
+    }
 }

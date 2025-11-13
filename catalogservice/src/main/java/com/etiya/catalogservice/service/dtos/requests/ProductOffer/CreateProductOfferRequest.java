@@ -6,11 +6,12 @@ import java.time.LocalDate;
 public class CreateProductOfferRequest {
     private String name;
     private String description;
+    private BigDecimal price;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal discountRate;
     private Boolean status;
-    private int productId; // İlişkili ürünün ID'si
+    private int productSpecificationId; // İlişkili ürünün ID'si
 
     // --- Getter ve Setter'lar ---
     public String getName() { return name; }
@@ -25,6 +26,20 @@ public class CreateProductOfferRequest {
     public void setDiscountRate(BigDecimal discountRate) { this.discountRate = discountRate; }
     public Boolean getStatus() { return status; }
     public void setStatus(Boolean status) { this.status = status; }
-    public int getProductId() { return productId; }
-    public void setProductId(int productId) { this.productId = productId; }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getProductSpecificationId() {
+        return productSpecificationId;
+    }
+
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
+    }
 }

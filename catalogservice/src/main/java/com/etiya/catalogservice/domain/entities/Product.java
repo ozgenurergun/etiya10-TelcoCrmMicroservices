@@ -31,17 +31,13 @@ public class Product extends BaseEntity {
     private Catalog catalog;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "spec_id", nullable = false)
-    private ProductSpecification productSpecification;
+    @JoinColumn(name = "product_offer_id", nullable = false)
+    private ProductOffer productOffer;
+
 
     @OneToMany(mappedBy = "product")
     private List<ProductCharValue> productCharValues;
 
-    @OneToMany(mappedBy = "product")
-    private List<CampaignProduct> campaignProducts;
-
-    @OneToMany(mappedBy = "product")
-    private List<ProductOffer> productOffers;
 
 
     public int getId() {
@@ -84,12 +80,12 @@ public class Product extends BaseEntity {
         this.catalog = catalog;
     }
 
-    public ProductSpecification getProductSpecification() {
-        return productSpecification;
+    public ProductOffer getProductOffer() {
+        return productOffer;
     }
 
-    public void setProductSpecification(ProductSpecification productSpecification) {
-        this.productSpecification = productSpecification;
+    public void setProductOffer(ProductOffer productOffer) {
+        this.productOffer = productOffer;
     }
 
     public List<ProductCharValue> getProductCharValues() {
@@ -100,40 +96,16 @@ public class Product extends BaseEntity {
         this.productCharValues = productCharValues;
     }
 
-    public List<CampaignProduct> getCampaignProducts() {
-        return campaignProducts;
-    }
-
-    public void setCampaignProducts(List<CampaignProduct> campaignProducts) {
-        this.campaignProducts = campaignProducts;
-    }
-
-    public List<ProductOffer> getProductOffers() {
-        return productOffers;
-    }
-
-    public void setProductOffers(List<ProductOffer> productOffers) {
-        this.productOffers = productOffers;
-    }
-
     public Product() {
     }
 
-    public Product(int id, String name, BigDecimal price, int stock, Catalog catalog, ProductSpecification productSpecification, List<ProductCharValue> productCharValues, List<CampaignProduct> campaignProducts, List<ProductOffer> productOffers) {
+    public Product(int id, String name, BigDecimal price, int stock, Catalog catalog, ProductOffer productOffer, List<ProductCharValue> productCharValues) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.catalog = catalog;
-        this.productSpecification = productSpecification;
+        this.productOffer = productOffer;
         this.productCharValues = productCharValues;
-        this.campaignProducts = campaignProducts;
-        this.productOffers = productOffers;
-    }
-
-    public Product(String name, BigDecimal price, int stock) {
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
     }
 }

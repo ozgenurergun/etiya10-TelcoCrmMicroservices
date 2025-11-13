@@ -21,6 +21,9 @@ public class ProductOffer extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "price")
+    private BigDecimal price;
+
     @Column(name = "description")
     private String description;
 
@@ -36,15 +39,33 @@ public class ProductOffer extends BaseEntity {
     @Column(name = "status")
     private Boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     @OneToMany(mappedBy = "productOffer")
     private List<CatalogProductOffer> catalogProductOffers;
 
     @OneToMany(mappedBy = "productOffer")
+    private List<CampaignProductOffer> campaignProductOffers;
+
+    @OneToMany(mappedBy = "productOffer")
+    private List<Product> products;
+
+
+    @OneToMany(mappedBy = "productOffer")
     private List<CustomerOffer> customerOffers;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "spec_id", nullable = false)
+    private ProductSpecification productSpecification;
+
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
 
     public int getId() {
         return id;
@@ -102,13 +123,6 @@ public class ProductOffer extends BaseEntity {
         this.status = status;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public List<CatalogProductOffer> getCatalogProductOffers() {
         return catalogProductOffers;
@@ -116,6 +130,22 @@ public class ProductOffer extends BaseEntity {
 
     public void setCatalogProductOffers(List<CatalogProductOffer> catalogProductOffers) {
         this.catalogProductOffers = catalogProductOffers;
+    }
+
+    public List<CampaignProductOffer> getCampaignProductOffers() {
+        return campaignProductOffers;
+    }
+
+    public void setCampaignProductOffers(List<CampaignProductOffer> campaignProductOffers) {
+        this.campaignProductOffers = campaignProductOffers;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public List<CustomerOffer> getCustomerOffers() {
@@ -126,19 +156,30 @@ public class ProductOffer extends BaseEntity {
         this.customerOffers = customerOffers;
     }
 
+    public ProductSpecification getProductSpecification() {
+        return productSpecification;
+    }
+
+    public void setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
+    }
+
     public ProductOffer() {
     }
 
-    public ProductOffer(int id, String name, String description, LocalDate startDate, LocalDate endDate, BigDecimal discountRate, Boolean status, Product product, List<CatalogProductOffer> catalogProductOffers, List<CustomerOffer> customerOffers) {
+    public ProductOffer(int id, String name, BigDecimal price, String description, LocalDate startDate, LocalDate endDate, BigDecimal discountRate, Boolean status, List<CatalogProductOffer> catalogProductOffers, List<CampaignProductOffer> campaignProductOffers, List<Product> products, List<CustomerOffer> customerOffers, ProductSpecification productSpecification) {
         this.id = id;
         this.name = name;
+        this.price = price;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.discountRate = discountRate;
         this.status = status;
-        this.product = product;
         this.catalogProductOffers = catalogProductOffers;
+        this.campaignProductOffers = campaignProductOffers;
+        this.products = products;
         this.customerOffers = customerOffers;
+        this.productSpecification = productSpecification;
     }
 }

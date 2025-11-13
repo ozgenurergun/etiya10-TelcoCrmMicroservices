@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 
 public class GetProductOfferFromCampaignResponse {
     private int id;
-    private int productId;
-    private int campaignProductId;
+
+    private int campaignProductOfferId;
     private String name;
     private BigDecimal discountRate;
+    private BigDecimal price;
+    private int productSpecificationId;
 
     public int getId() {
         return id;
@@ -17,20 +19,28 @@ public class GetProductOfferFromCampaignResponse {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public int getCampaignProductId() {
-        return campaignProductId;
+    public int getProductSpecificationId() {
+        return productSpecificationId;
     }
 
-    public void setCampaignProductId(int campaignProductId) {
-        this.campaignProductId = campaignProductId;
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
+    }
+
+    public int getCampaignProductOfferId() {
+        return campaignProductOfferId;
+    }
+
+    public void setCampaignProductOfferId(int campaignProductOfferId) {
+        this.campaignProductOfferId = campaignProductOfferId;
     }
 
     public String getName() {

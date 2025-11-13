@@ -1,11 +1,11 @@
 package com.etiya.catalogservice.service.mappings;
 
-import com.etiya.catalogservice.domain.entities.CampaignProduct;
-import com.etiya.catalogservice.service.dtos.requests.CampaignProduct.CreateCampaignProductRequest;
-import com.etiya.catalogservice.service.dtos.requests.CampaignProduct.UpdateCampaignProductRequest;
-import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.CreatedCampaignProductResponse;
-import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.GetListCampaignProductResponse;
-import com.etiya.catalogservice.service.dtos.responses.CampaignProduct.UpdatedCampaignProductResponse;
+import com.etiya.catalogservice.domain.entities.CampaignProductOffer;
+import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.CreateCampaignProductOfferRequest;
+import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.UpdateCampaignProductOfferRequest;
+import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.CreatedCampaignProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.GetListCampaignProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.UpdatedCampaignProductOfferResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -19,26 +19,26 @@ public interface CampaignProductMapper {
 
 
     @Mapping(source = "campaign.id", target = "campaignId")
-    @Mapping(source = "product.id", target = "productId")
-    CreatedCampaignProductResponse getCreatedResponseFromCampaignProduct(CampaignProduct campaignProduct);
+    @Mapping(source = "productOffer.id", target = "productOfferId")
+    CreatedCampaignProductOfferResponse getCreatedResponseFromCampaignProduct(CampaignProductOffer campaignProductOffer);
 
     @Mapping(source = "campaign.id", target = "campaignId")
-    @Mapping(source = "product.id", target = "productId")
-    UpdatedCampaignProductResponse getUpdatedResponseFromCampaignProduct(CampaignProduct campaignProduct);
+    @Mapping(source = "productOffer.id", target = "productOfferId")
+    UpdatedCampaignProductOfferResponse getUpdatedResponseFromCampaignProduct(CampaignProductOffer campaignProductOffer);
 
     @Mapping(source = "campaign.id", target = "campaignId")
-    @Mapping(source = "product.id", target = "productId")
-    GetListCampaignProductResponse getListResponseFromCampaignProduct(CampaignProduct campaignProduct);
+    @Mapping(source = "productOffer.id", target = "productOfferId")
+    GetListCampaignProductOfferResponse getListResponseFromCampaignProduct(CampaignProductOffer campaignProductOffer);
 
-    List<GetListCampaignProductResponse> getListResponseFromCampaignProductList(List<CampaignProduct> campaignProducts);
+    List<GetListCampaignProductOfferResponse> getListResponseFromCampaignProductList(List<CampaignProductOffer> campaignProductOffers);
 
 
     @Mapping(target = "campaign", ignore = true) // campaign nesnesini elle setleyeceğiz
-    @Mapping(target = "product", ignore = true)  // product nesnesini elle setleyeceğiz
-    CampaignProduct getCampaignProductFromCreateRequest(CreateCampaignProductRequest request);
+    @Mapping(target = "productOffer", ignore = true)  // product nesnesini elle setleyeceğiz
+    CampaignProductOffer getCampaignProductFromCreateRequest(CreateCampaignProductOfferRequest request);
 
 
     @Mapping(target = "campaign", ignore = true)
-    @Mapping(target = "product", ignore = true)
-    void updateCampaignProductFromUpdateRequest(UpdateCampaignProductRequest request, @MappingTarget CampaignProduct campaignProduct);
+    @Mapping(target = "productOffer", ignore = true)
+    void updateCampaignProductFromUpdateRequest(UpdateCampaignProductOfferRequest request, @MappingTarget CampaignProductOffer campaignProductOffer);
 }

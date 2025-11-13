@@ -9,7 +9,7 @@ public class GetListProductResponse {
     private int stock;
     private int catalogId;
 
-    private int productSpecificationId;
+    private int productOfferId;
 
     public int getId() {
         return id;
@@ -51,12 +51,13 @@ public class GetListProductResponse {
         this.catalogId = catalogId;
     }
 
-    public int getProductSpecificationId() {
-        return productSpecificationId;
+    public int getProductOfferId() {
+        return productOfferId;
     }
 
-    public void setProductSpecificationId(int productSpecificationId) {
-        this.productSpecificationId = productSpecificationId;
+    public void setProductOfferId(int productOfferId) {
+        this.productOfferId = productOfferId;
     }
+
 }
 

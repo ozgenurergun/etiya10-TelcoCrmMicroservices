@@ -6,10 +6,11 @@ import java.math.BigDecimal;
 
 public class GetProductOfferFromCatalogResponse {
     private int id;
-    private int productId;
     private int catalogProductOfferId;
     private String name;
     private BigDecimal discountRate;
+    private BigDecimal price;
+    private int productSpecificationId;
 
     public int getId() {
         return id;
@@ -19,12 +20,20 @@ public class GetProductOfferFromCatalogResponse {
         this.id = id;
     }
 
-    public int getProductId() {
-        return productId;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getProductSpecificationId() {
+        return productSpecificationId;
+    }
+
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
     }
 
     public int getCatalogProductOfferId() {

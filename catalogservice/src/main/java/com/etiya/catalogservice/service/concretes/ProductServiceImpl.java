@@ -6,6 +6,7 @@ import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.domain.entities.ProductSpecification;
 import com.etiya.catalogservice.repository.ProductRepository;
 import com.etiya.catalogservice.service.abstracts.CatalogService;
+import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.abstracts.ProductService;
 import com.etiya.catalogservice.service.abstracts.ProductSpecificationService;
 import com.etiya.catalogservice.service.dtos.requests.Product.CreateProductRequest;
@@ -27,29 +28,28 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository; // Sadece kendi reposu
     // Diğer servisler
     private final CatalogService catalogService;
-    private final ProductSpecificationService productSpecificationService; // Varsayım
+    private final ProductOfferService productOfferService;
 
     // Constructor Injection
     public ProductServiceImpl(ProductRepository productRepository,
                               CatalogService catalogService,
-                              ProductSpecificationService productSpecificationService) {
+                              ProductSpecificationService productSpecificationService, ProductOfferService productOfferService) {
         this.productRepository = productRepository;
         this.catalogService = catalogService;
-        this.productSpecificationService = productSpecificationService;
+        this.productOfferService = productOfferService;
     }
 
     @Override
     public CreatedProductResponse add(CreateProductRequest request) {
         // 1. İlişkili nesneleri ID'lerinden servisleri kullanarak bul
         Catalog catalog = catalogService.findById(request.getCatalogId());
-        ProductSpecification spec = productSpecificationService.findById(request.getProductSpecificationId());
-
+        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
         // 2. Mapper ile temel alanları map'le
         Product product = ProductMapper.INSTANCE.getProductFromCreateRequest(request);
 
         // 3. İlişkili nesneleri elle set et
         product.setCatalog(catalog);
-        product.setProductSpecification(spec); // Entity'deki setter'ın adı 'setSpecification'
+        product.setProductOffer(productOffer); // Entity'deki setter'ın adı 'setSpecification'
 
         // 4. Kaydet
         productRepository.save(product);
@@ -65,14 +65,14 @@ public class ProductServiceImpl implements ProductService {
 
         // 2. İlişkili nesneleri bul
         Catalog catalog = catalogService.findById(request.getCatalogId());
-        ProductSpecification spec = productSpecificationService.findById(request.getProductSpecificationId());
+        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
 
         // 3. Mapper ile temel alanları güncelle
         ProductMapper.INSTANCE.updateProductFromUpdateRequest(request, productToUpdate);
 
         // 4. İlişkili nesneleri elle set et
         productToUpdate.setCatalog(catalog);
-        productToUpdate.setProductSpecification(spec);
+        productToUpdate.setProductOffer(productOffer);
 
         // 5. Kaydet
         productRepository.save(productToUpdate);

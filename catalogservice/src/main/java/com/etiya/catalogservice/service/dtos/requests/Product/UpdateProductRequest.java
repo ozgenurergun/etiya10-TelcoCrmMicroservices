@@ -8,7 +8,7 @@ public class UpdateProductRequest {
     private BigDecimal price;
     private int stock;
     private int catalogId;
-    private int productSpecificationId;
+    private int productOfferId;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -20,6 +20,12 @@ public class UpdateProductRequest {
     public void setStock(int stock) { this.stock = stock; }
     public int getCatalogId() { return catalogId; }
     public void setCatalogId(int catalogId) { this.catalogId = catalogId; }
-    public int getProductSpecificationId() { return productSpecificationId; }
-    public void setProductSpecificationId(int productSpecificationId) { this.productSpecificationId = productSpecificationId; }
+
+    public int getProductOfferId() {
+        return productOfferId;
+    }
+
+    public void setProductOfferId(int productOfferId) {
+        this.productOfferId = productOfferId;
+    }
 }

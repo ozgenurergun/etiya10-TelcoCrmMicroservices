@@ -1,9 +1,9 @@
-package com.etiya.catalogservice.service.dtos.responses.CampaignProduct;
+package com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer;
 
-public class GetListCampaignProductResponse {
+public class UpdateCampaignProductOfferRequest {
     private int id;
     private int campaignId;
-    private int productId;
+    private int productOfferId;
 
     public int getId() {
         return id;
@@ -17,10 +17,10 @@ public class GetListCampaignProductResponse {
     public void setCampaignId(int campaignId) {
         this.campaignId = campaignId;
     }
-    public int getProductId() {
-        return productId;
+    public int getProductOfferId() {
+        return productOfferId;
     }
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductOfferId(int productOfferId) {
+        this.productOfferId = productOfferId;
     }
 }
