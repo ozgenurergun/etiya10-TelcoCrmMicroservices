@@ -1,15 +1,17 @@
 package com.etiya.catalogservice.service.concretes;
 
+import com.etiya.catalogservice.domain.entities.CampaignProduct;
+import com.etiya.catalogservice.domain.entities.CatalogProductOffer;
 import com.etiya.catalogservice.domain.entities.Product;
 import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.repository.ProductOfferRepository;
+import com.etiya.catalogservice.service.abstracts.CampaignProductService;
+import com.etiya.catalogservice.service.abstracts.CatalogProductOfferService;
 import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.abstracts.ProductService;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.*;
 import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
 import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
@@ -25,12 +27,16 @@ public class ProductOfferServiceImpl implements ProductOfferService {
 
     // Diğer servis
     private final ProductService productService;
+    private final CatalogProductOfferService  catalogProductOfferService;
+    private final CampaignProductService campaignProductService;
 
     // Constructor Injection
     public ProductOfferServiceImpl(ProductOfferRepository productOfferRepository,
-                                   ProductService productService) {
+                                   ProductService productService, CatalogProductOfferService catalogProductOfferService, CampaignProductService campaignProductService) {
         this.productOfferRepository = productOfferRepository;
         this.productService = productService;
+        this.catalogProductOfferService = catalogProductOfferService;
+        this.campaignProductService = campaignProductService;
     }
 
     @Override
@@ -120,6 +126,43 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         for (ProductOffer productOffer : getAll) {
             if (productOffer.getProduct().getId() == productId) {
                 responses.add(productOffer);
+            }
+        }
+        return responses;
+    }
+
+    @Override
+    public List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId) {
+        List<GetProductOfferFromCatalogResponse> responses = new ArrayList<>();
+        List<CatalogProductOffer> allList =  catalogProductOfferService.getListCatalogProductOffer();
+        for (CatalogProductOffer catalogProductOffer : allList) {
+            if(catalogProductOffer.getCatalog().getId() == catalogId) {
+                ProductOffer po = catalogProductOffer.getProductOffer();
+                GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCatalogResponseFromProductOffer(po);
+                response.setCatalogProductOfferId(catalogProductOffer.getId());
+                response.setProductId(po.getProduct().getId());
+                responses.add(response);
+            }
+        }
+        return responses;
+    }
+
+    @Override
+    public List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId) {
+        List<GetProductOfferFromCampaignResponse> responses = new ArrayList<>();
+        List<CampaignProduct> allList = campaignProductService.getListCampaignProduct();  //campaignProductRepository.findAll();
+        for (CampaignProduct campaignProduct : allList) {
+            if(campaignProduct.getCampaign().getId() == campaignId){
+                Product p = campaignProduct.getProduct();
+                List<ProductOffer> productOfferList = this.getProductOffersByProductId(p.getId());
+                for(ProductOffer productOffer : productOfferList){
+                    if(productOffer.getProduct().getId() == p.getId()){
+                        GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCampaignResponseFromProductOffer(productOffer);
+                        response.setProductId(p.getId());
+                        response.setCampaignProductId(campaignId);
+                        responses.add(response);
+                    }
+                }
             }
         }
         return responses;

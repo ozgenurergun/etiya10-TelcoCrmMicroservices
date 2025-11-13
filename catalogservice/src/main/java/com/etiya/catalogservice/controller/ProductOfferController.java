@@ -4,9 +4,7 @@ import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.CreatedProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetListProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.UpdatedProductOfferResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.*;
 import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +65,17 @@ public class ProductOfferController {
         return productOfferService.getProductOffersByProductId(productId);
     }
 
+    @GetMapping("/getByCatalogId/{catalogId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetProductOfferFromCatalogResponse> getByCatalogId(@PathVariable int catalogId) {
+        return productOfferService.getOffersByCatalogId(catalogId);
+    }
+
+    @GetMapping("/getByCampaignId/{campaignId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetProductOfferFromCampaignResponse> getByCampaignId(@PathVariable int campaignId) {
+        return productOfferService.getOffersByCampaignId(campaignId);
+    }
 
 
 }

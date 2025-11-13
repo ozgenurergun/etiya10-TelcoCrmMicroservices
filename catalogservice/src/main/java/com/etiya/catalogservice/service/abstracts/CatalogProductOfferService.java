@@ -26,7 +26,8 @@ public interface CatalogProductOfferService {
 
     CatalogOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 
-    List<GetProductOfferFromCatalogResponse> getListProductOfferFromCatalogResponse(int catalogId);
+    List<CatalogProductOffer> getListCatalogProductOffer();
+
 
 
 }

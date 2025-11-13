@@ -22,7 +22,7 @@ public interface CampaignProductService {
 
     CampaignProductResponse getByIdForClient(int id); // <-- YENİ METOT
 
-    List<GetProductOfferFromCampaignResponse> getListProductOfferFromCampaignResponse(int campaignId);
 
+    List<CampaignProduct> getListCampaignProduct();
 }
 

@@ -30,22 +30,20 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
 
     // Diğer servisler
     private final CatalogService catalogService;
-    private final ProductOfferService productOfferService; // Varsayım
+    private final ProductOfferLookupService productOfferLookupService;
 
-    // Constructor Injection
-    public CatalogProductOfferServiceImpl(CatalogProductOfferRepository catalogProductOfferRepository,
-                                          CatalogService catalogService,
-                                          ProductOfferService productOfferService) {
+    public CatalogProductOfferServiceImpl(CatalogProductOfferRepository catalogProductOfferRepository, CatalogService catalogService, ProductOfferLookupService productOfferLookupService) {
         this.catalogProductOfferRepository = catalogProductOfferRepository;
         this.catalogService = catalogService;
-        this.productOfferService = productOfferService;
+        this.productOfferLookupService = productOfferLookupService;
     }
+
 
     @Override
     public CreatedCatalogProductOfferResponse add(CreateCatalogProductOfferRequest request) {
         // 1. İlişkili nesneleri servislerinden bul
         Catalog catalog = catalogService.findById(request.getCatalogId());
-        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
+        ProductOffer productOffer = productOfferLookupService.findById(request.getProductOfferId());
 
         // 2. Mapper ile boş entity oluştur
         CatalogProductOffer catalogProductOffer = CatalogProductOfferMapper.INSTANCE.getCatalogProductOfferFromCreateRequest(request);
@@ -68,7 +66,7 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
 
         // 2. Yeni ilişkili nesneleri bul
         Catalog catalog = catalogService.findById(request.getCatalogId());
-        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
+        ProductOffer productOffer = productOfferLookupService.findById(request.getProductOfferId());
 
         // 3. Mapper ile temel (ilişkisel olmayan) alanları güncelle
         CatalogProductOfferMapper.INSTANCE.updateCatalogProductOfferFromUpdateRequest(request, offerToUpdate);
@@ -123,21 +121,9 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
     }
 
     @Override
-    public List<GetProductOfferFromCatalogResponse> getListProductOfferFromCatalogResponse(int catalogId) {
-        List<GetProductOfferFromCatalogResponse> responses = new ArrayList<>();
-
-        List<CatalogProductOffer> allList = catalogProductOfferRepository.findAll();
-        for (CatalogProductOffer catalogProductOffer : allList) {
-            if(catalogProductOffer.getCatalog().getId() == catalogId) {
-                ProductOffer po = catalogProductOffer.getProductOffer();
-                GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCatalogResponseFromProductOffer(po);
-                response.setCatalogProductOfferId(catalogProductOffer.getId());
-                response.setProductId(po.getProduct().getId());
-                responses.add(response);
-            }
-        }
-    return responses;
-
-
+    public List<CatalogProductOffer> getListCatalogProductOffer() {
+        return catalogProductOfferRepository.findAll();
     }
+
+
 }

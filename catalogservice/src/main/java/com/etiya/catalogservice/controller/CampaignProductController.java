@@ -61,9 +61,5 @@ public class CampaignProductController {
     }
 
 
-    @GetMapping("/getByCampaignId/{campaignId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<GetProductOfferFromCampaignResponse> getByCampaignId(@PathVariable int campaignId) {
-        return campaignProductService.getListProductOfferFromCampaignResponse(campaignId);
-    }
+
 }

@@ -7,6 +7,8 @@ import com.etiya.catalogservice.service.dtos.requests.Product.UpdateProductReque
 import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCampaignResponse;
+import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCatalogResponse;
 import com.etiya.common.responses.ProductResponse;
 
 import java.util.List;
@@ -22,5 +24,4 @@ public interface ProductService {
 
     ProductResponse getByIdForClient(int id); // <-- YENİ METOT
 
-
-}
+   }

@@ -33,18 +33,13 @@ public class CampaignProductServiceImpl implements CampaignProductService {
     // DİĞER SERVİSLER
     private final CampaignService campaignService;
     private final ProductService productService;
-    private final ProductOfferService productOfferService;
 
-
-    // Constructor'ı düzeltiyoruz
-    public CampaignProductServiceImpl(CampaignProductRepository campaignProductRepository,
-                                      CampaignService campaignService,
-                                      ProductService productService, ProductOfferService productOfferService) {
+    public CampaignProductServiceImpl(CampaignProductRepository campaignProductRepository, CampaignService campaignService, ProductService productService) {
         this.campaignProductRepository = campaignProductRepository;
         this.campaignService = campaignService;
         this.productService = productService;
-        this.productOfferService = productOfferService;
     }
+
 
     @Override
     public CreatedCampaignProductResponse add(CreateCampaignProductRequest request) {
@@ -132,23 +127,9 @@ public class CampaignProductServiceImpl implements CampaignProductService {
     }
 
     @Override
-    public List<GetProductOfferFromCampaignResponse> getListProductOfferFromCampaignResponse(int campaignId) {
-        List<GetProductOfferFromCampaignResponse> responses = new ArrayList<>();
-        List<CampaignProduct> allList = campaignProductRepository.findAll();
-        for (CampaignProduct campaignProduct : allList) {
-            if(campaignProduct.getCampaign().getId() == campaignId){
-                Product p = campaignProduct.getProduct();
-                List<ProductOffer> productOfferList = productOfferService.getProductOffersByProductId(p.getId());
-                for(ProductOffer productOffer : productOfferList){
-                    if(productOffer.getProduct().getId() == p.getId()){
-                        GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCampaignResponseFromProductOffer(productOffer);
-                        response.setProductId(p.getId());
-                        response.setCampaignProductId(campaignId);
-                        responses.add(response);
-                    }
-                }
-            }
-        }
-return responses;
+    public List<CampaignProduct> getListCampaignProduct() {
+        return campaignProductRepository.findAll();
     }
+
+
 }
