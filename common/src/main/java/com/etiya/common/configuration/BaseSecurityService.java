@@ -42,7 +42,7 @@ public class BaseSecurityService {
             "/api/customer-search/**",
             "/api/products/**",
             "/api/campaigns/**",
-            "/api/campaign-products/**",
+            "/api/campaign-product-offers/**",
             "/api/catalogs/**",
             "/api/product-offers/**",
             "/api/catalog-product-offers/**",
