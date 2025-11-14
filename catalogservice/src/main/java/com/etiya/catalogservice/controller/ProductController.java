@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.Product.UpdateProductReque
 import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
+import com.etiya.common.responses.ProductResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

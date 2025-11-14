@@ -30,30 +30,40 @@ public class CartServiceImpl implements CartService {
         var billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
         var cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
         var productOffer = catalogServiceClient.getProductOfferById(productOfferId);
-        var campaignProduct = campaignProductOfferId > 0 ? catalogServiceClient.getCampaignProductOfferById(campaignProductOfferId) : null;
+        // campaignProductOfferId 0'dan büyükse getir, değilse null ata
+        var campaignProduct = campaignProductOfferId > 0
+                ? catalogServiceClient.getCampaignProductOfferById(campaignProductOfferId)
+                : null;
 
         if (cart == null) {
             cart = new Cart();
             cart.setBillingAccountId(billingAccount.getId());
         }
 
-
-
         CartItem cartItem = new CartItem();
         cartItem.setProductOfferId(productOfferId);
         cartItem.setCampaignProductOfferId(campaignProductOfferId);
-        cartItem.setCampaignName(campaignProduct.getName());
+        if (campaignProduct != null) {
+            cartItem.setCampaignName(campaignProduct.getName());
+        }
         cartItem.setQuantity(quantity);
         cartItem.setProductOfferName(productOffer.getName());
         cartItem.setDiscountRate(productOffer.getDiscountRate());
-        cartItem.setDiscountedPrice(BigDecimal.ONE.subtract(cartItem.getDiscountRate()) // (1 - discountRate)
-                .multiply(cartItem.getPrice()));          // * price);
+        // ****** DÜZELTME BURADA ******
+        // 1. ÖNCE FİYATI TEKLİFTEN AL VE SET ET
+        // (Not: ProductOfferResponse'unda 'price' ve 'productSpecificationId' olmalı)
+        cartItem.setPrice(productOffer.getPrice());
+        cartItem.setProductSpecificationId(productOffer.getProductSpecificationId());
 
+        // 2. ŞİMDİ GÜVENLE HESAPLAMA YAP
+        cartItem.setDiscountedPrice(BigDecimal.ONE.subtract(cartItem.getDiscountRate())
+                .multiply(cartItem.getPrice())); // Hata çözüldü
+        // ****** DÜZELTME BİTTİ ******
 
         cart.setBillingAccountId(billingAccount.getId());
-        cart.setTotalPrice(cart.getTotalPrice().add(cartItem.getDiscountedPrice()
-                                .multiply(BigDecimal.valueOf(cartItem.getQuantity())))
-        );
+        // Toplam Fiyat Hesaplaması
+        BigDecimal itemTotalPrice = cartItem.getDiscountedPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()));
+        cart.setTotalPrice(cart.getTotalPrice().add(itemTotalPrice));
         cart.getCartItemList().add(cartItem);
         cartRepository.add(cart);
     }

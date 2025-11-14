@@ -12,6 +12,7 @@ import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.Creat
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.mappings.CatalogProductOfferMapper;
+import com.etiya.common.responses.CatalogProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
