@@ -19,9 +19,9 @@ public class CartController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestParam int billingAccountId,@RequestParam int productId,@RequestParam  int quantity,@RequestParam int productOfferId,
-                    @RequestParam int catalogProductOfferId, @RequestParam int campaignProductId){
-        cartService.add(billingAccountId, productId,  quantity, productOfferId, catalogProductOfferId, campaignProductId);
+    public void add(@RequestParam int billingAccountId, @RequestParam  int quantity,@RequestParam int productOfferId,
+                    @RequestParam int campaignProductOfferId){
+        cartService.add(billingAccountId, quantity, productOfferId, campaignProductOfferId);
     }
 
     @GetMapping

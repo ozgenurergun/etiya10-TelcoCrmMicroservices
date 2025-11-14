@@ -6,21 +6,15 @@ import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.repository.CatalogProductOfferRepository;
 import com.etiya.catalogservice.service.abstracts.CatalogProductOfferService;
 import com.etiya.catalogservice.service.abstracts.CatalogService;
-import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.dtos.requests.CatalogProductOffer.CreateCatalogProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.CatalogProductOffer.UpdateCatalogProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.CreatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCatalogResponse;
 import com.etiya.catalogservice.service.mappings.CatalogProductOfferMapper;
-import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
-import com.etiya.common.responses.CatalogOfferResponse;
-import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -112,10 +106,10 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
     }
 
     @Override
-    public CatalogOfferResponse getByIdForClient(int id) {
+    public CatalogProductOfferResponse getByIdForClient(int id) {
         CatalogProductOffer catalogOffer = findById(id);
 
-        CatalogOfferResponse response = new CatalogOfferResponse();
+        CatalogProductOfferResponse response = new CatalogProductOfferResponse();
         response.setId(catalogOffer.getId());
         return response;
     }

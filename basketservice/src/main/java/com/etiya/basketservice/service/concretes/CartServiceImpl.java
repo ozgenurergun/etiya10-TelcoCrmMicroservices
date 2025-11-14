@@ -26,28 +26,25 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void add(int billingAccountId, int productId, int quantity, int productOfferId, int catalogProductOfferId, int campaignProductId) {
+    public void add(int billingAccountId, int quantity, int productOfferId, int campaignProductOfferId) {
         var billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
-        var product = catalogServiceClient.getProductById(productId);
         var cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
         var productOffer = catalogServiceClient.getProductOfferById(productOfferId);
-        var campaignProduct = catalogServiceClient.getCampaignProductById(campaignProductId);
+        var campaignProduct = campaignProductOfferId > 0 ? catalogServiceClient.getCampaignProductOfferById(campaignProductOfferId) : null;
 
         if (cart == null) {
             cart = new Cart();
             cart.setBillingAccountId(billingAccount.getId());
         }
 
+
+
         CartItem cartItem = new CartItem();
-        cartItem.setProductId(product.getId());
         cartItem.setProductOfferId(productOfferId);
-        cartItem.setCatalogProductOfferId(catalogProductOfferId);
-        cartItem.setCampaignProductId(campaignProductId);
+        cartItem.setCampaignProductOfferId(campaignProductOfferId);
+        cartItem.setCampaignName(campaignProduct.getName());
         cartItem.setQuantity(quantity);
-        cartItem.setProductName(product.getName());
         cartItem.setProductOfferName(productOffer.getName());
-        cartItem.setCampaignProductName(campaignProduct.getName());
-        cartItem.setPrice(product.getPrice());
         cartItem.setDiscountRate(productOffer.getDiscountRate());
         cartItem.setDiscountedPrice(BigDecimal.ONE.subtract(cartItem.getDiscountRate()) // (1 - discountRate)
                 .multiply(cartItem.getPrice()));          // * price);
@@ -97,6 +94,4 @@ public class CartServiceImpl implements CartService {
         cart.getCartItemList().remove(removeItem);
         cartRepository.add(cart);
     }
-
-
 }

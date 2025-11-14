@@ -3,7 +3,6 @@ package com.etiya.catalogservice.service.concretes;
 import com.etiya.catalogservice.domain.entities.Catalog;
 import com.etiya.catalogservice.domain.entities.Product;
 import com.etiya.catalogservice.domain.entities.ProductOffer;
-import com.etiya.catalogservice.domain.entities.ProductSpecification;
 import com.etiya.catalogservice.repository.ProductRepository;
 import com.etiya.catalogservice.service.abstracts.CatalogService;
 import com.etiya.catalogservice.service.abstracts.ProductOfferService;
@@ -15,11 +14,9 @@ import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductRes
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
 import com.etiya.catalogservice.service.mappings.ProductMapper;
-import com.etiya.common.responses.ProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

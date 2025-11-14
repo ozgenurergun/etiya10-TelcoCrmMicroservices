@@ -6,9 +6,6 @@ import com.etiya.catalogservice.service.dtos.requests.CatalogProductOffer.Update
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.CreatedCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.GetListCatalogProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CatalogProductOffer.UpdatedCatalogProductOfferResponse;
-import com.etiya.catalogservice.service.dtos.responses.ProductOffer.GetProductOfferFromCatalogResponse;
-import com.etiya.common.responses.CatalogOfferResponse;
-import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +54,7 @@ public class CatalogProductOfferController {
     // YENİ ENDPOINT'İ EKLE
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CatalogOfferResponse getById(@PathVariable int id) {
+    public CatalogProductOfferResponse getById(@PathVariable int id) {
         return catalogProductOfferService.getByIdForClient(id);
     }
 

@@ -6,7 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.Updat
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.CreatedCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.GetListCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.UpdatedCampaignProductOfferResponse;
-import com.etiya.common.responses.CampaignProductResponse;
+import com.etiya.common.responses.CampaignProductOfferResponse;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface CampaignProductOfferService {
 
     CampaignProductOffer findById(int id);
 
-    CampaignProductResponse getByIdForClient(int id); // <-- YENİ METOT
+    CampaignProductOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 
 
     List<CampaignProductOffer> getListCampaignProduct();

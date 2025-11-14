@@ -8,7 +8,11 @@ public class ProductOfferResponse {
 
     private String name;
 
+    private BigDecimal price;
+
     private BigDecimal discountRate;
+
+    private int productSpecificationId;
 
     public int getId() {
         return id;
@@ -26,11 +30,27 @@ public class ProductOfferResponse {
         this.name = name;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public BigDecimal getDiscountRate() {
         return discountRate;
     }
 
     public void setDiscountRate(BigDecimal discountRate) {
         this.discountRate = discountRate;
+    }
+
+    public int getProductSpecificationId() {
+        return productSpecificationId;
+    }
+
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
     }
 }

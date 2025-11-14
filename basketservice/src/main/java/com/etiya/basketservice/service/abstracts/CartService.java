@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface CartService {
 
-    void add(int billingAccountId, int productId,  int quantity, int productOfferId, int catalogProductOfferId, int campaignProductId);
+    void add(int billingAccountId, int quantity, int productOfferId, int campaignProductOfferId);
 
     Map<String, Cart> getAll();
 

@@ -1,14 +1,10 @@
 package com.etiya.common.responses;
 
-import java.math.BigDecimal;
-
-public class ProductResponse {
+public class CampaignProductOfferResponse {
 
     private int id;
 
     private String name;
-
-    private BigDecimal price;
 
     public int getId() {
         return id;
@@ -24,13 +20,5 @@ public class ProductResponse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }

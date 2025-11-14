@@ -13,19 +13,13 @@ public class CartItem implements Serializable {
 
     private String id;
 
-    private int productId;
-
     private int productOfferId;
 
-    private int catalogProductOfferId;
-
-    private int campaignProductId;
-
-    private String productName;
+    private int campaignProductOfferId;
 
     private String productOfferName;
 
-    private String campaignProductName;
+    private String campaignName;
 
     private BigDecimal price;
 
@@ -35,20 +29,14 @@ public class CartItem implements Serializable {
 
     private BigDecimal discountedPrice;
 
+    private int productSpecificationId;
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public int getProductOfferId() {
@@ -59,28 +47,12 @@ public class CartItem implements Serializable {
         this.productOfferId = productOfferId;
     }
 
-    public int getCatalogProductOfferId() {
-        return catalogProductOfferId;
+    public int getCampaignProductOfferId() {
+        return campaignProductOfferId;
     }
 
-    public void setCatalogProductOfferId(int catalogProductOfferId) {
-        this.catalogProductOfferId = catalogProductOfferId;
-    }
-
-    public int getCampaignProductId() {
-        return campaignProductId;
-    }
-
-    public void setCampaignProductId(int campaignProductId) {
-        this.campaignProductId = campaignProductId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setCampaignProductOfferId(int campaignProductOfferId) {
+        this.campaignProductOfferId = campaignProductOfferId;
     }
 
     public String getProductOfferName() {
@@ -91,12 +63,12 @@ public class CartItem implements Serializable {
         this.productOfferName = productOfferName;
     }
 
-    public String getCampaignProductName() {
-        return campaignProductName;
+    public String getCampaignName() {
+        return campaignName;
     }
 
-    public void setCampaignProductName(String campaignProductName) {
-        this.campaignProductName = campaignProductName;
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
     }
 
     public BigDecimal getPrice() {
@@ -131,17 +103,27 @@ public class CartItem implements Serializable {
         this.discountedPrice = discountedPrice;
     }
 
-    public CartItem() {
-        this.id= UUID.randomUUID().toString();
+    public int getProductSpecificationId() {
+        return productSpecificationId;
     }
 
-    public CartItem(String id, int productId, int productOfferId, int catalogProductOfferId, int campaignProductId, BigDecimal discountRate, int quantity) {
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
+    }
+
+    public CartItem() {
+    }
+
+    public CartItem(String id, int productOfferId, int campaignProductOfferId, String productOfferName, String campaignName, BigDecimal price, BigDecimal discountRate, int quantity, BigDecimal discountedPrice, int productSpecificationId) {
         this.id = id;
-        this.productId = productId;
         this.productOfferId = productOfferId;
-        this.catalogProductOfferId = catalogProductOfferId;
-        this.campaignProductId = campaignProductId;
+        this.campaignProductOfferId = campaignProductOfferId;
+        this.productOfferName = productOfferName;
+        this.campaignName = campaignName;
+        this.price = price;
         this.discountRate = discountRate;
         this.quantity = quantity;
+        this.discountedPrice = discountedPrice;
+        this.productSpecificationId = productSpecificationId;
     }
 }

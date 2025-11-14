@@ -6,7 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.Updat
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.CreatedCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.GetListCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.UpdatedCampaignProductOfferResponse;
-import com.etiya.common.responses.CampaignProductResponse;
+import com.etiya.common.responses.CampaignProductOfferResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +55,7 @@ public class CampaignProductOfferController {
     // YENİ ENDPOINT'İ EKLE
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CampaignProductResponse getById(@PathVariable int id) {
+    public CampaignProductOfferResponse getById(@PathVariable int id) {
         return campaignProductOfferService.getByIdForClient(id);
     }
 

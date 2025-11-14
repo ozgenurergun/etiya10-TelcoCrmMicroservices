@@ -2,20 +2,17 @@ package com.etiya.catalogservice.service.concretes;
 
 import com.etiya.catalogservice.domain.entities.Campaign;
 import com.etiya.catalogservice.domain.entities.CampaignProductOffer;
-import com.etiya.catalogservice.domain.entities.Product;
 import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.repository.CampaignProductOfferRepository;
 import com.etiya.catalogservice.service.abstracts.CampaignProductOfferService;
 import com.etiya.catalogservice.service.abstracts.CampaignService;
-import com.etiya.catalogservice.service.abstracts.ProductOfferService;
-import com.etiya.catalogservice.service.abstracts.ProductService;
 import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.CreateCampaignProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.CampaignProductOffer.UpdateCampaignProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.CreatedCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.GetListCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.dtos.responses.CampaignProductOffer.UpdatedCampaignProductOfferResponse;
 import com.etiya.catalogservice.service.mappings.CampaignProductMapper;
-import com.etiya.common.responses.CampaignProductResponse;
+import com.etiya.common.responses.CampaignProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -110,13 +107,13 @@ public class CampaignProductOfferServiceImpl implements CampaignProductOfferServ
     }
 
     @Override
-    public CampaignProductResponse getByIdForClient(int id) {
+    public CampaignProductOfferResponse getByIdForClient(int id) {
         CampaignProductOffer campaignProductOffer = findById(id);
 
         // Product'ı LAZY loading'e takılmadan ProductService üzerinden al
         ProductOffer productOffer = productOfferLookupService.findById(campaignProductOffer.getProductOffer().getId());
 
-        CampaignProductResponse response = new CampaignProductResponse();
+        CampaignProductOfferResponse response = new CampaignProductOfferResponse();
         response.setId(campaignProductOffer.getId());
         response.setName(productOffer.getName()); // Product adını set et
         return response;
