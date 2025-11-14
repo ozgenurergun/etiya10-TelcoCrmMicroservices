@@ -6,6 +6,9 @@ import com.etiya.basketservice.domain.Cart;
 import com.etiya.basketservice.domain.CartItem;
 import com.etiya.basketservice.repository.CartRepository;
 import com.etiya.basketservice.service.abstracts.CartService;
+import com.etiya.common.responses.BillingAccountResponse;
+import com.etiya.common.responses.CampaignProductOfferResponse;
+import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,19 +30,22 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(int billingAccountId, int quantity, int productOfferId, int campaignProductOfferId) {
-        var billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
-        var cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
-        var productOffer = catalogServiceClient.getProductOfferById(productOfferId);
-        // campaignProductOfferId 0'dan büyükse getir, değilse null ata
-        var campaignProduct = campaignProductOfferId > 0
+        // 1. Gerekli servisleri çağır
+        BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
+        Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
+        ProductOfferResponse productOffer = catalogServiceClient.getProductOfferById(productOfferId);
+        // 2. Kampanya ID'si 0'dan büyükse getir, değilse null ata
+        CampaignProductOfferResponse campaignProduct = campaignProductOfferId > 0
                 ? catalogServiceClient.getCampaignProductOfferById(campaignProductOfferId)
                 : null;
 
+        // 3. Sepet yoksa yeni sepet oluştur
         if (cart == null) {
             cart = new Cart();
             cart.setBillingAccountId(billingAccount.getId());
         }
 
+        // 4. Sepet kalemini (CartItem) oluştur
         CartItem cartItem = new CartItem();
         cartItem.setProductOfferId(productOfferId);
         cartItem.setCampaignProductOfferId(campaignProductOfferId);
@@ -49,19 +55,22 @@ public class CartServiceImpl implements CartService {
         cartItem.setQuantity(quantity);
         cartItem.setProductOfferName(productOffer.getName());
         cartItem.setDiscountRate(productOffer.getDiscountRate());
-        // ****** DÜZELTME BURADA ******
-        // 1. ÖNCE FİYATI TEKLİFTEN AL VE SET ET
-        // (Not: ProductOfferResponse'unda 'price' ve 'productSpecificationId' olmalı)
+
+        // ****** HATA DÜZELTMESİ (ÖNCE SET ET, SONRA KULLAN) ******
+
+        // 5. FİYATI ve SPEC ID'Yİ TEKLİFTEN (productOffer) ALIP SET ET
+        // (ProductOfferResponse'un bu iki alanı içerdiğinden emin ol)
         cartItem.setPrice(productOffer.getPrice());
         cartItem.setProductSpecificationId(productOffer.getProductSpecificationId());
 
-        // 2. ŞİMDİ GÜVENLE HESAPLAMA YAP
+        // 6. İNDİRİMLİ FİYATI ŞİMDİ GÜVENLE HESAPLA
+        // (artık cartItem.getPrice() null değil)
         cartItem.setDiscountedPrice(BigDecimal.ONE.subtract(cartItem.getDiscountRate())
-                .multiply(cartItem.getPrice())); // Hata çözüldü
+                .multiply(cartItem.getPrice()));
         // ****** DÜZELTME BİTTİ ******
 
+        // 7. Sepet toplamlarını güncelle ve Redis'e kaydet
         cart.setBillingAccountId(billingAccount.getId());
-        // Toplam Fiyat Hesaplaması
         BigDecimal itemTotalPrice = cartItem.getDiscountedPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()));
         cart.setTotalPrice(cart.getTotalPrice().add(itemTotalPrice));
         cart.getCartItemList().add(cartItem);

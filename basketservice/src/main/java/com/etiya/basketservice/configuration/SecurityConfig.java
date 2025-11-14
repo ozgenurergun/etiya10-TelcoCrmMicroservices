@@ -21,4 +21,5 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(req->req.anyRequest().authenticated());
         return httpSecurity.build();
     }
+
 }

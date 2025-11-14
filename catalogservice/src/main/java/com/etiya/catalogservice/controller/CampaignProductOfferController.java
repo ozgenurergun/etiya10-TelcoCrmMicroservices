@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/campaign-products") // Endpoint'i değiştiriyoruz
+@RequestMapping("/api/campaign-product-offers") // Endpoint'i değiştiriyoruz
 public class CampaignProductOfferController {
 
     private final CampaignProductOfferService campaignProductOfferService;
@@ -58,7 +58,4 @@ public class CampaignProductOfferController {
     public CampaignProductOfferResponse getById(@PathVariable int id) {
         return campaignProductOfferService.getByIdForClient(id);
     }
-
-
-
 }

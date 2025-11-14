@@ -111,6 +111,7 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         response.setId(productOffer.getId());
         response.setName(productOffer.getName());
         response.setDiscountRate(productOffer.getDiscountRate());
+        response.setPrice(productOffer.getPrice());
         return response;
     }
 

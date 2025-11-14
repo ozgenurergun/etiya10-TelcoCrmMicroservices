@@ -112,6 +112,7 @@ public class CartItem implements Serializable {
     }
 
     public CartItem() {
+        this.id= UUID.randomUUID().toString();
     }
 
     public CartItem(String id, int productOfferId, int campaignProductOfferId, String productOfferName, String campaignName, BigDecimal price, BigDecimal discountRate, int quantity, BigDecimal discountedPrice, int productSpecificationId) {
