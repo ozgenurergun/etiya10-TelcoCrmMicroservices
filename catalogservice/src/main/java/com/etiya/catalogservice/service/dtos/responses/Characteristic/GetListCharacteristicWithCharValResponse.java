@@ -13,6 +13,8 @@ public class GetListCharacteristicWithCharValResponse {
 
     private String unitOfMeasure;
 
+    private boolean isRequired;
+
     private List<CharValueForCharResponse> charValues;
 
     public int getId() {
@@ -47,13 +49,22 @@ public class GetListCharacteristicWithCharValResponse {
         this.charValues = charValues;
     }
 
+    public boolean isRequired() {
+        return isRequired;
+    }
+
+    public void setRequired(boolean required) {
+        isRequired = required;
+    }
+
     public GetListCharacteristicWithCharValResponse() {
     }
 
-    public GetListCharacteristicWithCharValResponse(int id, String description, String unitOfMeasure, List<CharValueForCharResponse> charValues) {
+    public GetListCharacteristicWithCharValResponse(int id, String description, String unitOfMeasure, boolean isRequired, List<CharValueForCharResponse> charValues) {
         this.id = id;
         this.description = description;
         this.unitOfMeasure = unitOfMeasure;
+        this.isRequired = isRequired;
         this.charValues = charValues;
     }
 }

@@ -16,4 +16,5 @@ public interface CatalogServiceClient {
     CampaignProductOfferResponse getCampaignProductOfferById(@PathVariable("id") int id);
 
 
+
 }

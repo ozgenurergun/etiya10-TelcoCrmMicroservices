@@ -33,8 +33,7 @@ public class CartServiceImpl implements CartService {
         // 1. Gerekli servisleri çağır
         BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
         Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
-        ProductOfferResponse productOffer = catalogServiceClient.getProductOfferById(productOfferId);
-        // 2. Kampanya ID'si 0'dan büyükse getir, değilse null ata
+        ProductOfferResponse productOffer = catalogServiceClient.getProductOfferById(productOfferId);        // 2. Kampanya ID'si 0'dan büyükse getir, değilse null ata
         CampaignProductOfferResponse campaignProduct = campaignProductOfferId > 0
                 ? catalogServiceClient.getCampaignProductOfferById(campaignProductOfferId)
                 : null;

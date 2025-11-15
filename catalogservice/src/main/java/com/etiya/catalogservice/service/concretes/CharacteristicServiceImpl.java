@@ -95,7 +95,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         for (ProductSpecCharacteristic prodSpec : prodSpecs) {
             GetListCharacteristicWithCharValResponse response = CharacteristicMapper.INSTANCE.
                     getListCharacteristicWithCharValResponseFromCharacteristic(prodSpec.getCharacteristic());
-
+                response.setRequired(prodSpec.getRequired());
             if (prodSpec.getCharacteristic().getUnitOfMeasure().equals("Metin")) {
                 List<CharValueForCharResponse> charValResponses = new ArrayList<>();
                 response.setCharValues(charValResponses);
