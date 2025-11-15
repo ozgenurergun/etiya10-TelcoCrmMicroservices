@@ -20,4 +20,5 @@ public interface ProductSpecCharacteristicService {
     void deleteById(int id);
 
     ProductSpecCharacteristic findById(int id);
+
 }

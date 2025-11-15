@@ -1,19 +1,25 @@
 package com.etiya.catalogservice.service.concretes;
 
+import com.etiya.catalogservice.domain.entities.CharValue;
 import com.etiya.catalogservice.domain.entities.Characteristic;
 import com.etiya.catalogservice.domain.entities.GENELTYPE;
+import com.etiya.catalogservice.domain.entities.ProductSpecCharacteristic;
 import com.etiya.catalogservice.repository.CharacteristicRepository;
 import com.etiya.catalogservice.service.abstracts.CharacteristicService;
 import com.etiya.catalogservice.service.abstracts.GenelTypeService;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
+import com.etiya.catalogservice.service.dtos.responses.CharValue.CharValueForCharResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
+import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicWithCharValResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
+import com.etiya.catalogservice.service.mappings.CharValueMapper;
 import com.etiya.catalogservice.service.mappings.CharacteristicMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,10 +27,14 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
     private final CharacteristicRepository characteristicRepository;
     private final GenelTypeService genelTypeService;
+    private final ProductSpecCharacteristicLookupService productSpecCharacteristicLookupService;
+    private final CharValueLookupService charValueLookupService;
 
-    public CharacteristicServiceImpl(CharacteristicRepository characteristicRepository, GenelTypeService genelTypeService) {
+    public CharacteristicServiceImpl(CharacteristicRepository characteristicRepository, GenelTypeService genelTypeService, ProductSpecCharacteristicLookupService productSpecCharacteristicLookupService, CharValueLookupService charValueLookupService) {
         this.characteristicRepository = characteristicRepository;
         this.genelTypeService = genelTypeService;
+        this.productSpecCharacteristicLookupService = productSpecCharacteristicLookupService;
+        this.charValueLookupService = charValueLookupService;
     }
 
     @Override
@@ -76,4 +86,31 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     public Characteristic findById(int id) {
         return characteristicRepository.findById(id).orElseThrow(() -> new RuntimeException("Characteristic not found"));
     }
+
+    @Override
+    public List<GetListCharacteristicWithCharValResponse> getAllByProdSpecId(int prodSpecId) {
+        List<ProductSpecCharacteristic> prodSpecs = productSpecCharacteristicLookupService.getByProdSpecId(prodSpecId);
+        List<Characteristic> characteristics = new ArrayList<>();
+        List<GetListCharacteristicWithCharValResponse> responses = new ArrayList<>();
+        for (ProductSpecCharacteristic prodSpec : prodSpecs) {
+            GetListCharacteristicWithCharValResponse response = CharacteristicMapper.INSTANCE.
+                    getListCharacteristicWithCharValResponseFromCharacteristic(prodSpec.getCharacteristic());
+
+            if (prodSpec.getCharacteristic().getUnitOfMeasure().equals("Metin")) {
+                List<CharValueForCharResponse> charValResponses = new ArrayList<>();
+                response.setCharValues(charValResponses);
+                responses.add(response);
+            } else {
+                List<CharValue> charValues = charValueLookupService.getCharValListByCharId(prodSpec.getCharacteristic().getId());
+                List<CharValueForCharResponse> charValResponses = CharValueMapper.INSTANCE.getListCharValueForCharResponseFromCharValue(charValues);
+                response.setCharValues(charValResponses);
+                responses.add(response);
+            }
+        }
+
+        return responses;
+
+    }
+
+
 }

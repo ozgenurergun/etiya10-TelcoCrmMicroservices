@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.CharValue.CreateCharValueR
 import com.etiya.catalogservice.service.dtos.requests.CharValue.UpdateCharValueRequest;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
+import com.etiya.catalogservice.service.dtos.responses.CharValue.CharValueForCharResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.CreatedCharValueResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.GetListCharValueResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.UpdatedCharValueResponse;
@@ -43,4 +44,6 @@ public interface CharValueMapper {
 
     //getlist
     List<GetListCharValueResponse> getListCharValueResponseFromCharvalue(List<CharValue> charValues);
+
+    List<CharValueForCharResponse> getListCharValueForCharResponseFromCharValue(List<CharValue> charValues);
 }

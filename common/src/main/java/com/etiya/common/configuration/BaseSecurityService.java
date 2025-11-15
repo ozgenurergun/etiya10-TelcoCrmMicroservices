@@ -46,7 +46,8 @@ public class BaseSecurityService {
             "/api/catalogs/**",
             "/api/product-offers/**",
             "/api/catalog-product-offers/**",
-            "/api/carts/**"
+            "/api/carts/**",
+            "/api/characteristics/**"
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception {

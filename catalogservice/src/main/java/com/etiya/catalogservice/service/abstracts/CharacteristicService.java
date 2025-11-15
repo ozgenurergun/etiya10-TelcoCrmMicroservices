@@ -5,6 +5,7 @@ import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateChara
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
+import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicWithCharValResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface CharacteristicService {
     void deleteById(int id);
 
     Characteristic findById(int id);
+
+    List<GetListCharacteristicWithCharValResponse> getAllByProdSpecId(int prodSpecId);
 }

@@ -6,6 +6,7 @@ import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateChara
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
+import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicWithCharValResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
 import com.etiya.customerservice.domain.entities.District;
 import com.etiya.customerservice.service.requests.district.CreateDistrictRequest;
@@ -43,6 +44,10 @@ public interface CharacteristicMapper {
 
     //getlist
     List<GetListCharacteristicResponse> getListCharacteristicResponseFromCharacteristic(List<Characteristic> characteristics);
+
+    GetListCharacteristicWithCharValResponse getListCharacteristicWithCharValResponseFromCharacteristic(Characteristic characteristics);
+
+    List<GetListCharacteristicWithCharValResponse> getListCharacteristicWithCharValResponseFromCharacteristic(List<Characteristic> characteristics);
 
 
 }

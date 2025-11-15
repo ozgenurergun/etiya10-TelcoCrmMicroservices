@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class CharvalueServiceImpl implements CharValueService {
+public class CharValueServiceImpl implements CharValueService {
 
     private final CharValueRepository  charValueRepository;
     private final CharacteristicService characteristicService;
 
 
-    public CharvalueServiceImpl(CharValueRepository charValueRepository, CharacteristicService characteristicService) {
+    public CharValueServiceImpl(CharValueRepository charValueRepository, CharacteristicService characteristicService) {
         this.charValueRepository = charValueRepository;
         this.characteristicService = characteristicService;
     }

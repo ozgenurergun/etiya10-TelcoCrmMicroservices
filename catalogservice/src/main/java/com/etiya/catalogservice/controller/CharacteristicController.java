@@ -7,6 +7,7 @@ import com.etiya.catalogservice.service.dtos.requests.GENELSTATUS.CreateGenelSta
 import com.etiya.catalogservice.service.dtos.requests.GENELSTATUS.UpdateGenelStatusRequest;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
+import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicWithCharValResponse;
 import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
 import com.etiya.catalogservice.service.dtos.responses.GENELSTATUS.CreatedGenelStatusResponse;
 import com.etiya.catalogservice.service.dtos.responses.GENELSTATUS.GetListGenelStatusResponse;
@@ -43,6 +44,12 @@ public class CharacteristicController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetListCharacteristicResponse> getAll() {
         return characteristicService.getAll();
+    }
+
+    @GetMapping("/getCharacteristicsByProdSpecId/{prodSpecId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<GetListCharacteristicWithCharValResponse> getAllByProdSpecId(@PathVariable int prodSpecId) {
+        return characteristicService.getAllByProdSpecId(prodSpecId);
     }
 
     @DeleteMapping("{id}")

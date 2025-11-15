@@ -16,6 +16,7 @@ import com.etiya.catalogservice.service.mappings.ProductSpecCharacteristicMapper
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -86,5 +87,7 @@ public class ProductSpecCharacteristicServiceImpl implements ProductSpecCharacte
     public ProductSpecCharacteristic findById(int id) {
         return productSpecCharacteristicRepository.findById(id).orElseThrow(() -> new RuntimeException("CampaignProduct not found"));
     }
+
+
 
 }
