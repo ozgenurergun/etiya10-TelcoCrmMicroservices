@@ -23,13 +23,6 @@ public class Product extends BaseEntity {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "stock")
-    private int stock;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "catalog_id", nullable = false)
-    private Catalog catalog;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_offer_id", nullable = false)
     private ProductOffer productOffer;
@@ -64,21 +57,8 @@ public class Product extends BaseEntity {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
-    }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 
-    public Catalog getCatalog() {
-        return catalog;
-    }
-
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
 
     public ProductOffer getProductOffer() {
         return productOffer;
@@ -99,12 +79,10 @@ public class Product extends BaseEntity {
     public Product() {
     }
 
-    public Product(int id, String name, BigDecimal price, int stock, Catalog catalog, ProductOffer productOffer, List<ProductCharValue> productCharValues) {
+    public Product(int id, String name, BigDecimal price, ProductOffer productOffer, List<ProductCharValue> productCharValues) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.stock = stock;
-        this.catalog = catalog;
         this.productOffer = productOffer;
         this.productCharValues = productCharValues;
     }

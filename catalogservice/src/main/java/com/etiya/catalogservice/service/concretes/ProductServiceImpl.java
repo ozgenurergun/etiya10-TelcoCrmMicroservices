@@ -46,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = ProductMapper.INSTANCE.getProductFromCreateRequest(request);
 
         // 3. İlişkili nesneleri elle set et
-        product.setCatalog(catalog);
         product.setProductOffer(productOffer); // Entity'deki setter'ın adı 'setSpecification'
 
         // 4. Kaydet
@@ -69,7 +68,6 @@ public class ProductServiceImpl implements ProductService {
         ProductMapper.INSTANCE.updateProductFromUpdateRequest(request, productToUpdate);
 
         // 4. İlişkili nesneleri elle set et
-        productToUpdate.setCatalog(catalog);
         productToUpdate.setProductOffer(productOffer);
 
         // 5. Kaydet

@@ -31,9 +31,6 @@ public class Catalog extends BaseEntity {
     @OrderBy("id ASC") // Listeyi ID'ye göre artan sırada sıralar
     private List<Catalog> children = new ArrayList<>();
 
-    @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
-    private List<Product> products;
-
     @OneToMany(mappedBy = "catalog")
     private List<CatalogProductOffer> catalogProductOffers;
 
@@ -69,13 +66,7 @@ public class Catalog extends BaseEntity {
         this.children = children;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 
     public List<CatalogProductOffer> getCatalogProductOffers() {
         return catalogProductOffers;
@@ -88,12 +79,11 @@ public class Catalog extends BaseEntity {
     public Catalog() {
     }
 
-    public Catalog(int id, String name, Catalog parent, List<Catalog> children, List<Product> products, List<CatalogProductOffer> catalogProductOffers) {
+    public Catalog(int id, String name, Catalog parent, List<Catalog> children, List<CatalogProductOffer> catalogProductOffers) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.children = children;
-        this.products = products;
         this.catalogProductOffers = catalogProductOffers;
     }
 }

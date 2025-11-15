@@ -18,6 +18,9 @@ public class ProductOffer extends BaseEntity {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "stock")
+    private int stock;
+
     @Column(name = "name")
     private String name;
 
@@ -57,6 +60,13 @@ public class ProductOffer extends BaseEntity {
     @JoinColumn(name = "spec_id", nullable = false)
     private ProductSpecification productSpecification;
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -167,8 +177,9 @@ public class ProductOffer extends BaseEntity {
     public ProductOffer() {
     }
 
-    public ProductOffer(int id, String name, BigDecimal price, String description, LocalDate startDate, LocalDate endDate, BigDecimal discountRate, Boolean status, List<CatalogProductOffer> catalogProductOffers, List<CampaignProductOffer> campaignProductOffers, List<Product> products, List<CustomerOffer> customerOffers, ProductSpecification productSpecification) {
+    public ProductOffer(int id, int stock, String name, BigDecimal price, String description, LocalDate startDate, LocalDate endDate, BigDecimal discountRate, Boolean status, List<CatalogProductOffer> catalogProductOffers, List<CampaignProductOffer> campaignProductOffers, List<Product> products, List<CustomerOffer> customerOffers, ProductSpecification productSpecification) {
         this.id = id;
+        this.stock = stock;
         this.name = name;
         this.price = price;
         this.description = description;

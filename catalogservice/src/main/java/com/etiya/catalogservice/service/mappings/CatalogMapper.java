@@ -36,14 +36,12 @@ public interface CatalogMapper {
     // Tüm OneToMany listelerini ignore et.
     @Mapping(target = "parent", ignore = true)
     @Mapping(target = "children", ignore = true)
-    @Mapping(target = "products", ignore = true)
     @Mapping(target = "catalogProductOffers", ignore = true)
     Catalog getCatalogFromCreateRequest(CreateCatalogRequest request);
 
     // Var olan bir 'catalog' nesnesini güncelle
     @Mapping(target = "parent", ignore = true)
     @Mapping(target = "children", ignore = true)
-    @Mapping(target = "products", ignore = true)
     @Mapping(target = "catalogProductOffers", ignore = true)
     void updateCatalogFromUpdateRequest(UpdateCatalogRequest request, @MappingTarget Catalog catalog);
 }
