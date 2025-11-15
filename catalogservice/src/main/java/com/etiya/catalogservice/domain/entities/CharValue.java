@@ -7,7 +7,10 @@ import org.hibernate.annotations.SQLRestriction;
 import java.util.List;
 
 @Entity
-@Table(name = "char_values")
+@Table(name = "char_values", indexes = {
+        // Bu satır, characteristic_id sütunu için bir indeks oluşturur
+        @Index(name = "idx_char_value_characteristic", columnList = "characteristic_id")
+})
 @SQLRestriction("is_active = 1")
 public class CharValue extends BaseEntity {
 
