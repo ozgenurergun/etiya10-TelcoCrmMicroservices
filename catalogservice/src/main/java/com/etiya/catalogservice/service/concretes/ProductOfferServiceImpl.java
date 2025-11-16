@@ -34,8 +34,6 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         this.characteristicService = characteristicService;
     }
 
-    // Constructor Injection
-
     @Override
     public CreatedProductOfferResponse add(CreateProductOfferRequest request) {
         // 1. İlişkili Product nesnesini ProductService'ten bul
@@ -115,6 +113,7 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         response.setName(productOffer.getName());
         response.setDiscountRate(productOffer.getDiscountRate());
         response.setPrice(productOffer.getPrice());
+        response.setProductSpecificationId(productOffer.getProductSpecification().getId());
         List<GetListCharacteristicWithoutCharValResponse> characteristicWithoutCharValResponseList = characteristicService.getAllCharacteristicByProdSpecId(productOffer.getProductSpecification().getId());
 
         response.setGetListCharacteristicWithoutCharValResponseList(characteristicWithoutCharValResponseList);

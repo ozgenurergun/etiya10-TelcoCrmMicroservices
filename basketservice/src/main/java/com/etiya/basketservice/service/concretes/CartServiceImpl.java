@@ -62,7 +62,7 @@ public class CartServiceImpl implements CartService {
         // (ProductOfferResponse'un bu iki alanı içerdiğinden emin ol)
         cartItem.setPrice(productOffer.getPrice());
         cartItem.setProdOfferCharacteristics(productOffer.getGetListCharacteristicWithoutCharValResponseList());
-        cartItem.setProductSpecificationId(productOffer.getProductSpecId());
+        cartItem.setProductSpecificationId(productOffer.getProductSpecificationId());
 
         // 6. İNDİRİMLİ FİYATI ŞİMDİ GÜVENLE HESAPLA
         // (artık cartItem.getPrice() null değil)

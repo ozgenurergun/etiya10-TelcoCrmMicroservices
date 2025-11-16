@@ -13,7 +13,7 @@ public class ProductOfferResponse {
 
     private BigDecimal discountRate;
 
-    private int productSpecId;
+    private int productSpecificationId;
 
     private List<GetListCharacteristicWithoutCharValResponse> getListCharacteristicWithoutCharValResponseList;
 
@@ -41,12 +41,12 @@ public class ProductOfferResponse {
         this.price = price;
     }
 
-    public int getProductSpecId() {
-        return productSpecId;
+    public int getProductSpecificationId() {
+        return productSpecificationId;
     }
 
-    public void setProductSpecId(int productSpecId) {
-        this.productSpecId = productSpecId;
+    public void setProductSpecificationId(int productSpecificationId) {
+        this.productSpecificationId = productSpecificationId;
     }
 
     public BigDecimal getDiscountRate() {

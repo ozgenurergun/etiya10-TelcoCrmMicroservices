@@ -1,8 +1,9 @@
 package com.etiya.common.responses;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GetListCharacteristicWithoutCharValResponse {
+public class GetListCharacteristicWithoutCharValResponse implements Serializable {
 
     private int id;
 

@@ -1,6 +1,8 @@
 package com.etiya.common.responses;
 
-public class CharValueForCharResponse {
+import java.io.Serializable;
+
+public class CharValueForCharResponse implements Serializable {
     private int id;
     private String value;
 
