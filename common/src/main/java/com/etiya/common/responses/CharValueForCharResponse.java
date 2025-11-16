@@ -1,4 +1,4 @@
-package com.etiya.catalogservice.service.dtos.responses.CharValue;
+package com.etiya.common.responses;
 
 public class CharValueForCharResponse {
     private int id;

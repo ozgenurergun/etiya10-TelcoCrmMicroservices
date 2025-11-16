@@ -7,6 +7,7 @@ import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProduct
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.*;
 import com.etiya.catalogservice.service.mappings.ProductOfferMapper;
+import com.etiya.common.responses.GetListCharacteristicWithoutCharValResponse;
 import com.etiya.common.responses.ProductOfferResponse;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,14 @@ public class ProductOfferServiceImpl implements ProductOfferService {
     private final ProductSpecificationService productSpecificationService;
     private final CatalogProductOfferService  catalogProductOfferService;
     private final CampaignProductOfferService campaignProductOfferService;
+    private final CharacteristicService characteristicService;
 
-    public ProductOfferServiceImpl(ProductOfferRepository productOfferRepository, ProductSpecificationService productSpecificationService, CatalogProductOfferService catalogProductOfferService, CampaignProductOfferService campaignProductOfferService) {
+    public ProductOfferServiceImpl(ProductOfferRepository productOfferRepository, ProductSpecificationService productSpecificationService, CatalogProductOfferService catalogProductOfferService, CampaignProductOfferService campaignProductOfferService, CharacteristicService characteristicService) {
         this.productOfferRepository = productOfferRepository;
         this.productSpecificationService = productSpecificationService;
         this.catalogProductOfferService = catalogProductOfferService;
         this.campaignProductOfferService = campaignProductOfferService;
+        this.characteristicService = characteristicService;
     }
 
     // Constructor Injection
@@ -112,7 +115,9 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         response.setName(productOffer.getName());
         response.setDiscountRate(productOffer.getDiscountRate());
         response.setPrice(productOffer.getPrice());
-        response.setProductSpecificationId(productOffer.getProductSpecification().getId());
+        List<GetListCharacteristicWithoutCharValResponse> characteristicWithoutCharValResponseList = characteristicService.getAllCharacteristicByProdSpecId(productOffer.getProductSpecification().getId());
+
+        response.setGetListCharacteristicWithoutCharValResponseList(characteristicWithoutCharValResponseList);
         return response;
     }
 

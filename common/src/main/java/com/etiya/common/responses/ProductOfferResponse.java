@@ -1,6 +1,7 @@
 package com.etiya.common.responses;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProductOfferResponse {
 
@@ -12,7 +13,9 @@ public class ProductOfferResponse {
 
     private BigDecimal discountRate;
 
-    private int productSpecificationId;
+    private int productSpecId;
+
+    private List<GetListCharacteristicWithoutCharValResponse> getListCharacteristicWithoutCharValResponseList;
 
     public int getId() {
         return id;
@@ -38,6 +41,14 @@ public class ProductOfferResponse {
         this.price = price;
     }
 
+    public int getProductSpecId() {
+        return productSpecId;
+    }
+
+    public void setProductSpecId(int productSpecId) {
+        this.productSpecId = productSpecId;
+    }
+
     public BigDecimal getDiscountRate() {
         return discountRate;
     }
@@ -46,11 +57,11 @@ public class ProductOfferResponse {
         this.discountRate = discountRate;
     }
 
-    public int getProductSpecificationId() {
-        return productSpecificationId;
+    public List<GetListCharacteristicWithoutCharValResponse> getGetListCharacteristicWithoutCharValResponseList() {
+        return getListCharacteristicWithoutCharValResponseList;
     }
 
-    public void setProductSpecificationId(int productSpecificationId) {
-        this.productSpecificationId = productSpecificationId;
+    public void setGetListCharacteristicWithoutCharValResponseList(List<GetListCharacteristicWithoutCharValResponse> getListCharacteristicWithoutCharValResponseList) {
+        this.getListCharacteristicWithoutCharValResponseList = getListCharacteristicWithoutCharValResponseList;
     }
 }

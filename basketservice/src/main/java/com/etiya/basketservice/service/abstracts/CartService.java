@@ -15,4 +15,6 @@ public interface CartService {
     void deleteCart(int billingAccountId);
 
     void deleteItemFromCart(int billingAccountId, String cartItemId);
+
+    void addAddress(int addressId, int billingAccountId);
 }

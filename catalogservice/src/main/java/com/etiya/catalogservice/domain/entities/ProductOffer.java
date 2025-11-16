@@ -42,7 +42,6 @@ public class ProductOffer extends BaseEntity {
     @Column(name = "status")
     private Boolean status;
 
-
     @OneToMany(mappedBy = "productOffer")
     private List<CatalogProductOffer> catalogProductOffers;
 
@@ -51,7 +50,6 @@ public class ProductOffer extends BaseEntity {
 
     @OneToMany(mappedBy = "productOffer")
     private List<Product> products;
-
 
     @OneToMany(mappedBy = "productOffer")
     private List<CustomerOffer> customerOffers;

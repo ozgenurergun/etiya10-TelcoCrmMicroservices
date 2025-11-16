@@ -9,13 +9,11 @@ import com.etiya.catalogservice.service.abstracts.CharacteristicService;
 import com.etiya.catalogservice.service.abstracts.GenelTypeService;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateCharacteristicRequest;
 import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
-import com.etiya.catalogservice.service.dtos.responses.CharValue.CharValueForCharResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicWithCharValResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
+import com.etiya.catalogservice.service.dtos.responses.Characteristic.*;
 import com.etiya.catalogservice.service.mappings.CharValueMapper;
 import com.etiya.catalogservice.service.mappings.CharacteristicMapper;
+import com.etiya.common.responses.CharValueForCharResponse;
+import com.etiya.common.responses.GetListCharacteristicWithoutCharValResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -107,10 +105,23 @@ public class CharacteristicServiceImpl implements CharacteristicService {
                 responses.add(response);
             }
         }
-
         return responses;
 
     }
 
-
+    @Override
+    public List<GetListCharacteristicWithoutCharValResponse> getAllCharacteristicByProdSpecId(int prodSpecId) {
+        List<ProductSpecCharacteristic> prodSpecs = productSpecCharacteristicLookupService.getByProdSpecId(prodSpecId);
+        List<Characteristic> characteristics = new ArrayList<>();
+        List<GetListCharacteristicWithoutCharValResponse> responses = new ArrayList<>();
+        for (ProductSpecCharacteristic prodSpec : prodSpecs) {
+            GetListCharacteristicWithoutCharValResponse response = CharacteristicMapper.INSTANCE.
+                    getListCharacteristicWithoutCharValResponseFromCharacteristic(prodSpec.getCharacteristic());
+            response.setRequired(prodSpec.getRequired());
+            CharValueForCharResponse charValResponse = new CharValueForCharResponse();
+            response.setCharValue(charValResponse);
+            responses.add(response);
+        }
+        return responses;
+    }
 }

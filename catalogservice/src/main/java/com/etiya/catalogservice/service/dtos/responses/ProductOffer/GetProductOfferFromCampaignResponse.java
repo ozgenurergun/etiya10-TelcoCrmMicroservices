@@ -1,14 +1,21 @@
 package com.etiya.catalogservice.service.dtos.responses.ProductOffer;
 
+import com.etiya.common.responses.GetListCharacteristicWithoutCharValResponse;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public class GetProductOfferFromCampaignResponse {
     private int id;
 
     private int campaignProductOfferId;
+
     private String name;
+
     private BigDecimal discountRate;
+
     private BigDecimal price;
+
     private int productSpecificationId;
 
     public int getId() {

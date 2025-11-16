@@ -1,18 +1,12 @@
 package com.etiya.catalogservice.service.mappings;
 
 import com.etiya.catalogservice.domain.entities.CharValue;
-import com.etiya.catalogservice.domain.entities.Characteristic;
 import com.etiya.catalogservice.service.dtos.requests.CharValue.CreateCharValueRequest;
 import com.etiya.catalogservice.service.dtos.requests.CharValue.UpdateCharValueRequest;
-import com.etiya.catalogservice.service.dtos.requests.Characteristic.CreateCharacteristicRequest;
-import com.etiya.catalogservice.service.dtos.requests.Characteristic.UpdateCharacteristicRequest;
-import com.etiya.catalogservice.service.dtos.responses.CharValue.CharValueForCharResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.CreatedCharValueResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.GetListCharValueResponse;
 import com.etiya.catalogservice.service.dtos.responses.CharValue.UpdatedCharValueResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.CreatedCharacteristicResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.GetListCharacteristicResponse;
-import com.etiya.catalogservice.service.dtos.responses.Characteristic.UpdatedCharacteristicResponse;
+import com.etiya.common.responses.CharValueForCharResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

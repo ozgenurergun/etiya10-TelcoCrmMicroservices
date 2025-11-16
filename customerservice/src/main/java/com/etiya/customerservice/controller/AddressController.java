@@ -1,5 +1,6 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.common.responses.AddressResponse;
 import com.etiya.customerservice.service.abstracts.AddressService;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.requests.address.UpdateAddressRequest;
@@ -82,6 +83,12 @@ public class AddressController {
     @ResponseStatus(HttpStatus.OK)
     public GetAddressResponse getById(@PathVariable int id) {
         return addressService.getById(id);
+    }
+
+    @GetMapping("/getAddressById/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AddressResponse getAddressById(@PathVariable int id) {
+        return addressService.getAddressById(id);
     }
 
     @GetMapping("getByCustomerId/{customerId}")

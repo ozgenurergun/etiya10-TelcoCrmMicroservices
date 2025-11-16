@@ -47,4 +47,10 @@ public class CartController {
     public void deleteItem(@PathVariable int billingAccountId, @PathVariable String cartItemId){
         cartService.deleteItemFromCart(billingAccountId, cartItemId);
     }
+
+    @PostMapping("addAddress")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addAddress(@RequestParam int addressId, @RequestParam int billingAccountId){
+        cartService.addAddress(addressId, billingAccountId);
+    }
 }

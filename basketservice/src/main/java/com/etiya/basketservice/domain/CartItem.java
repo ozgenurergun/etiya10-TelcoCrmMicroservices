@@ -1,12 +1,10 @@
 package com.etiya.basketservice.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.etiya.common.responses.GetListCharacteristicWithoutCharValResponse;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CartItem implements Serializable {
@@ -30,6 +28,8 @@ public class CartItem implements Serializable {
     private BigDecimal discountedPrice;
 
     private int productSpecificationId;
+
+    private List<GetListCharacteristicWithoutCharValResponse> prodOfferCharacteristics;
 
     public String getId() {
         return id;
@@ -103,6 +103,14 @@ public class CartItem implements Serializable {
         this.discountedPrice = discountedPrice;
     }
 
+    public List<GetListCharacteristicWithoutCharValResponse> getProdOfferCharacteristics() {
+        return prodOfferCharacteristics;
+    }
+
+    public void setProdOfferCharacteristics(List<GetListCharacteristicWithoutCharValResponse> prodOfferCharacteristics) {
+        this.prodOfferCharacteristics = prodOfferCharacteristics;
+    }
+
     public int getProductSpecificationId() {
         return productSpecificationId;
     }
@@ -115,7 +123,7 @@ public class CartItem implements Serializable {
         this.id= UUID.randomUUID().toString();
     }
 
-    public CartItem(String id, int productOfferId, int campaignProductOfferId, String productOfferName, String campaignName, BigDecimal price, BigDecimal discountRate, int quantity, BigDecimal discountedPrice, int productSpecificationId) {
+    public CartItem(String id, int productOfferId, int campaignProductOfferId, String productOfferName, String campaignName, BigDecimal price, BigDecimal discountRate, int quantity, BigDecimal discountedPrice, int productSpecificationId, List<GetListCharacteristicWithoutCharValResponse> prodOfferCharacteristics) {
         this.id = id;
         this.productOfferId = productOfferId;
         this.campaignProductOfferId = campaignProductOfferId;
@@ -126,5 +134,6 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
         this.discountedPrice = discountedPrice;
         this.productSpecificationId = productSpecificationId;
+        this.prodOfferCharacteristics = prodOfferCharacteristics;
     }
 }

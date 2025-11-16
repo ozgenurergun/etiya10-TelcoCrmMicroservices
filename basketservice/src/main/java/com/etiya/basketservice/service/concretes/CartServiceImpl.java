@@ -6,6 +6,7 @@ import com.etiya.basketservice.domain.Cart;
 import com.etiya.basketservice.domain.CartItem;
 import com.etiya.basketservice.repository.CartRepository;
 import com.etiya.basketservice.service.abstracts.CartService;
+import com.etiya.common.responses.AddressResponse;
 import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.common.responses.CampaignProductOfferResponse;
 import com.etiya.common.responses.ProductOfferResponse;
@@ -60,7 +61,8 @@ public class CartServiceImpl implements CartService {
         // 5. FİYATI ve SPEC ID'Yİ TEKLİFTEN (productOffer) ALIP SET ET
         // (ProductOfferResponse'un bu iki alanı içerdiğinden emin ol)
         cartItem.setPrice(productOffer.getPrice());
-        cartItem.setProductSpecificationId(productOffer.getProductSpecificationId());
+        cartItem.setProdOfferCharacteristics(productOffer.getGetListCharacteristicWithoutCharValResponseList());
+        cartItem.setProductSpecificationId(productOffer.getProductSpecId());
 
         // 6. İNDİRİMLİ FİYATI ŞİMDİ GÜVENLE HESAPLA
         // (artık cartItem.getPrice() null değil)
@@ -111,5 +113,13 @@ public class CartServiceImpl implements CartService {
         cart.setTotalPrice(cart.getTotalPrice().subtract(itemTotal));
         cart.getCartItemList().remove(removeItem);
         cartRepository.add(cart);
+    }
+
+    @Override
+    public void addAddress(int addressId, int billingAccountId) {
+        BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
+        Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
+        AddressResponse address = customerServiceClient.getAddressById(addressId);
+        cart.setAddressId(address.getId());
     }
 }

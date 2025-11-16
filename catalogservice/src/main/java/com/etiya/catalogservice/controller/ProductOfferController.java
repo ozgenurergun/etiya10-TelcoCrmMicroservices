@@ -58,8 +58,6 @@ public class ProductOfferController {
         return productOfferService.getByIdForClient(id);
     }
 
-
-
     @GetMapping("/getByCatalogId/{catalogId}")
     @ResponseStatus(HttpStatus.OK)
     public List<GetProductOfferFromCatalogResponse> getByCatalogId(@PathVariable int catalogId) {

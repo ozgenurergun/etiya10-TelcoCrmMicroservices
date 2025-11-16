@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.common.responses.AddressResponse;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.requests.address.UpdateAddressRequest;
@@ -25,6 +26,8 @@ public interface AddressService {
     UpdatedAddressResponse update(UpdateAddressRequest request);
 
     GetAddressResponse getById(int id);
+
+    AddressResponse getAddressById(int id);
 
     List<GetListAddressResponse> getByCustomerId(String customerId);
 

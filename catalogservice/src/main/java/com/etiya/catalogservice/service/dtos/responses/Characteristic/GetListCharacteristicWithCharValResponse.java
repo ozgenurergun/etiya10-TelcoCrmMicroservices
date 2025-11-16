@@ -1,7 +1,6 @@
 package com.etiya.catalogservice.service.dtos.responses.Characteristic;
 
-import com.etiya.catalogservice.domain.entities.CharValue;
-import com.etiya.catalogservice.service.dtos.responses.CharValue.CharValueForCharResponse;
+import com.etiya.common.responses.CharValueForCharResponse;
 
 import java.util.List;
 

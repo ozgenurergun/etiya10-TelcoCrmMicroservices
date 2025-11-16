@@ -3,6 +3,7 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.common.events.address.DeleteAddressEvent;
 import com.etiya.common.events.address.UpdateAddressEvent;
+import com.etiya.common.responses.AddressResponse;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.domain.entities.District;
@@ -156,6 +157,14 @@ public class AddressServiceImpl implements AddressService {
     public GetAddressResponse getById(int id) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
         GetAddressResponse response = AddressMapper.INSTANCE.getAddressResponseFromAddress(address);
+        return response;
+    }
+
+    @Override
+    public AddressResponse getAddressById(int id) {
+        Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        AddressResponse response = new AddressResponse();
+        response.setId(address.getId());
         return response;
     }
 
