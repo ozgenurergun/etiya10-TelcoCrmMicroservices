@@ -6,13 +6,11 @@ import com.etiya.basketservice.domain.Cart;
 import com.etiya.basketservice.domain.CartItem;
 import com.etiya.basketservice.repository.CartRepository;
 import com.etiya.basketservice.service.abstracts.CartService;
-import com.etiya.common.responses.AddressResponse;
-import com.etiya.common.responses.BillingAccountResponse;
-import com.etiya.common.responses.CampaignProductOfferResponse;
-import com.etiya.common.responses.ProductOfferResponse;
+import com.etiya.common.responses.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -117,6 +115,34 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addAddress(int addressId, int billingAccountId) {
+        BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
+        Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
+        AddressResponse address = customerServiceClient.getAddressById(addressId);
+        cart.setAddressId(address.getId());
+        cartRepository.add(cart);
+    }
+
+    @Override
+    public void updateItemCharacteristics(int billingAccountId, String cartItemId, List<GetListCharacteristicWithoutCharValResponse> responses) {
+        BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
+        Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
+        for (CartItem cartItem : cart.getCartItemList()) {
+            if (cartItem.getId().equals(cartItemId)) {
+                for (GetListCharacteristicWithoutCharValResponse response: responses){
+                    for(GetListCharacteristicWithoutCharValResponse prodChar: cartItem.getProdOfferCharacteristics()){
+                        if(response.getId() ==  prodChar.getId()){
+                            prodChar.setCharValue(response.getCharValue());
+                        }
+                    }
+                }
+            }
+
+        }
+        cartRepository.add(cart);
+    }
+
+    @Override
+    public void updateCartAddress(int addressId, int billingAccountId) {
         BillingAccountResponse billingAccount = customerServiceClient.getBillingAccountById(billingAccountId);
         Cart cart = cartRepository.getCartByBillingAccountId(billingAccount.getId());
         AddressResponse address = customerServiceClient.getAddressById(addressId);

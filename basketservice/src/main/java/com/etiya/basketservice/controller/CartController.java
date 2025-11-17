@@ -2,9 +2,11 @@ package com.etiya.basketservice.controller;
 
 import com.etiya.basketservice.domain.Cart;
 import com.etiya.basketservice.service.abstracts.CartService;
+import com.etiya.common.responses.GetListCharacteristicWithoutCharValResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -48,9 +50,15 @@ public class CartController {
         cartService.deleteItemFromCart(billingAccountId, cartItemId);
     }
 
-    @PostMapping("addAddress")
+    @PutMapping("/{billingAccountId}/addAddress")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addAddress(@RequestParam int addressId, @RequestParam int billingAccountId){
+    public void addAddress(@RequestParam int addressId, @PathVariable int billingAccountId){
         cartService.addAddress(addressId, billingAccountId);
+    }
+
+    @PutMapping("/{billingAccountId}/items/{cartItemId}/configure")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateItemCharacteristic(@PathVariable int billingAccountId, @PathVariable String cartItemId, @RequestBody List<GetListCharacteristicWithoutCharValResponse> chars){
+        cartService.updateItemCharacteristics(billingAccountId, cartItemId, chars);
     }
 }
