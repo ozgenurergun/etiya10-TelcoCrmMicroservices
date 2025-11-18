@@ -15,6 +15,10 @@ public class ProductOfferResponse {
 
     private int productSpecificationId;
 
+    private int campaignOfferId;
+
+    private String campaignOfferName;
+
     private List<GetListCharacteristicWithoutCharValResponse> getListCharacteristicWithoutCharValResponseList;
 
     public int getId() {
@@ -63,5 +67,21 @@ public class ProductOfferResponse {
 
     public void setGetListCharacteristicWithoutCharValResponseList(List<GetListCharacteristicWithoutCharValResponse> getListCharacteristicWithoutCharValResponseList) {
         this.getListCharacteristicWithoutCharValResponseList = getListCharacteristicWithoutCharValResponseList;
+    }
+
+    public int getCampaignOfferId() {
+        return campaignOfferId;
+    }
+
+    public void setCampaignOfferId(int campaignOfferId) {
+        this.campaignOfferId = campaignOfferId;
+    }
+
+    public String getCampaignOfferName() {
+        return campaignOfferName;
+    }
+
+    public void setCampaignOfferName(String campaignOfferName) {
+        this.campaignOfferName = campaignOfferName;
     }
 }

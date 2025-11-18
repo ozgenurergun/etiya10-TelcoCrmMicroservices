@@ -1,8 +1,7 @@
 package com.etiya.salesservice.domain;
 
-import com.etiya.common.responses.ProductResponse;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 public class OrderItem {
 
@@ -10,9 +9,11 @@ public class OrderItem {
 
     private int productOfferId;
 
-    private String productOfferName;
+    private String productName;
 
     private int campaignProductOfferId;
+
+    private String campaignProductOfferName;
 
     private BigDecimal price;
 
@@ -20,6 +21,7 @@ public class OrderItem {
 
     private BigDecimal discountedPrice;
 
+    private List<OrderItemCharacteristic> characteristics;
 
     public int getProductId() {
         return productId;
@@ -29,28 +31,12 @@ public class OrderItem {
         this.productId = productId;
     }
 
-    public int getProductOfferId() {
-        return productOfferId;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductOfferId(int productOfferId) {
-        this.productOfferId = productOfferId;
-    }
-
-    public String getProductOfferName() {
-        return productOfferName;
-    }
-
-    public void setProductOfferName(String productOfferName) {
-        this.productOfferName = productOfferName;
-    }
-
-    public int getCampaignProductOfferId() {
-        return campaignProductOfferId;
-    }
-
-    public void setCampaignProductOfferId(int campaignProductOfferId) {
-        this.campaignProductOfferId = campaignProductOfferId;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public BigDecimal getPrice() {
@@ -75,5 +61,37 @@ public class OrderItem {
 
     public void setDiscountedPrice(BigDecimal discountedPrice) {
         this.discountedPrice = discountedPrice;
+    }
+
+    public int getProductOfferId() {
+        return productOfferId;
+    }
+
+    public void setProductOfferId(int productOfferId) {
+        this.productOfferId = productOfferId;
+    }
+
+    public String getCampaignProductOfferName() {
+        return campaignProductOfferName;
+    }
+
+    public void setCampaignProductOfferName(String campaignProductOfferName) {
+        this.campaignProductOfferName = campaignProductOfferName;
+    }
+
+    public List<OrderItemCharacteristic> getCharacteristics() {
+        return characteristics;
+    }
+
+    public void setCharacteristics(List<OrderItemCharacteristic> characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public int getCampaignProductOfferId() {
+        return campaignProductOfferId;
+    }
+
+    public void setCampaignProductOfferId(int campaignProductOfferId) {
+        this.campaignProductOfferId = campaignProductOfferId;
     }
 }

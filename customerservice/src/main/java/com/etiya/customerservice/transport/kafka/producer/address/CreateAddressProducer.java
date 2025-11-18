@@ -25,7 +25,7 @@ public class CreateAddressProducer {
         // DEĞİŞİKLİK: Mesajı Partition Key ile gönder
         Message<CreateAddressEvent> message = MessageBuilder
                 .withPayload(event)
-                .setHeader(KafkaHeaders.KEY, event.customerId()) // <-- ZORUNLU DEĞİŞİKLİK
+                .setHeader(KafkaHeaders.KEY, event.customerId())
                 .build();
 
         // (addressCreated-out-0 -> createdEvents'e gidiyor)

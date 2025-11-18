@@ -23,7 +23,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     @Query(value = "SELECT * FROM addresses WHERE description LIKE %:keyword%", nativeQuery = true)
     List<Address> findByDescriptionNative(@Param("keyword") String keyword);
 
-    // 3️ Derived Query (hazır method)
+    // 3️ Derived Query
     List<Address> findByStreetContaining(String streetPart);
 
     void deleteById(int id);

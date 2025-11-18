@@ -24,12 +24,6 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    /*@PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody Address address) {
-        addressService.add(address);
-    }
-*/
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedAddressResponse add(@Valid @RequestBody CreateAddressRequest request)
@@ -49,16 +43,8 @@ public class AddressController {
 
         addressService.setPrimaryAddress(id);
 
-        return ResponseEntity.ok().build(); // Bu, adresin başarılı bir şekilde birincil olarak ayarlandığını,
-        // ancak istemciye ekstra bir veri göndermeye gerek olmadığını bildirmek için temiz ve standart bir yoldur.
+        return ResponseEntity.ok().build();
     }
-
-/*
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Address> getAllAddresses() {
-        return addressService.getAll();
-    }*/
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -66,8 +52,7 @@ public class AddressController {
         return addressService.getList();
     }
 
-    // post kullanılabilir ama Best practice için o sınıfınmappingi yazılır
-    @DeleteMapping("{id}")//pathvariable ile anlaşsın diye, mapping yapsın diye
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@Valid @PathVariable int id) {
         addressService.delete(id);

@@ -1,18 +1,18 @@
 package com.etiya.salesservice.domain;
 
 public class OrderCustomer {
-    private int originalCustomerId;
+    private String originalCustomerId;
     private String firstName;
     private String middleName;
     private String lastName;
     private String customerNumber;
     private String nationalId;
 
-    public int getOriginalCustomerId() {
+    public String getOriginalCustomerId() {
         return originalCustomerId;
     }
 
-    public void setOriginalCustomerId(int originalCustomerId) {
+    public void setOriginalCustomerId(String originalCustomerId) {
         this.originalCustomerId = originalCustomerId;
     }
 
@@ -59,7 +59,7 @@ public class OrderCustomer {
     public OrderCustomer() {
     }
 
-    public OrderCustomer(int originalCustomerId, String firstName, String middleName, String lastName, String customerNumber, String nationalId) {
+    public OrderCustomer(String originalCustomerId, String firstName, String middleName, String lastName, String customerNumber, String nationalId) {
         this.originalCustomerId = originalCustomerId;
         this.firstName = firstName;
         this.middleName = middleName;
