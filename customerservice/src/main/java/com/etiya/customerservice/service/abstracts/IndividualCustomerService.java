@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.abstracts;
 
+import com.etiya.common.responses.IndividualCustomerResponse;
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.individualCustomers.CreatedIndividualCustomerResponse;
@@ -25,5 +26,7 @@ public interface IndividualCustomerService {
     UpdatedIndividualCustomerResponse update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest);
 
     void delete(String customerId);
+
+    IndividualCustomerResponse getIndividualCustomerById(String customerId);
 
 }

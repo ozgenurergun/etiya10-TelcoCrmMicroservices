@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.mappings;
 
+import com.etiya.common.responses.AddressResponse;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.requests.address.UpdateAddressRequest;
@@ -57,5 +58,8 @@ public interface AddressMapper {
     @Mapping(target = "customerFirstName",source = "customer.customerNumber")
     @Mapping(target = "districtId",source = "district.id")
     GetAddressResponse getAddressResponseFromAddress(Address address);
+
+    @Mapping(target = "district", ignore = true)
+    AddressResponse addressResponseFromAddress(Address address);
 
 }

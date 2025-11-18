@@ -4,7 +4,6 @@ import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.responses.ProductOffer.*;
-import com.etiya.common.responses.ProductOfferResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

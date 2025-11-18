@@ -1,5 +1,8 @@
 package com.etiya.customerservice.service.mappings;
 
+import com.etiya.common.responses.AddressResponse;
+import com.etiya.common.responses.BillingAccountResponse;
+import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.requests.billingAccount.UpdateBillingAccountRequest;
@@ -43,4 +46,6 @@ public interface BillingAccountMapper {
     @Mapping(source = "customer.id", target = "customerId")
     @Mapping(source = "address.id", target = "addressId")
     GetListBillingAccountResponse getListBillingAccountResponseFromBillingAccount(BillingAccount billingAccount);
+
+    BillingAccountResponse billingAccountResponseFromBillingAccount(BillingAccount billingAccount);
 }

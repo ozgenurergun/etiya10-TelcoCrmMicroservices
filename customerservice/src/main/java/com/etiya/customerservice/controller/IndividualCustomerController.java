@@ -1,5 +1,6 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.common.responses.IndividualCustomerResponse;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
@@ -71,6 +72,12 @@ public class IndividualCustomerController {
     @ResponseStatus(HttpStatus.OK)
     public GetIndividualCustomerResponse getById(@PathVariable String id){
         return individualCustomerService.getByCustomerId(id);
+    }
+
+    @GetMapping("getIndividualCustomerById/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public IndividualCustomerResponse getIndividualCustomerById(@PathVariable String id){
+        return individualCustomerService.getIndividualCustomerById(id);
     }
 
     @DeleteMapping("delete/{id}")

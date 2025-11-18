@@ -34,16 +34,14 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
             bool.must(m -> m.term(t -> t.field("nationalId.keyword").value(nationalId)));
         }
         if (StringUtils.hasText(firstName)) {
-            // matchPhrase DEĞİL, matchPhrasePrefix KULLAN
             bool.must(m -> m.matchPhrasePrefix(mpp -> mpp
-                    .field("firstName") // .keyword değil, analiz edilmiş 'text' alanı olmalı
+                    .field("firstName")
                     .query(firstName)
             ));
         }
         if (StringUtils.hasText(lastName)) {
-            // matchPhrase DEĞİL, matchPhrasePrefix KULLAN
             bool.must(m -> m.matchPhrasePrefix(mpp -> mpp
-                    .field("lastName") // .keyword değil, analiz edilmiş 'text' alanı olmalı
+                    .field("lastName")
                     .query(lastName)
             ));
         }
@@ -51,7 +49,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
             bool.must(m -> m.nested(n -> n
                     .path("contactMediums")
                     .query(q -> q.bool(nb -> nb
-                            .must(mt -> mt.term(t -> t.field("contactMediums.type").value("PHONE"))) // sadece PHONE
+                            .must(mt -> mt.term(t -> t.field("contactMediums.type").value("PHONE")))
                             .must(mt -> mt.term(t -> t.field("contactMediums.value").value(value)))
                     ))
             ));

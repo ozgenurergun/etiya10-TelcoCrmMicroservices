@@ -15,6 +15,4 @@ public interface CatalogServiceClient {
     @GetMapping("/api/campaign-product-offers/{id}")
     CampaignProductOfferResponse getCampaignProductOfferById(@PathVariable("id") int id);
 
-
-
 }

@@ -3,6 +3,7 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.common.events.customer.CreateCustomerEvent;
 import com.etiya.common.events.customer.DeleteCustomerEvent;
 import com.etiya.common.events.customer.UpdateCustomerEvent;
+import com.etiya.common.responses.IndividualCustomerResponse;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
@@ -223,5 +224,15 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 individualCustomer.getId().toString()
         );
         deleteCustomerProducer.produceCustomerDeleted(event);
+    }
+
+    @Override
+    public IndividualCustomerResponse getIndividualCustomerById(String customerId) {
+        UUID uuid = UUID.fromString(customerId);
+
+        IndividualCustomer individualCustomer = individualCustomerRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Individual Customer not found"));
+
+        IndividualCustomerResponse response = IndividualCustomerMapper.INSTANCE.individualCustomerResponseFromIndividualCustomer(individualCustomer);
+        return response;
     }
 }

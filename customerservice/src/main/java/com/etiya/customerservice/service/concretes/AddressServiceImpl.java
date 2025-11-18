@@ -163,8 +163,9 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressResponse getAddressById(int id) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
-        AddressResponse response = new AddressResponse();
-        response.setId(address.getId());
+        AddressResponse response = AddressMapper.INSTANCE.addressResponseFromAddress(address);
+        response.setDistrict(districtService.getByIdService(address.getDistrict().getId()).getName());
+        response.setCity(districtService.getByIdService(address.getDistrict().getCity().getId()).getName());
         return response;
     }
 
@@ -180,14 +181,11 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     public void setPrimaryAddress(int newPrimaryAddressId) {
-        // 1. Yeni adresi bul ve müşteriyi belirle
         Address newDefaultAddress = addressRepository.findById(newPrimaryAddressId)
                 .orElseThrow(() -> new RuntimeException("Address not found"));
 
         UUID customerId = newDefaultAddress.getCustomer().getId();
 
-        // 2. Mevcut birincil adresi bul (varsa) ve 'false' yap
-        // Not: Bu adım, müşterinin önceki birincil adresini false yapmak için kritiktir.
         addressRepository.findByCustomerIdAndIsDefaultTrue(customerId)
                 .ifPresent(oldDefaultAddress -> {
                     // Eğer eski adres, yeni seçilen adres değilse (ayrı bir adres ise)
@@ -201,8 +199,6 @@ public class AddressServiceImpl implements AddressService {
                     }
                 });
 
-        // 3. Yeni seçilen adresi 'true' yap
-        // (Zaten yukarıda bulduk, tekrar sorgulamaya gerek yok.)
         if (!newDefaultAddress.isDefault()) { // Zaten true değilse güncelle
             newDefaultAddress.setDefault(true);
             addressRepository.save(newDefaultAddress);

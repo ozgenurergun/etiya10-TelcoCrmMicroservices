@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.mappings;
 
+import com.etiya.common.responses.IndividualCustomerResponse;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.service.requests.individualCustomer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.requests.individualCustomer.UpdateIndividualCustomerRequest;
@@ -35,4 +36,5 @@ public interface IndividualCustomerMapper {
 
     GetIndividualCustomerResponse getIndividualCustomerResponseFromIndividualCustomers(IndividualCustomer individualCustomers);
 
+    IndividualCustomerResponse individualCustomerResponseFromIndividualCustomer(IndividualCustomer individualCustomer);
 }

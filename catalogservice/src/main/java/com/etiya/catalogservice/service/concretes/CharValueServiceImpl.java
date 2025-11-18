@@ -28,7 +28,6 @@ public class CharValueServiceImpl implements CharValueService {
         this.characteristicService = characteristicService;
     }
 
-
     @Override
     public CreatedCharValueResponse add(CreateCharValueRequest request) {
         CharValue charValue = CharValueMapper.INSTANCE.charValueFromCreateCharValueRequest(request);
@@ -75,5 +74,10 @@ public class CharValueServiceImpl implements CharValueService {
     @Override
     public CharValue findById(int id) {
         return charValueRepository.findById(id).orElseThrow(() -> new RuntimeException("CharValue not found"));
+    }
+
+    @Override
+    public CharValue save(CharValue charValue) {
+        return charValueRepository.save(charValue);
     }
 }

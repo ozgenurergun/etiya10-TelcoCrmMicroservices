@@ -1,75 +1,42 @@
 package com.etiya.salesservice.domain;
 
 import com.etiya.common.entities.BaseEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
+@Document(collection = "orders")
 public class Order extends BaseEntity {
-    private int id;
-    private int customerId;
-    private int billingAccountId;
-    private int addressId;
+    @Id
+    private String id;
+    private LocalDateTime orderDate;
+    private String status;
     private BigDecimal totalAmount;
-    private boolean isComplete;
+    private OrderCustomer customerSnapshot;
+    private OrderAddress addressSnapshot;
+    private OrderBillingAccount billingAccountSnapshot;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getBillingAccountId() {
-        return billingAccountId;
-    }
-
-    public void setBillingAccountId(int billingAccountId) {
-        this.billingAccountId = billingAccountId;
-    }
-
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public boolean isComplete() {
-        return isComplete;
-    }
-
-    public void setComplete(boolean complete) {
-        isComplete = complete;
-    }
-
-    public Order(int id, int customerId, int billingAccountId, int addressId, BigDecimal totalAmount, boolean isComplete) {
-        this.id = id;
-        this.customerId = customerId;
-        this.billingAccountId = billingAccountId;
-        this.addressId = addressId;
-        this.totalAmount = totalAmount;
-        this.isComplete = false;
-    }
+    private List<OrderItem> items;
 
     public Order() {
-        this.isComplete = false;
+        this.orderDate = LocalDateTime.now();
+        this.status = "COMPLETED";
     }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public OrderCustomer getCustomerSnapshot() { return customerSnapshot; }
+    public void setCustomerSnapshot(OrderCustomer customerSnapshot) { this.customerSnapshot = customerSnapshot; }
+    public OrderAddress getAddressSnapshot() { return addressSnapshot; }
+    public void setAddressSnapshot(OrderAddress addressSnapshot) { this.addressSnapshot = addressSnapshot; }
+    public OrderBillingAccount getBillingAccountSnapshot() { return billingAccountSnapshot; }
+    public void setBillingAccountSnapshot(OrderBillingAccount billingAccountSnapshot) { this.billingAccountSnapshot = billingAccountSnapshot; }
+    public List<OrderItem> getItems() { return items; }
+    public void setItems(List<OrderItem> items) { this.items = items; }
+    public BigDecimal getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
 }

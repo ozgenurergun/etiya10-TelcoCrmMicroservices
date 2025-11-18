@@ -1,6 +1,5 @@
 package com.etiya.catalogservice.controller;
 
-import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.service.abstracts.ProductOfferService;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.CreateProductOfferRequest;
 import com.etiya.catalogservice.service.dtos.requests.ProductOffer.UpdateProductOfferRequest;

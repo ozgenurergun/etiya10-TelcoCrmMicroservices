@@ -21,4 +21,6 @@ public interface CharValueService {
 
     CharValue findById(int id);
 
+    CharValue save(CharValue charValue);
+
 }

@@ -38,8 +38,7 @@ public class BillingAccountServiceImpl implements BillingAccountService {
         BillingAccount billingAccount = billingAccountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Billing Account not found with id: " + id));
         // Feign Client'ın beklediği "common" response tipine map'le
-        BillingAccountResponse response = new BillingAccountResponse();
-        response.setId(billingAccount.getId());
+        BillingAccountResponse response = BillingAccountMapper.INSTANCE.billingAccountResponseFromBillingAccount(billingAccount);
         return response;
     }
 

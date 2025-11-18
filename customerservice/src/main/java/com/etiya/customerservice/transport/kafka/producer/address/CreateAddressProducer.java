@@ -4,9 +4,9 @@ import com.etiya.common.events.address.CreateAddressEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;
-import org.springframework.kafka.support.KafkaHeaders; // BUNU EKLE
-import org.springframework.messaging.Message; // BUNU EKLE
-import org.springframework.messaging.support.MessageBuilder; // BUNU EKLE
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,11 +1,11 @@
 package com.etiya.catalogservice.service.mappings;
 
 import com.etiya.catalogservice.domain.entities.Product;
-import com.etiya.catalogservice.service.dtos.requests.Product.CreateProductRequest;
 import com.etiya.catalogservice.service.dtos.requests.Product.UpdateProductRequest;
 import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
+import com.etiya.common.requests.CreateProductRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

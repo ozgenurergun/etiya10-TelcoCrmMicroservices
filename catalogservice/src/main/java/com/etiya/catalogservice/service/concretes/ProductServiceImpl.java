@@ -4,16 +4,12 @@ import com.etiya.catalogservice.domain.entities.Catalog;
 import com.etiya.catalogservice.domain.entities.Product;
 import com.etiya.catalogservice.domain.entities.ProductOffer;
 import com.etiya.catalogservice.repository.ProductRepository;
-import com.etiya.catalogservice.service.abstracts.CatalogService;
-import com.etiya.catalogservice.service.abstracts.ProductOfferService;
-import com.etiya.catalogservice.service.abstracts.ProductService;
-import com.etiya.catalogservice.service.abstracts.ProductSpecificationService;
-import com.etiya.catalogservice.service.dtos.requests.Product.CreateProductRequest;
+import com.etiya.catalogservice.service.abstracts.*;
 import com.etiya.catalogservice.service.dtos.requests.Product.UpdateProductRequest;
-import com.etiya.catalogservice.service.dtos.responses.Product.CreatedProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.GetListProductResponse;
 import com.etiya.catalogservice.service.dtos.responses.Product.UpdatedProductResponse;
 import com.etiya.catalogservice.service.mappings.ProductMapper;
+import com.etiya.common.requests.CreateProductRequest;
 import com.etiya.common.responses.ProductResponse;
 import org.springframework.stereotype.Service;
 
@@ -23,36 +19,15 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository; // Sadece kendi reposu
-    // Diğer servisler
+    private final ProductRepository productRepository;
     private final CatalogService catalogService;
     private final ProductOfferService productOfferService;
 
-    // Constructor Injection
     public ProductServiceImpl(ProductRepository productRepository,
-                              CatalogService catalogService,
-                              ProductSpecificationService productSpecificationService, ProductOfferService productOfferService) {
+                              CatalogService catalogService, ProductOfferService productOfferService) {
         this.productRepository = productRepository;
         this.catalogService = catalogService;
         this.productOfferService = productOfferService;
-    }
-
-    @Override
-    public CreatedProductResponse add(CreateProductRequest request) {
-        // 1. İlişkili nesneleri ID'lerinden servisleri kullanarak bul
-        Catalog catalog = catalogService.findById(request.getCatalogId());
-        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
-        // 2. Mapper ile temel alanları map'le
-        Product product = ProductMapper.INSTANCE.getProductFromCreateRequest(request);
-
-        // 3. İlişkili nesneleri elle set et
-        product.setProductOffer(productOffer); // Entity'deki setter'ın adı 'setSpecification'
-
-        // 4. Kaydet
-        productRepository.save(product);
-
-        // 5. Response DTO'ya map'le ve dön
-        return ProductMapper.INSTANCE.getCreatedResponseFromProduct(product);
     }
 
     @Override
@@ -118,5 +93,15 @@ public class ProductServiceImpl implements ProductService {
         return response;
     }
 
+    @Override
+    public Product add(CreateProductRequest request) {
+        Product product = new Product();
+        product.setName(request.getName());
+        product.setPrice(request.getPrice());
+
+        ProductOffer productOffer = productOfferService.findById(request.getProductOfferId());
+        product.setProductOffer(productOffer);
+        return productRepository.save(product);
+    }
 
 }
