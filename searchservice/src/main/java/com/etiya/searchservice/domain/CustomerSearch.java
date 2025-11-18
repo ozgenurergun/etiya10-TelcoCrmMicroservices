@@ -28,6 +28,9 @@ public class CustomerSearch {
     @Field(type = FieldType.Nested, includeInParent = true)
     private List<ContactMedium> contactMediums= new ArrayList<>();
 
+    @Field(type = FieldType.Keyword, includeInParent = true)
+    private List<String> orderIds = new ArrayList<>();
+
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
@@ -38,6 +41,14 @@ public class CustomerSearch {
 
     public void setContactMediums(List<ContactMedium> contactMediums) {
         this.contactMediums = contactMediums;
+    }
+
+    public List<String> getOrderIds() {
+        return orderIds;
+    }
+
+    public void setOrderIds(List<String> orderIds) {
+        this.orderIds = orderIds;
     }
 
     public CustomerSearch() {

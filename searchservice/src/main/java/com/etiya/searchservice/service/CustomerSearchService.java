@@ -45,4 +45,6 @@ public interface CustomerSearchService {
     Optional<CustomerSearch> findById(String id);
 
     void save(CustomerSearch customerSearch);
+
+    void addOrder(String customerId, String orderId);
 }

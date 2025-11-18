@@ -6,6 +6,7 @@ import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.repository.CustomerSearchRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -223,6 +224,19 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     @Override
     public void save(CustomerSearch customerSearch) {
         customerSearchRepository.save(customerSearch);
+    }
+
+    @Override
+    public void addOrder(String customerId, String orderId) {
+        Optional<CustomerSearch> customerOpt = customerSearchRepository.findById(customerId);
+        if (customerOpt.isPresent()) {
+            CustomerSearch customer = customerOpt.get();
+            if (customer.getOrderIds() == null){
+                customer.setOrderIds(new ArrayList<>());
+            }
+            customer.getOrderIds().add(orderId);
+            customerSearchRepository.save(customer);
+        }
     }
 
 

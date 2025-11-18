@@ -127,7 +127,8 @@ public class OrderServiceImpl implements OrderService {
 
         CreateOrderEvent orderCreatedEvent = new CreateOrderEvent(
                 savedOrder.getId(),
-                request.getBillingAccountId()
+                request.getBillingAccountId(),
+                savedOrder.getCustomerSnapshot().getOriginalCustomerId()
         );
         orderCreatedProducer.produce(orderCreatedEvent);
 
