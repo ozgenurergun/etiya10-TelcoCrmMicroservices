@@ -1,5 +1,6 @@
 package com.etiya.salesservice.service.concretes;
 
+import com.etiya.common.events.order.CreateOrderEvent;
 import com.etiya.common.requests.CreateProductRequest;
 import com.etiya.common.responses.*;
 import com.etiya.salesservice.client.CatalogServiceClient;
@@ -14,6 +15,7 @@ import com.etiya.salesservice.service.dtos.responses.CreatedOrderResponse;
 import com.etiya.salesservice.service.mappings.OrderAddressMapper;
 import com.etiya.salesservice.service.mappings.OrderBillingAccountMapper;
 import com.etiya.salesservice.service.mappings.OrderCustomerMapper;
+import com.etiya.salesservice.transport.kafka.producer.OrderCreatedProducer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +29,13 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerServiceClient customerServiceClient;
     private final CatalogServiceClient catalogServiceClient;
+    private final OrderCreatedProducer orderCreatedProducer;
 
-    public OrderServiceImpl(OrderRepository orderRepository, CustomerServiceClient customerServiceClient, CatalogServiceClient catalogServiceClient) {
+    public OrderServiceImpl(OrderRepository orderRepository, CustomerServiceClient customerServiceClient, CatalogServiceClient catalogServiceClient, OrderCreatedProducer orderCreatedProducer) {
         this.orderRepository = orderRepository;
         this.customerServiceClient = customerServiceClient;
         this.catalogServiceClient = catalogServiceClient;
+        this.orderCreatedProducer = orderCreatedProducer;
     }
 
     @Override
@@ -118,6 +122,13 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(totalOrderAmount);
 
         Order savedOrder = orderRepository.save(order);
+
+        CreateOrderEvent orderCreatedEvent = new CreateOrderEvent(
+                savedOrder.getId(),
+                request.getBillingAccountId()
+        );
+        orderCreatedProducer.produce(orderCreatedEvent);
+
         return new CreatedOrderResponse(savedOrder.getId(), savedOrder.getItems());
     }
 }
