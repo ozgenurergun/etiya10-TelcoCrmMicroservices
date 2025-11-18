@@ -12,9 +12,11 @@ import com.etiya.salesservice.service.dtos.requests.CreateOrderRequest;
 import com.etiya.salesservice.service.dtos.requests.OrderItemRequest;
 import com.etiya.salesservice.service.dtos.requests.ProductCharacteristicRequest;
 import com.etiya.salesservice.service.dtos.responses.CreatedOrderResponse;
+import com.etiya.salesservice.service.dtos.responses.GetOrderResponse;
 import com.etiya.salesservice.service.mappings.OrderAddressMapper;
 import com.etiya.salesservice.service.mappings.OrderBillingAccountMapper;
 import com.etiya.salesservice.service.mappings.OrderCustomerMapper;
+import com.etiya.salesservice.service.mappings.OrderMapper;
 import com.etiya.salesservice.transport.kafka.producer.OrderCreatedProducer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,6 +132,15 @@ public class OrderServiceImpl implements OrderService {
         orderCreatedProducer.produce(orderCreatedEvent);
 
         return new CreatedOrderResponse(savedOrder.getId(), savedOrder.getItems());
+    }
+
+    @Override
+    public List<GetOrderResponse> getAllByCustomerId(String customerId) {
+        // 1. Repository'den Customer ID'ye göre tüm siparişleri çek
+        List<Order> orders = orderRepository.findByCustomerSnapshot_OriginalCustomerId(customerId);
+
+        // 2. Mapper ile Response DTO'ya çevir
+        return OrderMapper.INSTANCE.ordersToGetOrderResponses(orders);
     }
 }
 
