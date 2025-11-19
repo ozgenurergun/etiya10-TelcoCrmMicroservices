@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,6 +31,16 @@ public class UserServiceImpl implements UserService {
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        Optional<User> ouser =  userRepository.findByEmail(email);
+        User user = new User();
+        user.setFirstName(ouser.get().getFirstName());
+        user.setLastName(ouser.get().getLastName());
+        return user;
+
     }
 
     @Override
