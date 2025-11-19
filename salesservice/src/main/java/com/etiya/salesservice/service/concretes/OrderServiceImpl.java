@@ -1,6 +1,7 @@
 package com.etiya.salesservice.service.concretes;
 
 import com.etiya.common.events.order.CreateOrderEvent;
+import com.etiya.common.requests.CreateProdCharValueRequest;
 import com.etiya.common.requests.CreateProductRequest;
 import com.etiya.common.responses.*;
 import com.etiya.salesservice.client.CatalogServiceClient;
@@ -68,21 +69,12 @@ public class OrderServiceImpl implements OrderService {
             // a. Ürün Teklifini (Kampanya/Paket detayları) çek
             ProductOfferResponse offerResponse = catalogServiceClient.getProductOfferById(itemRequest.getProductOfferId());
 
-            // b. Catalog Service'e "Ürün Yarat" emri ver (Stok düşer, product tablosuna yazar)
-            CreateProductRequest createProductRequest = new CreateProductRequest();
-            createProductRequest.setName(offerResponse.getName());
-            createProductRequest.setPrice(offerResponse.getPrice());
-            createProductRequest.setStock(itemRequest.getQuantity());
-            createProductRequest.setProductOfferId(offerResponse.getId());
-
-            ProductResponse createdProduct = catalogServiceClient.createProduct(createProductRequest);
 
             // c. OrderItem oluştur ve dönen Product ID'yi kaydet
             OrderItem orderItem = new OrderItem();
             orderItem.setProductOfferId(offerResponse.getId());
             orderItem.setPrice(offerResponse.getPrice());
-            orderItem.setProductId(createdProduct.getId());
-            orderItem.setProductName(createdProduct.getName());
+
             if (itemRequest.getCampaignOfferId() != 0) {
                 orderItem.setCampaignProductOfferId(itemRequest.getCampaignOfferId());
                 orderItem.setCampaignProductOfferName(itemRequest.getCampaignOfferName());
@@ -118,6 +110,38 @@ public class OrderServiceImpl implements OrderService {
 
             orderItems.add(orderItem);
             totalOrderAmount = totalOrderAmount.add(discountedPrice.multiply(BigDecimal.valueOf(itemRequest.getQuantity())));
+
+            // b. Catalog Service'e "Ürün Yarat" emri ver (Stok düşer, product tablosuna yazar)
+            CreateProductRequest createProductRequest = new CreateProductRequest();
+            createProductRequest.setName(offerResponse.getName());
+            createProductRequest.setPrice(offerResponse.getPrice());
+            createProductRequest.setStock(itemRequest.getQuantity());
+            createProductRequest.setProductOfferId(offerResponse.getId());
+
+            List<CreateProdCharValueRequest> productCharValues = new ArrayList<>();
+            if (itemRequest.getCharacteristics() != null) {
+                for (ProductCharacteristicRequest reqItem : itemRequest.getCharacteristics()) {
+                    CreateProdCharValueRequest charValueReq = new CreateProdCharValueRequest();
+
+                    // ID'yi set et
+                    charValueReq.setCharacteristicId(reqItem.getCharacteristicId());
+
+                    // Değerleri set et (Seçmeli ID veya Manuel Value)
+                    charValueReq.setCharValueId(reqItem.getCharValueId());
+                    charValueReq.setValue(reqItem.getValue());
+
+                    // Listeye ekle
+                    productCharValues.add(charValueReq);
+                }
+            }
+            createProductRequest.setProductCharValues(productCharValues);
+
+
+            ProductResponse createdProduct = catalogServiceClient.createProduct(createProductRequest);
+
+
+            orderItem.setProductId(createdProduct.getId());
+            orderItem.setProductName(createdProduct.getName());
         }
 
         order.setItems(orderItems);

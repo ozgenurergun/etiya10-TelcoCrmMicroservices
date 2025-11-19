@@ -12,6 +12,8 @@ public interface CustomCustomerSearchRepository {
             String firstName,
             String lastName,
             String value,
-            String orderId
+            String orderId,
+            int page, // Eklendi
+            int size  // Eklendi
     );
 }

@@ -67,9 +67,13 @@ public class CustomerSearchController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String value,
-            @RequestParam(required = false) String orderId
+            @RequestParam(required = false) String orderId,
+            // YENİ EKLENENLER: Varsayılan değerleriyle page ve size
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
-        return customerSearchService.searchDynamic(id, customerNumber, nationalId, firstName, lastName, value, orderId);
+        // Parametreleri servise iletiyoruz
+        return customerSearchService.searchDynamic(id, customerNumber, nationalId, firstName, lastName, value, orderId, page, size);
     }
 
 

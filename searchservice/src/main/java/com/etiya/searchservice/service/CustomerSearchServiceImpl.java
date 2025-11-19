@@ -213,8 +213,12 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     }
 
     @Override
-    public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId, String firstName, String lastName, String value, String orderId) {
-        return customerSearchRepository.searchDynamic(id,customerNumber,nationalId,firstName,lastName,value,orderId);
+    public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId,
+                                              String firstName, String lastName, String value,
+                                              String orderId, int page, int size) {
+
+        return customerSearchRepository.searchDynamic(id, customerNumber, nationalId,
+                firstName, lastName, value, orderId, page, size);
     }
 
     @Override
