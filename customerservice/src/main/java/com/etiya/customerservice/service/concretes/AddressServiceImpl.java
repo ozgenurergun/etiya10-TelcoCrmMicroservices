@@ -138,6 +138,7 @@ public class AddressServiceImpl implements AddressService {
 
                             // ESKİ PRIMARY DEĞİŞTİ: Kafka Eventi fırlat
                             UpdateAddressEvent oldEvent = createUpdateAddressEvent(oldDefaultAddress);
+
                             updateAddressProducer.produceAddressUpdated(oldEvent);
                         }
                     });
@@ -150,6 +151,9 @@ public class AddressServiceImpl implements AddressService {
 
         // 3. Güncellenen adres için Kafka Eventi fırlat
         UpdateAddressEvent event = createUpdateAddressEvent(updatedAddress);
+
+
+
         updateAddressProducer.produceAddressUpdated(event);
 
         UpdatedAddressResponse response = AddressMapper.INSTANCE.updatedAddressResponseFromAddress(updatedAddress);
@@ -226,7 +230,8 @@ public class AddressServiceImpl implements AddressService {
                 address.getDescription(),
                 address.isDefault(), // Güncel değeri (true/false) kullan
                 address.getDistrict().getId(),
-                address.getCustomer().getId().toString()
+                address.getCustomer().getId().toString(),
+                address.getDistrict().getCity().getName()
         );
     }
 }

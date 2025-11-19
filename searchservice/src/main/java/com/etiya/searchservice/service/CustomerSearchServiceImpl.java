@@ -53,6 +53,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
                         a.setDescription(address.getDescription());
                         a.setDefault(address.isDefault());
                         a.setDistrictId(address.getDistrictId());
+                        a.setCityName(address.getCityName());
                     }
                     return a;
                 }).collect(Collectors.toList());

@@ -24,11 +24,12 @@ public class UpdatedAddressConsumer {
         return event -> {
             Address address = new Address(
                     event.addressId(),
+                    event.street(),
                     event.houseNumber(),
                     event.description(),
-                    event.street(),
                     event.isDefault(),
                     event.districtId(),
+                    event.cityName(),
                     event.customerId()
             );
             customerSearchService.updateAddress(address);

@@ -8,5 +8,6 @@ public record UpdateAddressEvent(int addressId,
                                  String description,
                                  boolean isDefault,
                                  int districtId,
-                                 String customerId) {
+                                 String customerId,
+                                 String cityName) {
 }
