@@ -66,9 +66,10 @@ public class CustomerSearchController {
             @RequestParam(required = false) String nationalId,
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
-            @RequestParam(required = false) String value
+            @RequestParam(required = false) String value,
+            @RequestParam(required = false) String orderId
     ) {
-        return customerSearchService.searchDynamic(id, customerNumber, nationalId, firstName, lastName, value);
+        return customerSearchService.searchDynamic(id, customerNumber, nationalId, firstName, lastName, value, orderId);
     }
 
 

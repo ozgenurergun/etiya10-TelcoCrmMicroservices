@@ -21,7 +21,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
     }
 
     @Override
-    public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId, String firstName, String lastName, String value) {
+    public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId, String firstName, String lastName, String value, String orderId) {
         BoolQuery.Builder bool = QueryBuilders.bool();
 
         if (StringUtils.hasText(id)) {
@@ -45,6 +45,14 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
                     .query(lastName)
             ));
         }
+
+        if (StringUtils.hasText(orderId)) {
+            // orderIds bir liste olsa bile, term sorgusu "bu listede bu değer var mı?" diye bakar.
+            // Not: Eğer mapping'de orderIds text ise ve keyword subfield varsa "orderIds.keyword" kullanmalısın.
+            // Ancak paylaştığın JSON'da fields altında direkt "orderIds" görünüyor.
+            bool.must(m -> m.term(t -> t.field("orderIds").value(orderId)));
+        }
+
         if (StringUtils.hasText(value)) {
             bool.must(m -> m.nested(n -> n
                     .path("contactMediums")
@@ -54,6 +62,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
                     ))
             ));
         }
+
 
         Query query = bool.build()._toQuery();
         NativeQuery nativeQuery = NativeQuery.builder()
@@ -65,5 +74,6 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
 
         return hits.stream().map(SearchHit::getContent).toList();
     }
+
 
 }

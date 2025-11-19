@@ -11,6 +11,7 @@ public interface CustomCustomerSearchRepository {
             String nationalId,
             String firstName,
             String lastName,
-            String value
+            String value,
+            String orderId
     );
 }
