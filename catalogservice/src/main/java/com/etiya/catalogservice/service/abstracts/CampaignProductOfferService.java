@@ -21,7 +21,6 @@ public interface CampaignProductOfferService {
 
     CampaignProductOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 
-
-    List<CampaignProductOffer> getListCampaignProduct();
+    List<CampaignProductOffer> getListCampaignProduct(int campaignId, Integer offerId, String offerName);
 }
 

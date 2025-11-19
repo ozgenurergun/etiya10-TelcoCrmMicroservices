@@ -120,36 +120,77 @@ public class ProductOfferServiceImpl implements ProductOfferService {
         return response;
     }
 
-
-
     @Override
-    public List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId) {
+    public List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId, Integer offerId, String offerName) {
         List<GetProductOfferFromCatalogResponse> responses = new ArrayList<>();
-        List<CatalogProductOffer> allList =  catalogProductOfferService.getListCatalogProductOffer();
-        for (CatalogProductOffer catalogProductOffer : allList) {
-            if(catalogProductOffer.getCatalog().getId() == catalogId) {
-                ProductOffer po = catalogProductOffer.getProductOffer();
-                GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCatalogResponseFromProductOffer(po);
-                response.setCatalogProductOfferId(catalogProductOffer.getId());
-                response.setProductSpecificationId(po.getProductSpecification().getId());
-                responses.add(response);
-            }
+
+        // ARTIK FİLTRELENMİŞ LİSTEYİ İSTİYORUZ
+        List<CatalogProductOffer> filteredList = catalogProductOfferService
+                .getListCatalogProductOffer(catalogId, offerId, offerName);
+
+        // Gelen liste zaten filtrelenmiş olduğu için doğrudan mapliyoruz
+        for (CatalogProductOffer cpo : filteredList) {
+            ProductOffer po = cpo.getProductOffer();
+            GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE
+                    .getProductOfferFromCatalogResponseFromProductOffer(po);
+
+            response.setCatalogProductOfferId(cpo.getId());
+            response.setProductSpecificationId(po.getProductSpecification().getId());
+            responses.add(response);
         }
         return responses;
-    }
+        }
+
+
+
+//    @Override
+//    public List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId) {
+//        List<GetProductOfferFromCatalogResponse> responses = new ArrayList<>();
+//        List<CatalogProductOffer> allList =  catalogProductOfferService.getListCatalogProductOffer();
+//        for (CatalogProductOffer catalogProductOffer : allList) {
+//            if(catalogProductOffer.getCatalog().getId() == catalogId) {
+//                ProductOffer po = catalogProductOffer.getProductOffer();
+//                GetProductOfferFromCatalogResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCatalogResponseFromProductOffer(po);
+//                response.setCatalogProductOfferId(catalogProductOffer.getId());
+//                response.setProductSpecificationId(po.getProductSpecification().getId());
+//                responses.add(response);
+//            }
+//        }
+//        return responses;
+//    }
+
+//    @Override
+//    public List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId) {
+//        List<GetProductOfferFromCampaignResponse> responses = new ArrayList<>();
+//        List<CampaignProductOffer> allList = campaignProductOfferService.getListCampaignProduct();  //campaignProductRepository.findAll();
+//        for (CampaignProductOffer campaignProductOffer : allList) {
+//            if(campaignProductOffer.getCampaign().getId() == campaignId) {
+//                ProductOffer po = campaignProductOffer.getProductOffer();
+//                GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCampaignResponseFromProductOffer(po);
+//                response.setCampaignProductOfferId(campaignProductOffer.getId());
+//                response.setProductSpecificationId(po.getProductSpecification().getId());
+//                responses.add(response);
+//            }
+//        }
+//        return responses;
+//    }
 
     @Override
-    public List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId) {
+    public List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId, Integer offerId, String offerName) {
         List<GetProductOfferFromCampaignResponse> responses = new ArrayList<>();
-        List<CampaignProductOffer> allList = campaignProductOfferService.getListCampaignProduct();  //campaignProductRepository.findAll();
-        for (CampaignProductOffer campaignProductOffer : allList) {
-            if(campaignProductOffer.getCampaign().getId() == campaignId) {
-                ProductOffer po = campaignProductOffer.getProductOffer();
-                GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE.getProductOfferFromCampaignResponseFromProductOffer(po);
-                response.setCampaignProductOfferId(campaignProductOffer.getId());
-                response.setProductSpecificationId(po.getProductSpecification().getId());
-                responses.add(response);
-            }
+
+        // Alt servisten filtrelenmiş veriyi istiyoruz (offerId parametresi eklendi)
+        List<CampaignProductOffer> filteredList = campaignProductOfferService
+                .getListCampaignProduct(campaignId, offerId, offerName);
+
+        for (CampaignProductOffer cpo : filteredList) {
+            ProductOffer po = cpo.getProductOffer();
+            GetProductOfferFromCampaignResponse response = ProductOfferMapper.INSTANCE
+                    .getProductOfferFromCampaignResponseFromProductOffer(po);
+
+            response.setCampaignProductOfferId(cpo.getId());
+            response.setProductSpecificationId(po.getProductSpecification().getId());
+            responses.add(response);
         }
         return responses;
     }

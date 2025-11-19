@@ -116,8 +116,8 @@ public class CatalogProductOfferServiceImpl implements CatalogProductOfferServic
     }
 
     @Override
-    public List<CatalogProductOffer> getListCatalogProductOffer() {
-        return catalogProductOfferRepository.findAll();
+    public List<CatalogProductOffer> getListCatalogProductOffer(int catalogId, Integer offerId, String offerName) {
+        return catalogProductOfferRepository.searchByCatalogAndFilters(catalogId, offerId, offerName);
     }
 
 

@@ -120,9 +120,11 @@ public class CampaignProductOfferServiceImpl implements CampaignProductOfferServ
     }
 
     @Override
-    public List<CampaignProductOffer> getListCampaignProduct() {
-        return campaignProductOfferRepository.findAll();
+    public List<CampaignProductOffer> getListCampaignProduct(int campaignId, Integer offerId, String offerName) {
+        return campaignProductOfferRepository.searchByCampaignAndFilters(campaignId, offerId, offerName);
     }
+
+
 
 
 }

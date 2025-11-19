@@ -9,6 +9,7 @@ import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.domain.entities.District;
 import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.service.abstracts.AddressService;
+import com.etiya.customerservice.service.abstracts.CityService;
 import com.etiya.customerservice.service.abstracts.DistrictService;
 import com.etiya.customerservice.service.mappings.AddressMapper;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
@@ -38,15 +39,17 @@ public class AddressServiceImpl implements AddressService {
     private final UpdateAddressProducer updateAddressProducer;
     private final DeleteAddressProducer deleteAddressProducer;
     private final DistrictService districtService;
+    private final CityService cityService;
 
 
-    public AddressServiceImpl(AddressRepository addressRepository, AddressBusinessRules addressBusinessRules, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer, DistrictService districtService, DistrictService districtService1) {
+    public AddressServiceImpl(AddressRepository addressRepository, AddressBusinessRules addressBusinessRules, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer, DistrictService districtService, DistrictService districtService1, CityService cityService) {
         this.addressRepository = addressRepository;
         this.addressBusinessRules = addressBusinessRules;
         this.createAddressProducer = createAddressProducer;
         this.updateAddressProducer = updateAddressProducer;
         this.deleteAddressProducer = deleteAddressProducer;
         this.districtService = districtService1;
+        this.cityService = cityService;
     }
 
     @Override
@@ -165,7 +168,7 @@ public class AddressServiceImpl implements AddressService {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
         AddressResponse response = AddressMapper.INSTANCE.addressResponseFromAddress(address);
         response.setDistrict(districtService.getByIdService(address.getDistrict().getId()).getName());
-        response.setCity(districtService.getByIdService(address.getDistrict().getCity().getId()).getName());
+        response.setCity(cityService.existsById(address.getDistrict().getCity().getId()).getName());
         return response;
     }
 

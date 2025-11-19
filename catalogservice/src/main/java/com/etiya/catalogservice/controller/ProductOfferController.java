@@ -57,16 +57,36 @@ public class ProductOfferController {
         return productOfferService.getByIdForClient(id);
     }
 
+//    @GetMapping("/getByCatalogId/{catalogId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<GetProductOfferFromCatalogResponse> getByCatalogId(@PathVariable int catalogId) {
+//        return productOfferService.getOffersByCatalogId(catalogId);
+//    }
+
     @GetMapping("/getByCatalogId/{catalogId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<GetProductOfferFromCatalogResponse> getByCatalogId(@PathVariable int catalogId) {
-        return productOfferService.getOffersByCatalogId(catalogId);
+    public List<GetProductOfferFromCatalogResponse> getByCatalogId(
+            @PathVariable int catalogId,
+            @RequestParam(required = false) Integer offerId,   // Frontend'den opsiyonel gelir
+            @RequestParam(required = false) String offerName) { // Frontend'den opsiyonel gelir
+
+        return productOfferService.getOffersByCatalogId(catalogId, offerId, offerName);
     }
+
+//    @GetMapping("/getByCampaignId/{campaignId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<GetProductOfferFromCampaignResponse> getByCampaignId(@PathVariable int campaignId) {
+//        return productOfferService.getOffersByCampaignId(campaignId);
+//    }
 
     @GetMapping("/getByCampaignId/{campaignId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<GetProductOfferFromCampaignResponse> getByCampaignId(@PathVariable int campaignId) {
-        return productOfferService.getOffersByCampaignId(campaignId);
+    public List<GetProductOfferFromCampaignResponse> getByCampaignId(
+            @PathVariable int campaignId,
+            @RequestParam(required = false) Integer offerId,   // <-- Yeni Eklendi (Frontend'den opsiyonel gelir)
+            @RequestParam(required = false) String offerName) {
+
+        return productOfferService.getOffersByCampaignId(campaignId, offerId, offerName);
     }
 
 

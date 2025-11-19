@@ -22,8 +22,8 @@ public interface ProductOfferService {
 
     ProductOfferResponse getByIdForClient(int id); // <-- YENİ METOT
 
-
-    List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId);
-    List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId);
-
+    List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId, Integer offerId, String offerName);
+    //List<GetProductOfferFromCatalogResponse> getOffersByCatalogId(int catalogId);
+    //List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId);
+    List<GetProductOfferFromCampaignResponse> getOffersByCampaignId(int campaignId, Integer offerId, String offerName);
 }
