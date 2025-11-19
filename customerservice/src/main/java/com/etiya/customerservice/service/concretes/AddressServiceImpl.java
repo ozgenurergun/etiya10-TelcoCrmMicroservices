@@ -117,7 +117,7 @@ public class AddressServiceImpl implements AddressService {
 
         // MapStruct ile kısmi güncelleme yapılıyor.
         Address addressToUpdate = AddressMapper.INSTANCE.addressFromUpdateAddressRequest(request, oldAddress);
-
+        addressToUpdate.setDistrict(districtService.getByIdService(request.getDistrictId()));
         // KONTROL 1: İstek BU adresi primary yapmak istiyor MU?
         // KONTROL 2: Bu adres zaten primary miydi?
         // NOT: isDefault alanı requestten gelip addressToUpdate'e yazıldığı için, sadece request.isDefault() kontrolü yeterli olabilir.
